@@ -1,0 +1,21 @@
+/* @import "tailwindcss"; */
+svg {
+  max-width: 100%;
+}
+.vline {
+  border-left: var(--p-border-width-025) solid var(--p-color-border-secondary);
+  margin: var(--p-space-200);
+}
+.toggler {
+  border: none;
+  border-top: 1px solid var(--p-color-border-secondary);
+  cursor: pointer;
+  padding: var(--p-space-300);
+  margin-top: -1px;
+  background-color: transparent;
+  margin-top: -1px;
+}
+.toggler.open {
+  background-color: var(--p-color-bg-surface-active);
+  cursor: default;
+}
