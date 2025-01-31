@@ -20,7 +20,7 @@ export function About() {
   return (
     <Card>
       <BlockStack gap="400">
-        <InlineStack gap="200" wrap={false} align="start">
+        <InlineStack gap="400" wrap={false} align="start">
           <Box>
             <div style={{ height:'90px',width:'90px',overflow:'hidden',borderRadius:'var(--p-border-radius-300)'}}>
               {logoIcon()}

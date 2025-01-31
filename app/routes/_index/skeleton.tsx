@@ -16,7 +16,9 @@ const defaultProps: SkeletonProps = {
   cells: 3,
 }
 
-export const Skeleton = (props = defaultProps) => {
+export const Skeleton = (props:SkeletonProps) => {
+  props = {...defaultProps, ...props}
+  
   return (
         <SkeletonPage>
           <SkeletonDisplayText size="large" />

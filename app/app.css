@@ -1,4 +1,8 @@
 /* @import "tailwindcss"; */
+.Polaris-Page {
+  max-width: 1144px;
+}
+
 svg {
   max-width: 100%;
 }
@@ -18,4 +22,17 @@ svg {
 .toggler.open {
   background-color: var(--p-color-bg-surface-active);
   cursor: default;
+}
+.toggler--faq .Polaris-Collapsible {
+  margin-right: 10px;
+  min-height: 20px !important;
+}
+.toggler--faq .Polaris-Collapsible--isFullyClosed {
+  display: block !important;
+  max-height: 20px !important;
+}
+.toggler--faq .Polaris-Collapsible--isFullyClosed p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

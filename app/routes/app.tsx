@@ -1,5 +1,5 @@
 import type { HeadersFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { Outlet, useLoaderData, useRouteError } from "@remix-run/react";
+import { Link, Outlet, useLoaderData, useRouteError } from "@remix-run/react";
 import { boundary } from "@shopify/shopify-app-remix/server";
 import { AppProvider } from "@shopify/shopify-app-remix/react";
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
@@ -7,6 +7,12 @@ import appStyles from "../app.css?url";
 
 import { authenticate } from "../shopify.server";
 import { Navigation } from "app/navs";
+
+import {
+  Box,
+  Text,
+  Link as PolarisLink,
+} from "@shopify/polaris";
 
 export const links = () => [
   { rel: "stylesheet", href: polarisStyles },
@@ -26,6 +32,13 @@ export default function App() {
     <AppProvider isEmbeddedApp apiKey={apiKey}>
       <Navigation />
       <Outlet />
+      <Box padding="500">
+        <Text as="p" variant="bodyMd" alignment="center">
+          ©2025 &nbsp;
+          <PolarisLink url="#">H1 Web Development</PolarisLink>.
+          &nbsp; All Right Reserved
+        </Text>
+      </Box>
     </AppProvider>
   );
 }
