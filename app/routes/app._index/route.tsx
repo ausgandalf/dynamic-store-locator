@@ -40,8 +40,13 @@ export default function Index() {
   const currentVersion = 2.0;
   const newVersion = 2.1;
 
+  const [isLoaded, setIsLoaded] = useState(false);
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(currentVersion < newVersion ? 1 : 0);
   const installedVersion = updater.data?.version;
+
+  useEffect(() => {
+    setTimeout(() => setIsLoaded(true), 1000);
+  }, [loaderData]);
 
   useEffect(() => {
     if (installedVersion) {
@@ -54,7 +59,7 @@ export default function Index() {
     updater.submit({}, { method: "POST" })
   };
 
-  return !loaderData ? (
+  return !loaderData || !isLoaded ? (
       <Skeleton />
     ) : (
       <Page title="Welcome to H1: Dynamic Store Locator">

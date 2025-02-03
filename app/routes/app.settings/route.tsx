@@ -70,6 +70,7 @@ export default function Index() {
   const errors = actionData ? actionData.errors : {};
   const settings = actionData ? actionData.settings : false;
 
+  const [isLoaded, setIsLoaded] = useState(false);
   const [formState, setFormState] = useState(defaultSettings);
   const [cleanFormState, setCleanFormState] = useState(defaultSettings);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
@@ -78,6 +79,7 @@ export default function Index() {
     if (loaderData.settings) {
       setFormState(loaderData.settings);
     }
+    setTimeout(() => setIsLoaded(true), 1000);
   }, [loaderData]);
 
   const shopify = useAppBridge();
@@ -147,12 +149,14 @@ export default function Index() {
     setFormState({...formState, plan});
   };
 
-  return !loaderData ? (
-      <Skeleton />
-    ) : (
-      <Page title="Settings">
-        <Box paddingBlockEnd='400'>
-
+  return (
+    <Page title="Settings">
+      <Box paddingBlockEnd='400'>
+        {(!loaderData || !isLoaded) ? (
+          <Tabs tabs={tabs} selected={0}>
+            <Skeleton />
+          </Tabs>
+        ) : (
           <Tabs tabs={tabs} selected={selectedTab} onSelect={handleTabChange}>
             {
               {
@@ -163,8 +167,9 @@ export default function Index() {
               }[selectedTab]
             }
           </Tabs>
-        
-        </Box>
-      </Page>
+        )}
+      
+      </Box>
+    </Page>
     );
 }

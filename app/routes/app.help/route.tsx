@@ -70,13 +70,18 @@ export default function Index() {
     {label: 'Yesterday', value: 'yesterday'},
     {label: 'Last 7 days', value: 'lastWeek'},
   ];
-    
+  
+  const [isLoaded, setIsLoaded] = useState(false);
   const [formState, setFormState] = useState({});
   const [cleanFormState, setCleanFormState] = useState({});
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
 
   const shopify = useAppBridge();
   
+  useEffect(() => {
+    setTimeout(() => setIsLoaded(true), 1000);
+  }, [loaderData]);
+
   useEffect(() => {
     if (ticket) {
       shopify.toast.show("The ticket has been submitted. Ticket Number is " + ticket.id + " for future reference.");
@@ -102,7 +107,7 @@ export default function Index() {
     submit(data, { method: "post" });
   }
   
-  return !loaderData ? (
+  return !loaderData || !isLoaded ? (
       <Skeleton />
     ) : (
       <Page title="Help Center">
