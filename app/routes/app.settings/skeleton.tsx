@@ -2,15 +2,9 @@ import {
   Card,
   BlockStack,
   Box,
-  Grid,
-  InlineStack,
   Layout,
-  SkeletonPage,
   SkeletonDisplayText,
   SkeletonBodyText,
-  SkeletonThumbnail,
-  Divider,
-  Page,
 } from "@shopify/polaris";
 
 export const Skeleton = () => {

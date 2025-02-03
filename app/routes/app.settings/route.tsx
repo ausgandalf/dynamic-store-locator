@@ -3,8 +3,6 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { useFetcher, useLoaderData, useActionData, useNavigation,useSubmit } from "@remix-run/react";
 import {
   Page,
-  Layout,
-  BlockStack,
   Box,
   Tabs,
 } from "@shopify/polaris";

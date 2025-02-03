@@ -56,3 +56,19 @@ svg {
   border-bottom: 1px solid var(--p-color-border-secondary);
   border-top: 1px solid var(--p-color-border-secondary);
 }
+.Polaris-Listbox-TextOption {
+  padding-inline: var(--p-space-150);
+}
+
+.responsiveStack {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--p-space-200);
+}
+
+@media (max-width: 480px) {
+  .responsiveStack {
+    flex-wrap: wrap; /* Enable wrapping on smaller screens */
+  }
+}
