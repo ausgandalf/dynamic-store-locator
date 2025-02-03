@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "91aabbe26f00a872aade0c940ee127c4"
-application_url = "https://vaccine-created-caribbean-frequency.trycloudflare.com"
+application_url = "https://returned-spa-barbara-carl.trycloudflare.com"
 embedded = true
 name = "Dynamic Store Locator"
 handle = "dynamic-store-locator"
@@ -23,9 +23,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://vaccine-created-caribbean-frequency.trycloudflare.com/auth/callback",
-  "https://vaccine-created-caribbean-frequency.trycloudflare.com/auth/shopify/callback",
-  "https://vaccine-created-caribbean-frequency.trycloudflare.com/api/auth/callback"
+  "https://returned-spa-barbara-carl.trycloudflare.com/auth/callback",
+  "https://returned-spa-barbara-carl.trycloudflare.com/auth/shopify/callback",
+  "https://returned-spa-barbara-carl.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

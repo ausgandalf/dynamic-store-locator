@@ -227,7 +227,7 @@ export default function Index() {
             {
               {
                 'gmap': <GMapForm apikey={formState.gmap.key} updateAction={gmapUpdateAction} />,
-                // 'retailers': <RetailersForm selected={formState.retailers} updateAction={retailersUpdateAction} />,
+                'retailers': <RetailersForm selected={formState.retailers} updateAction={retailersUpdateAction} />,
                 // 'b2b': <B2BForm settings={formState.b2b} updateAction={b2bUpdateAction} />,
                 // 'fair': <FaireForm settings={formState.faire} updateAction={faireUpdateAction} />,
               }[selectedTab]

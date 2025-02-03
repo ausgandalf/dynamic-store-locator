@@ -25,6 +25,8 @@ import {
   StoreManagedIcon,
 } from "@shopify/polaris-icons"
 
+import { retailers } from './defines';
+
 interface RetailersFormProps {
   selected: Array<string>,
   updateAction: Function,
@@ -37,79 +39,6 @@ export function RetailersForm(props:RetailersFormProps) {
     // TODO
     updateAction(id, newChecked);
   };
-
-  const retailers = [
-    {
-      id: "bestbuy",
-      label: "Best Buy",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "costco",
-      label: "Costco",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "cvs",
-      label: "CVS",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "homedepot",
-      label: "Home Depot",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "lowes",
-      label: "Lowe's",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "officedepot",
-      label: "Office Depot",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "rei",
-      label: "REI",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "safeway",
-      label: "Safeway",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "samsclub",
-      label: "Sam's Club",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "target",
-      label: "Target",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "tjmax",
-      label: "TJMax",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "walgreens",
-      label: "Walgreens",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "walmart",
-      label: "Walmart",
-      icon: "/images/retailers/bestbuy.png",
-    },
-    {
-      id: "wholefoods",
-      label: "Whole Foods",
-      icon: "/images/retailers/bestbuy.png",
-    },
-  ];
 
   return (
     <Card>
@@ -130,7 +59,7 @@ export function RetailersForm(props:RetailersFormProps) {
               <Grid.Cell>
                 <Checkbox
                   id={x.id}
-                  label={(<img src={x.icon} alt={x.label} style={{maxWidth: '100%'}} />)}
+                  label={(<img src={x.icon} alt={x.label} style={{marginLeft: '10px', maxWidth: '100%', width:'120px', maxHeight: '42px', objectFit:'contain'}} />)}
                   checked={selected?.includes(x.id)}
                   onChange={handleChange}
                 />

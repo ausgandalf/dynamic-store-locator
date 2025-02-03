@@ -83,3 +83,76 @@ export const defaultSettings : SettingsType = {
     }
   }
 }
+
+export const retailers = [
+  {
+    id: "bestbuy",
+    label: "Best Buy",
+    icon: "/images/retailers/logo-bestbuy.png",
+  },
+  {
+    id: "costco",
+    label: "Costco",
+    icon: "/images/retailers/logo-costco.png",
+  },
+  {
+    id: "cvs",
+    label: "CVS",
+    icon: "/images/retailers/logo-cvs.png",
+  },
+  {
+    id: "homedepot",
+    label: "Home Depot",
+    icon: "/images/retailers/logo-homedepot.png",
+  },
+  {
+    id: "lowes",
+    label: "Lowe's",
+    icon: "/images/retailers/logo-lowes.png",
+  },
+  {
+    id: "officedepot",
+    label: "Office Depot",
+    icon: "/images/retailers/logo-officedepot.png",
+  },
+  {
+    id: "rei",
+    label: "REI",
+    icon: "/images/retailers/logo-rei.png",
+  },
+  {
+    id: "safeway",
+    label: "Safeway",
+    icon: "/images/retailers/logo-safeway.png",
+  },
+  {
+    id: "samsclub",
+    label: "Sam's Club",
+    icon: "/images/retailers/logo-samsclub.png",
+  },
+  {
+    id: "target",
+    label: "Target",
+    icon: "/images/retailers/logo-target.png",
+  },
+  {
+    id: "tjmax",
+    label: "TJMax",
+    icon: "/images/retailers/logo-tjmaxx.png",
+  },
+  {
+    id: "walgreens",
+    label: "Walgreens",
+    icon: "/images/retailers/logo-walgreens.png",
+  },
+  {
+    id: "walmart",
+    label: "Walmart",
+    icon: "/images/retailers/logo-walmart.png",
+  },
+  {
+    id: "wholefoods",
+    label: "Whole Foods",
+    icon: "/images/retailers/logo-wholefoods.png",
+  },
+];
