@@ -26,7 +26,7 @@ interface TicketFormProps {
 }
 
 export const TicketForm = (props: TicketFormProps) => {
-  let {options, data, setData, errors, onSubmit} = props;
+  const {options, data, setData, errors, onSubmit} = props;
 
   return (
     <Card>

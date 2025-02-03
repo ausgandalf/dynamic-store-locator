@@ -36,3 +36,23 @@ svg {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.cell--icon {
+  width: 52px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  display: flex;
+  padding: var(--p-space-200) var(--p-space-300);
+}
+.list li:nth-child(2n) {
+  background: var(--p-color-bg-surface-secondary);
+  border-bottom: 1px solid var(--p-color-border-secondary);
+  border-top: 1px solid var(--p-color-border-secondary);
+}

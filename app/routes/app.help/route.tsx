@@ -18,6 +18,10 @@ import { TicketForm } from './form';
 import { Chat } from './chat';
 import { OtherApps } from './other_apps';
 
+interface ActionDataType {
+  errors: Object,
+  ticket: Object,
+}
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -28,12 +32,15 @@ export async function action({ request, params }) {
     ...Object.fromEntries(await request.formData()),
     shop,
   };
-  console.log(data);
-
+  
+  const defaultResponse:ActionDataType = {
+    errors: {},
+    ticket: false,
+  };
   const errors = validateTicket(data);
 
   if (errors) {
-    return Response.json({ errors }, { status: 422 });
+    return Response.json({...defaultResponse, errors}, { status: 422 });
   }
 
   // TODO Ticket creation
@@ -42,7 +49,7 @@ export async function action({ request, params }) {
     id: 1,
   };
 
-  return Response.json({ ticket });
+  return Response.json({ ...defaultResponse, ticket });
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -54,8 +61,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function Index() {
 
   const loaderData = useLoaderData<typeof loader>();
-  const errors = useActionData()?.errors || {};
-  const ticket = useActionData()?.ticket || false;
+  const actionData = useActionData<typeof action>();
+  const errors = actionData ? actionData.errors : {};
+  const ticket = actionData ? actionData.ticket : false;
 
   const options = [
     {label: 'Today', value: 'today'},
@@ -67,6 +75,8 @@ export default function Index() {
   const [cleanFormState, setCleanFormState] = useState({});
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
 
+  const shopify = useAppBridge();
+  
   useEffect(() => {
     if (ticket) {
       shopify.toast.show("The ticket has been submitted. Ticket Number is " + ticket.id + " for future reference.");
