@@ -36,16 +36,15 @@ export function GMapForm(props: GMapFormProps) {
   );
 
   return (
-  
-    <BlockStack gap="400">
+    <Card>
+      
+      <BlockStack gap="400">
+        <InlineStack gap="200" blockAlign="center">
+          <Text as="h4" variant="headingLg">Google Maps</Text>
+          <Tooltip content="Google map integration option"><Icon source={QuestionCircleIcon} /></Tooltip>
+        </InlineStack>
 
-      <InlineStack gap="200" blockAlign="center">
-        <Text as="h4" variant="headingLg">Google Maps</Text>
-        <Tooltip content="Google map integration option"><Icon source={QuestionCircleIcon} /></Tooltip>
-      </InlineStack>
-
-      <Box>
-        <FormLayout>
+        <Box>
           <BlockStack gap="200">
             <Box padding="200">
               <BlockStack gap="100">
@@ -62,14 +61,13 @@ export function GMapForm(props: GMapFormProps) {
                 value={apikey}
                 autoComplete="off"
                 placeholder="Enter an API Key for your map"
+                align='center'
               />
             </Box>
           </BlockStack>
+        </Box>
+      </BlockStack>
 
-          
-        </FormLayout>
-      </Box>
-    </BlockStack>
-    
+    </Card>
     );
 }

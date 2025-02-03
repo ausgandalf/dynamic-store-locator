@@ -112,52 +112,52 @@ export function RetailersForm(props:RetailersFormProps) {
   ];
 
   return (
-  
-    <BlockStack gap="400">
+    <Card>
+      <BlockStack gap="400">
 
-      <BlockStack gap="200">
-        <InlineStack gap="200" blockAlign="center">
-          <Text as="h4" variant="headingLg">Popular Retailers</Text>
-          <Tooltip content="Here are popular retailers listed."><Icon source={QuestionCircleIcon} /></Tooltip>
-        </InlineStack>
-        <Text as="p">Select which popular retail stores to show on your map</Text>
-      </BlockStack>
-
-      <Box paddingBlockStart="400">
-
-        <Grid columns={{xs: 2, sm: 3, md: 3, lg: 3, xl: 3}}>
-          { retailers.map((x, i) => (
-            <Grid.Cell>
-              <Checkbox
-                id={x.id}
-                label={(<img src={x.icon} alt={x.label} style={{maxWidth: '100%'}} />)}
-                checked={selected?.includes(x.id)}
-                onChange={handleChange}
-              />
-            </Grid.Cell>
-          ))}
-        </Grid>
-
-      </Box>
-
-      <Box>
-        <Card>
-          <InlineStack wrap={false} gap="200" blockAlign='center'>
-            <Box background="bg-fill-info" padding="100" borderRadius='200'>
-              <Icon source={StoreManagedIcon} />
-            </Box>
-            <div className='responsiveStack'>
-              <Box>
-                <Text as='p' variant='bodyMd'>We are actively adding new retailers! Not seeing a retailer you need? Submit a request for one here!</Text>
-              </Box>
-              <Box>
-                <Button><span style={{whiteSpace:'nowrap'}}>Request a Retailer</span></Button>
-              </Box>
-            </div>
+        <BlockStack gap="200">
+          <InlineStack gap="200" blockAlign="center">
+            <Text as="h4" variant="headingLg">Popular Retailers</Text>
+            <Tooltip content="Here are popular retailers listed."><Icon source={QuestionCircleIcon} /></Tooltip>
           </InlineStack>
-        </Card>
-      </Box>
-    </BlockStack>
-    
+          <Text as="p">Select which popular retail stores to show on your map</Text>
+        </BlockStack>
+
+        <Box paddingBlockStart="400">
+
+          <Grid columns={{xs: 2, sm: 3, md: 3, lg: 3, xl: 3}}>
+            { retailers.map((x, i) => (
+              <Grid.Cell>
+                <Checkbox
+                  id={x.id}
+                  label={(<img src={x.icon} alt={x.label} style={{maxWidth: '100%'}} />)}
+                  checked={selected?.includes(x.id)}
+                  onChange={handleChange}
+                />
+              </Grid.Cell>
+            ))}
+          </Grid>
+
+        </Box>
+
+        <Box>
+          <Card>
+            <InlineStack wrap={false} gap="200" blockAlign='center'>
+              <Box background="bg-fill-info" padding="100" borderRadius='200'>
+                <Icon source={StoreManagedIcon} />
+              </Box>
+              <div className='responsiveStack'>
+                <Box>
+                  <Text as='p' variant='bodyMd'>We are actively adding new retailers! Not seeing a retailer you need? Submit a request for one here!</Text>
+                </Box>
+                <Box>
+                  <Button><span style={{whiteSpace:'nowrap'}}>Request a Retailer</span></Button>
+                </Box>
+              </div>
+            </InlineStack>
+          </Card>
+        </Box>
+      </BlockStack>
+    </Card>
     );
 }

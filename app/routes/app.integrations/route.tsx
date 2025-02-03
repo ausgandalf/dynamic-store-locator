@@ -204,7 +204,7 @@ export default function Index() {
           {(!loaderData || !isLoaded) ? (
             <Card><Skeleton /></Card>
           ) : (
-            <Card>
+            <Box>
             {
               {
                 'gmap': <GMapForm apikey={formState.gmap.key} updateAction={gmapUpdateAction} />,
@@ -213,7 +213,7 @@ export default function Index() {
                 'fair': <Card></Card>,
               }[selectedTab]
             }
-            </Card>
+            </Box>
           )}
 
         </Layout.Section>
