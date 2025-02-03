@@ -15,6 +15,7 @@ import {
   InlineStack,
   Icon,
   Badge,
+  Tooltip,
 } from "@shopify/polaris";
 
 import {
@@ -57,27 +58,43 @@ export function Plans({value, updateAction}:PlansProps) {
 
   const benifits = {
     basic: [
-      "Up to 10 Locations",
-      "Custom Search Filters",
-      "Google Maps Integration",
+      ["Up to 10 Locations", "Up to 10 Locations",],
+      ["Custom Search Filters", "Custom Search Filters",],
+      ["Google Maps Integration", "Google Maps Integration",],
     ],
     advanced: [
-      "Up to 1500 Locations",
-      "Custom Search Filters",
-      "Google Maps Integration",
-      "Bulk Import",
-      "Faire Integration",
+      ["Up to 1500 Locations", "Up to 1500 Locations",],
+      ["Custom Search Filters", "Custom Search Filters",],
+      ["Google Maps Integration", "Google Maps Integration",],
+      ["Bulk Import", "Bulk Import",],
+      ["Faire Integration", "Faire Integration",],
     ],
     business: [
-      "Unlimited Locations",
-      "Custom Search Filters",
-      "Google Maps Integration",
-      "Bulk Import",
-      "Faire Integration",
-      "Major Retailer Locations",
-      "Shopify B2B Integration",
-      "Priority Support",
+      ["Unlimited Locations", "Unlimited Locations",],
+      ["Custom Search Filters", "Custom Search Filters",],
+      ["Google Maps Integration", "Google Maps Integration",],
+      ["Bulk Import", "Bulk Import",],
+      ["Faire Integration", "Faire Integration",],
+      ["Major Retailer Locations", "Major Retailer Locations",],
+      ["Shopify B2B Integration", "Shopify B2B Integration",],
+      ["Priority Support", "Priority Support",],
     ]
+  }
+
+  const benifitsRenderer = (benefits : Array<Array<string>>) => {
+    return (
+      <ul className="list">
+        {benefits.map((x, i) => 
+          <li>
+            <InlineStack gap="200">
+              <Box><Icon source={CheckIcon} tone="success" /></Box>
+              <Box><Text as="p" variant="bodyMd">{x[0]}</Text></Box>
+              <Box> <Tooltip content={x[1]}><Icon source={InfoIcon} tone="base" /></Tooltip></Box>
+            </InlineStack>
+          </li>
+        )}
+      </ul>
+    );
   }
 
   return (
@@ -107,17 +124,7 @@ export function Plans({value, updateAction}:PlansProps) {
                       {planButton('basic')}
                     </Box>
                     <Box>
-                      <ul className="list">
-                        {benifits.basic.map((x, i) => 
-                          <li>
-                            <InlineStack>
-                              <Box><Icon source={CheckIcon} tone="success" /></Box>
-                              <Box><Text as="p" variant="bodyMd">{x}</Text></Box>
-                              <Box><Icon source={InfoIcon} tone="base" /></Box>
-                            </InlineStack>
-                          </li>
-                        )}
-                      </ul>
+                      {benifitsRenderer(benifits.basic)}
                     </Box>
                   </BlockStack>
                 </Card>
@@ -142,17 +149,7 @@ export function Plans({value, updateAction}:PlansProps) {
                       {planButton('advanced')}
                     </Box>
                     <Box>
-                      <ul className="list">
-                        {benifits.advanced.map((x, i) => 
-                          <li>
-                            <InlineStack>
-                              <Box><Icon source={CheckIcon} tone="success" /></Box>
-                              <Box><Text as="p" variant="bodyMd">{x}</Text></Box>
-                              <Box><Icon source={InfoIcon} tone="base" /></Box>
-                            </InlineStack>
-                          </li>
-                        )}
-                      </ul>
+                      {benifitsRenderer(benifits.advanced)}
                     </Box>
                   </BlockStack>
                 </Card>
@@ -177,17 +174,7 @@ export function Plans({value, updateAction}:PlansProps) {
                       {planButton('business')}
                     </Box>
                     <Box>
-                      <ul className="list">
-                        {benifits.business.map((x, i) => 
-                          <li>
-                            <InlineStack gap="100">
-                              <Box><Icon source={CheckIcon} tone="success" /></Box>
-                              <Box><Text as="p" variant="bodyMd">{x}</Text></Box>
-                              <Box><Icon source={InfoIcon} tone="base" /></Box>
-                            </InlineStack>
-                          </li>
-                        )}
-                      </ul>
+                      {benifitsRenderer(benifits.business)}
                     </Box>
                   </BlockStack>
                 </Card>
