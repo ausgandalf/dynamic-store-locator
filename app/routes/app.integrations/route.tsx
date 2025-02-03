@@ -28,6 +28,7 @@ import { authenticate } from "../../shopify.server";
 import { Skeleton } from './skeleton';
 import { GMapForm } from './gmap';
 import { RetailersForm } from './retailers';
+import { B2BForm } from './b2b';
 import {ActionDataType, tabs, defaultSettings} from "./defines";
 
 export async function action({ request, params }) {
@@ -64,13 +65,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
   // TODO - Load settings
   
-  const settings = {
-    // TODO
-    gmap: {
-      key: "",
-    },
-    retailers: [],
-  };
+  const settings = defaultSettings;
   return Response.json({ settings });
 
 };
@@ -214,7 +209,7 @@ export default function Index() {
               {
                 'gmap': <GMapForm apikey={formState.gmap.key} updateAction={gmapUpdateAction} />,
                 'retailers': <RetailersForm selected={formState.retailers} updateAction={retailersUpdateAction} />,
-                'b2b': <Card></Card>,
+                'b2b': <B2BForm updateAction={retailersUpdateAction} />,
                 'fair': <Card></Card>,
               }[selectedTab]
             }
