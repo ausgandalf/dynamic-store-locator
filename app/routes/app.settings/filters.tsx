@@ -56,8 +56,6 @@ export function FiltersForm(props: FiltersFormProps) {
   }, [currentFilter],);
   
   const deleteFilter =(filter:FilterType) => {
-    // TODO delete filter
-    console.log(filter);
     deleteAction(filter);
     resetErrors();
   };

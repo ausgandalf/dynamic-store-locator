@@ -29,7 +29,9 @@ import { Skeleton } from './skeleton';
 import { GMapForm } from './gmap';
 import { RetailersForm } from './retailers';
 import { B2BForm } from './b2b';
-import {ActionDataType, tabs, defaultSettings} from "./defines";
+import { FaireForm } from './faire';
+
+import {ActionDataType, tabs, defaultSettings, getDateBy, B2BDataType, FaireDataType} from "./defines";
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -84,6 +86,15 @@ export default function Index() {
 
   useEffect(() => {
     if (loaderData.settings) {
+      
+      loaderData.settings.b2b.sync.start = getDateBy(loaderData.settings.b2b.sync.start);
+      loaderData.settings.b2b.sync.end = getDateBy(loaderData.settings.b2b.sync.end);
+      loaderData.settings.b2b.sync.last = getDateBy(loaderData.settings.b2b.sync.last);
+
+      loaderData.settings.faire.sync.start = getDateBy(loaderData.settings.faire.sync.start);
+      loaderData.settings.faire.sync.end = getDateBy(loaderData.settings.faire.sync.end);
+      loaderData.settings.faire.sync.last = getDateBy(loaderData.settings.faire.sync.last);
+
       setFormState(loaderData.settings);
     }
     setTimeout(() => setIsLoaded(true), 1000);
@@ -141,6 +152,14 @@ export default function Index() {
 
     setFormState({...formState, retailers});
   };
+
+  const b2bUpdateAction = (b2b: B2BDataType) => {
+    setFormState({...formState, b2b});
+  }
+
+  const faireUpdateAction = (faire: FaireDataType) => {
+    setFormState({...formState, faire});
+  }
 
   return (
     <Page title="Integrations">
@@ -208,9 +227,9 @@ export default function Index() {
             {
               {
                 'gmap': <GMapForm apikey={formState.gmap.key} updateAction={gmapUpdateAction} />,
-                'retailers': <RetailersForm selected={formState.retailers} updateAction={retailersUpdateAction} />,
-                'b2b': <B2BForm updateAction={retailersUpdateAction} />,
-                'fair': <Card></Card>,
+                // 'retailers': <RetailersForm selected={formState.retailers} updateAction={retailersUpdateAction} />,
+                // 'b2b': <B2BForm settings={formState.b2b} updateAction={b2bUpdateAction} />,
+                // 'fair': <FaireForm settings={formState.faire} updateAction={faireUpdateAction} />,
               }[selectedTab]
             }
             </Box>

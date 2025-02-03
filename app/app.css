@@ -72,3 +72,5 @@ svg {
     flex-wrap: wrap; /* Enable wrapping on smaller screens */
   }
 }
+
+.nowrap {white-space: nowrap;}

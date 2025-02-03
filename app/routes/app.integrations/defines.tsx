@@ -3,31 +3,56 @@ export interface ActionDataType {
   settings: Object,
 }
 
-export const tabs = [
-  {
-    id: 'display',
-    content: 'Display',
-    accessibilityLabel: 'Display',
-    panelID: 'panel-display',
-  },
-  {
-    id: 'search-filters',
-    content: 'Search Filters',
-    panelID: 'panel-search-filters',
-  },
-  {
-    id: 'plans',
-    content: 'Plans',
-    panelID: 'panel-plans',
-  },
-  {
-    id: 'install',
-    content: 'Installation',
-    panelID: 'panel-install',
-  },
+export const storeTypes = [
+  'Botique',
+  'Grocery Store',
+  'Beauty',
+  'Apparells',
+  'Fashion',
 ];
 
-export const defaultSettings = {
+export interface SyncInfoType {
+  last?: Date,
+  start?: Date,
+  end?: Date,
+}
+
+export interface B2BDataType {
+  enabled: boolean,
+  is_customers_here: boolean,
+  is_customers_out: boolean,
+  public_key: string,
+  private_key: string,
+  sync_type: number, // 0: All, 1: only with orders
+  range_type: number, // 0: All, 1: Ranged
+  sync?: SyncInfoType,
+}
+
+export interface FaireDataType {
+  enabled: boolean,
+  public_key: string,
+  private_key: string,
+  store_types: Array<string>,
+  sync?: SyncInfoType,
+}
+
+export interface SettingsType {
+  gmap: Object,
+  retailers: Array<string>,
+  b2b: B2BDataType,
+  faire: FaireDataType,
+}
+
+export const getDateBy = (offset?: string|number|undefined) : Date|undefined => {
+  if (typeof offset == 'undefined') return undefined;
+  if (typeof offset == 'string') return new Date(offset);
+  let date = new Date();
+  if (!offset) return date;
+  date.setDate(date.getDate() + offset);
+  return date;
+}
+
+export const defaultSettings : SettingsType = {
   gmap: {
     key: "",
   },
@@ -38,26 +63,23 @@ export const defaultSettings = {
     is_customers_out: false,
     public_key: '',
     private_key: '',
+    sync_type: 1, // 0: All, 1: only with orders,
+    range_type: 1, // 0: All, 1: Ranged,
     sync: {
-      last: '2024-07-22',
-      type: 1, // 0: All, 1: only with orders,
-      is_all_time: false,
-      from: '2024-10-28',
-      to: '2025-03-01',
+      last: getDateBy('2024-12-28T12:00:00'),
+      start: getDateBy(-7),
+      end: getDateBy(7),
     }
   },
-  fair: {
+  faire: {
     enabled: false,
     public_key: '',
     private_key: '',
+    store_types: ['Botique', 'Grocery Store'],
     sync: {
-      last: '2024-07-22',
-      from: '2024-10-28',
-      to: '2025-03-01',
-      store_types: [
-        'Botique',
-        'Grocery Store',
-      ],
+      last: getDateBy('2024-12-28T12:00:00'),
+      start: getDateBy(-7),
+      end: getDateBy(7),
     }
   }
 }
