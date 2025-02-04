@@ -73,4 +73,36 @@ svg {
   }
 }
 
+.button-fixer--green .Polaris-Button--variantPrimary {
+  background: var(--p-color-bg-fill-success);
+  box-shadow: rgba(16, 49, 34, 0.2) 0px -1px 0px 1px inset, rgba(27, 87, 60, 0.2) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.25) 0px 0.5px 0px 1.5px inset;
+}
+
 .nowrap {white-space: nowrap;}
+.zoom--075 {zoom: 0.75;}
+.opacity075 {opacity: 0.75;}
+.opacity05 {opacity: 0.5;}
+
+.design-previewer {
+  background-color: #FFFFFF;
+  display: flex;
+  margin: auto;
+}
+.design-previewer-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.design-previewer .panel--map {
+  background: url('/images/map.png') no-repeat;
+  background-size: cover;
+}
+
+.design-previewer .panel--map .marker-wrap {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-block;
+}

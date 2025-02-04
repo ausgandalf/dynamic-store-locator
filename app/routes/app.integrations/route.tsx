@@ -31,7 +31,7 @@ import { RetailersForm } from './retailers';
 import { B2BForm } from './b2b';
 import { FaireForm } from './faire';
 
-import {ActionDataType, tabs, defaultSettings, getDateBy, B2BDataType, FaireDataType} from "./defines";
+import {ActionDataType, defaultSettings, getDateBy, B2BDataType, FaireDataType} from "./defines";
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
