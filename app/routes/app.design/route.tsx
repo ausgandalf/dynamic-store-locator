@@ -32,9 +32,11 @@ import {
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../../shopify.server";
 
+import {ActionDataType, tabs, ThemeType, MapType, MarkerType, PopupType, SettingsType, defaultSettings} from "./defines";
+
 import { Skeleton } from './skeleton';
 import { MapPreviewer } from './preview';
-import {ActionDataType, tabs, ThemeType, MapType, MarkerType, PopupType, SettingsType, defaultSettings} from "./defines";
+import { ThemeBlock } from './theme';
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -84,7 +86,6 @@ export default function Index() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [formState, setFormState] = useState(defaultSettings);
-  const [previewSettings, setPreviewSettings] = useState(defaultSettings);
   const [cleanFormState, setCleanFormState] = useState(defaultSettings);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
 
@@ -140,7 +141,7 @@ export default function Index() {
       {(!loaderData || !isLoaded) ? (
         <Skeleton />
       ) : (
-        <MapPreviewer settings={previewSettings} />
+        <MapPreviewer settings={formState} />
       )}
 
       <Page>
@@ -154,7 +155,7 @@ export default function Index() {
             <InlineStack wrap={false} gap="200">
               <Button icon={ViewIcon}>Preview</Button>
               <div className='button-fixer button-fixer--green'>
-                <Button icon={SaveIcon} variant='primary'>Save</Button>
+                <Button icon={SaveIcon} variant='primary' disabled={!isDirty}>Save</Button>
               </div>
             </InlineStack>
           </InlineStack>
@@ -166,10 +167,10 @@ export default function Index() {
               {(!loaderData || !isLoaded) ? (
                 <Skeleton />
               ) : (
-                <Box>
+                <Box paddingBlock="400" paddingInline="200">
                   {
                     {
-                      0: <Box />,
+                      0: <ThemeBlock settings={formState.theme} update={UpdateAction}/>,
                       1: <Box />,
                       2: <Box />,
                       3: <Box />,

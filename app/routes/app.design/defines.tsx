@@ -139,3 +139,9 @@ export const tabs = [
     panelID: 'panel-popup',
   },
 ];
+
+export const fontList = [
+  'Menlo', 'Consolas', 'Monaco', 'Liberation Mono', 'Lucida Console',
+  'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Ubuntu', 'Helvetica Neue',
+  'Iowan Old Style', 'Apple Garamond', 'Baskerville', 'Times New Roman', 'Droid Serif', 'Times', 'Source Serif Pro',
+]

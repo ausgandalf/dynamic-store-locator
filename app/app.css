@@ -77,6 +77,18 @@ svg {
   background: var(--p-color-bg-fill-success);
   box-shadow: rgba(16, 49, 34, 0.2) 0px -1px 0px 1px inset, rgba(27, 87, 60, 0.2) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.25) 0px 0.5px 0px 1.5px inset;
 }
+.button-fixer--green .Polaris-Button--variantPrimary:active {
+  background: var(--p-color-bg-fill-success-active);
+  box-shadow: rgba(14, 44, 31, 0.2) 0px -1px 0px 1px inset, rgba(16, 51, 35, 0.2) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.25) 0px 0.5px 0px 1.5px inset;
+}
+.button-fixer--green .Polaris-Button--variantPrimary:hover {
+  background: var(--p-color-bg-fill-success-hover);
+  box-shadow: rgba(23, 71, 50, 0.2) 0px -1px 0px 1px inset, rgba(34, 110, 76, 0.2) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.25) 0px 0.5px 0px 1.5px inset;
+}
+.button-fixer--green .Polaris-Button--variantPrimary.Polaris-Button--disabled {
+  background: var(--pc-button-bg_disabled);
+  box-shadow: rgba(50, 50, 50, 0.2) 0px -1px 0px 1px inset, rgba(90, 90, 90, 0.2) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.25) 0px 0.5px 0px 1.5px inset;
+}
 
 .nowrap {white-space: nowrap;}
 .zoom--075 {zoom: 0.75;}

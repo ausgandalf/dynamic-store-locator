@@ -1,6 +1,3 @@
-import {useState, useEffect, useCallback} from 'react';
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { useFetcher, useLoaderData, useActionData, useNavigation,useSubmit } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -22,9 +19,6 @@ import {
 import {
   SearchIcon,
   FilterIcon,
-  LocationIcon,
-  ReturnIcon,
-  SettingsIcon,
 } from "@shopify/polaris-icons";
 
 import { SettingsType } from './defines';
@@ -36,7 +30,7 @@ export const MapPreviewer = ({settings} : SettingsType) => {
     <div className='zoom--075' style={{paddingInline:'15px'}}>
       <BlockStack gap='100'>
         <span style={{color:settings.theme.color.primary}}><Text as='h6' variant='headingMd'>H1 Web Development</Text></span>
-        <span style={{color:settings.theme.color.primary}}><Text as='p' variant='bodyMd'>201 Columbine Street, Unit 300 Denver, CO 80206</Text></span>
+        <span style={{color:settings.theme.color.primary}}><Text as='p' variant='bodyMd'>201 Columbine Street, Unit 300Denver, CO 80206</Text></span>
         <span style={{color:settings.theme.color.secondary}}><Text as='p' variant='bodyMd'>(303) 225-9372</Text></span>
         <span><Badge>25 miles away</Badge></span>
       </BlockStack>
@@ -124,10 +118,10 @@ export const MapPreviewer = ({settings} : SettingsType) => {
                 }}>
                   <BlockStack gap="200">
                     <BlockStack>
-                      <Box align="center"><img src="/images/h1-logo.svg" style={{height:'38px'}} /></Box>
-                      <span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodySm' fontWeight='bold'>H1 Web Development Denver (Main Office)</Text></span>
+                      <InlineStack align="center"><img src="/images/h1-logo.svg" style={{height:'38px'}} /></InlineStack>
+                      <span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodySm' fontWeight='bold'>H1 Web DevelopmentDenver (Main Office)</Text></span>
                     </BlockStack>
-                    <span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodyXs'>201 Columbine Street, Unit 300 Denver, CO 80206</Text></span>
+                    <span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodyXs'>201 Columbine Street, Unit 300Denver, CO 80206</Text></span>
                     
                     <BlockStack gap="100">
                       <InlineStack gap="200" blockAlign='center'>
@@ -142,12 +136,14 @@ export const MapPreviewer = ({settings} : SettingsType) => {
                         <span><IconClock color1={settings.popup.font_color.secondary} /></span>
                         <BlockStack>
                           <table>
-                          {openHours.map((x,i) => (
-                            <tr>
-                              <td><span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodyXs'>{x[0]}</Text></span></td>
-                              <td><span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodyXs'>{x[1]}</Text></span></td>
-                            </tr>
-                          ))}
+                            <tbody>
+                            {openHours.map((x,i) => (
+                              <tr key={i}>
+                                <td><span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodyXs'>{x[0]}</Text></span></td>
+                                <td><span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodyXs'>{x[1]}</Text></span></td>
+                              </tr>
+                            ))}
+                            </tbody>
                           </table>
                         </BlockStack>
                       </InlineStack>
