@@ -43,8 +43,10 @@ export interface SettingsType {
   faire: FaireDataType,
 }
 
-export const getDateBy = (offset?: string|number|undefined) : Date|undefined => {
-  if (typeof offset == 'undefined') return undefined;
+export const getDateBy = (offset?: string|number|undefined) : Date|any => {
+  const type = typeof offset;
+  if (['string', 'number', 'undefined'].indexOf(type) === -1) return offset;
+  if (typeof offset == 'string') return new Date(offset);
   if (typeof offset == 'string') return new Date(offset);
   let date = new Date();
   if (!offset) return date;
@@ -58,7 +60,7 @@ export const defaultSettings : SettingsType = {
   },
   retailers: [],
   b2b: {
-    enabled: false,
+    enabled: true,
     is_customers_here: false,
     is_customers_out: false,
     public_key: '',

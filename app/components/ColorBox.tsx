@@ -1,8 +1,22 @@
 import {useState, useCallback} from 'react';
 import { hsbToHex } from '@shopify/polaris';
-import { HSBAColor, Popover, Button, Text, TextField, Box, ColorPicker, InlineStack, BlockStack } from "@shopify/polaris";
+import { 
+  HSBAColor, 
+  Popover, 
+  Button, 
+  Text, 
+  TextField, 
+  Box, 
+  ColorPicker, 
+  InlineStack, 
+  BlockStack,
+  SkeletonPage,
+  SkeletonDisplayText,
+  SkeletonBodyText,
+  SkeletonThumbnail,
+} from "@shopify/polaris";
 
-const hexToHsba = (hex: string) => {
+export const hexToHsba = (hex: string) => {
   // Remove "#" if present
   hex = hex.replace(/^#/, '');
 
@@ -44,6 +58,33 @@ interface ColorPickerBoxProps {
   update:Function,
 }
 
+export const SkeletonColorPickerBox = () => {
+  return (
+    <Box>
+      <InlineStack gap="400" wrap={false} align="start">
+        <Box width='40px'>
+          {/* <SkeletonThumbnail size="small" /> */}
+          <div style={{
+            backgroundColor: 'var(--p-color-bg-fill-tertiary)',
+            borderRadius: '7.5px',
+            border: 'solid 1px #ccc',
+            cursor: 'pointer',
+            display:'inline-block',
+            width:'40px',
+            height:'40px',
+          }}></div>
+        </Box>
+        <Box width='100%'>
+          <BlockStack gap='100'>
+            <SkeletonDisplayText size="small"/>
+            <SkeletonBodyText lines={1}/>
+          </BlockStack>
+        </Box>
+      </InlineStack>
+    </Box>
+  );
+}
+
 export const ColorPickerBox = ({label, value, update}:ColorPickerBoxProps) => {
   const [color, setColor] = useState(hexToHsba(value));
   const [popoverActive, setPopoverActive] = useState(false);
@@ -66,6 +107,7 @@ export const ColorPickerBox = ({label, value, update}:ColorPickerBoxProps) => {
               <div onClick={togglePopover} style={{
                 backgroundColor:hexColor(),
                 borderRadius: '7.5px',
+                border: 'solid 1px #ccc',
                 cursor: 'pointer',
                 display:'inline-block',
                 width:'40px',

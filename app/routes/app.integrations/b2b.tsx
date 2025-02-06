@@ -84,6 +84,7 @@ export function B2BForm(props:B2BFormProps) {
 
   let startDate = data.sync?.start;
   if (!startDate) startDate = new Date();
+  
   const [{month, year}, setDate] = useState({month: startDate.getMonth(), year: startDate.getFullYear()});
 
   const handleMonthChange = useCallback(

@@ -19,12 +19,10 @@ export interface ThemeType {
 }
 
 export interface MapType {
-  width: number,
-  height: number,
+  width: string,
+  height: string,
   zoom: number,
   center: string,
-  lat: number,
-  lng: number,
 }
 
 export const markerTypes = [
@@ -33,6 +31,7 @@ export const markerTypes = [
   'starred',
   'flag',
   'banner',
+  'custom',
 ];
 
 export interface MarkerType {
@@ -57,6 +56,7 @@ export interface ShadowType {
 
 export interface PopupType {
   background_color: string,
+  show_border: boolean,
   border_color: string,
   border_radius: number,
   font_color: ColorType,
@@ -80,12 +80,10 @@ export const defaultSettings : SettingsType = {
     secondary_font: 'Arial',
   },
   map: {
-    width: 720,
-    height: 420,
+    width: '720px',
+    height: '420px',
     zoom: 16,
-    center: '201 Columbine St Unit 300, Denver, CO 80206',
-    lat: 39.71993410971816,
-    lng: -104.95736808975786,
+    center: '1', // Location Record ID : '201 Columbine St Unit 300, Denver, CO 80206',
   },
   marker: {
     custom: 'h1-logo1.svg',
@@ -99,6 +97,7 @@ export const defaultSettings : SettingsType = {
   },
   popup: {
     background_color: '#FFFFFF',
+    show_border: true,
     border_color: '#5330F9',
     border_radius: 3,
     font_color: {
@@ -106,7 +105,7 @@ export const defaultSettings : SettingsType = {
       secondary: '#5330F9',
     },
     shadow: {
-      enabled: false,
+      enabled: true,
       color: '#000000',
       transparency: 60,
       blur: 4,
@@ -144,4 +143,22 @@ export const fontList = [
   'Menlo', 'Consolas', 'Monaco', 'Liberation Mono', 'Lucida Console',
   'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Ubuntu', 'Helvetica Neue',
   'Iowan Old Style', 'Apple Garamond', 'Baskerville', 'Times New Roman', 'Droid Serif', 'Times', 'Source Serif Pro',
+]
+
+export const locationList = [
+  {label: '201 Columbine St Unit 300, Denver, CO 80206', value: '1'}
+]
+
+export const widthList = [
+  {label: '420px', value: '420px'},
+  {label: '720px', value: '720px'},
+  {label: '800px', value: '800px'},
+  {label: '1000px', value: '1000px'},
+]
+
+export const heightList = [
+  {label: '380px', value: '380px'},
+  {label: '420px', value: '420px'},
+  {label: '480px', value: '480px'},
+  {label: '640px', value: '640px'},
 ]

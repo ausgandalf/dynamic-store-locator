@@ -34,9 +34,11 @@ import { authenticate } from "../../shopify.server";
 
 import {ActionDataType, tabs, ThemeType, MapType, MarkerType, PopupType, SettingsType, defaultSettings} from "./defines";
 
-import { Skeleton } from './skeleton';
+import { Skeleton, SkeletonContent } from './skeleton';
 import { MapPreviewer } from './preview';
 import { ThemeBlock } from './theme';
+import { MapBlock } from './map';
+import { PopupBlock } from './popup';
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -165,15 +167,15 @@ export default function Index() {
           <Bleed marginInline='200'>
             <Tabs tabs={tabs} selected={selectedTab} onSelect={handleTabChange}>
               {(!loaderData || !isLoaded) ? (
-                <Skeleton />
+                <SkeletonContent />
               ) : (
                 <Box paddingBlock="400" paddingInline="200">
                   {
                     {
-                      0: <ThemeBlock settings={formState.theme} update={UpdateAction}/>,
-                      1: <Box />,
+                      // 0: <ThemeBlock settings={formState.theme} update={UpdateAction}/>,
+                      // 1: <MapBlock settings={formState.map} update={UpdateAction} />,
                       2: <Box />,
-                      3: <Box />,
+                      // 3: <PopupBlock settings={formState.popup} update={UpdateAction} />,
                     }[selectedTab]
                   }
                 </Box> 

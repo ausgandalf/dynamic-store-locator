@@ -110,6 +110,9 @@ svg {
   background: url('/images/map.png') no-repeat;
   background-size: cover;
 }
+.design-previewer .panel--list > div {
+  height: 100%;
+}
 
 .design-previewer .panel--map .marker-wrap {
   position: relative;

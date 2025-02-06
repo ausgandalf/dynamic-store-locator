@@ -27,3 +27,21 @@ export const IconLinkedIn = ({color1 = '#5330F9', color2 = '#fff'} : ColorsParam
 export const IconFacebook = ({color1 = '#5330F9', color2 = '#fff'} : ColorsParam) => {
     return (<svg width="17" height="17" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x=".5" y=".5" width="16" height="16" rx="8" fill={color1}/><path d="M7.542 9.022h-.989c-.16 0-.208-.061-.208-.209v-1.21c0-.16.061-.22.208-.22h.99v-.879c-.013-.386.079-.78.27-1.13.202-.35.521-.607.89-.736.251-.092.497-.13.761-.13h.976c.142 0 .203.062.203.203v1.136c0 .142-.061.203-.203.203-.27 0-.54 0-.81.012-.27.013-.412.13-.412.412-.012.3 0 .59 0 .896h1.149c.16 0 .22.062.22.221v1.21c0 .16-.048.221-.22.221H9.23v3.248c0 .172-.062.227-.227.227H7.757c-.147 0-.209-.061-.209-.208l-.006-3.267Z" fill={color2}/></svg>);
 }
+export const IconMarkerDefault = ({color1 = '#ccc', color2 = '#fff'} : ColorsParam) => {
+    return (<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M28.449 25.455c5.815-5.817 5.821-15.268 0-21.09-5.815-5.817-15.264-5.823-21.085 0-5.816 5.816-5.822 15.267 0 21.09L17.906 36 28.45 25.455Zm-5.682-5.715c2.485-2.76 2.665-6.994 0-9.66a6.83 6.83 0 0 0-9.659 0 6.835 6.835 0 0 0 0 9.66c2.666 2.666 7.173 2.76 9.659 0Z" fill={color1}/></svg>);
+}
+export const IconMarkerPin = ({color1 = '#ccc', color2 = '#fff'} : ColorsParam) => {
+    return (<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><circle cx="18" cy="8.25" r="8.25" fill={color1}/><path d="M16.5 18h3v14.364L18 36l-1.5-3.636V18Z" fill={color1}/></svg>)
+};
+export const IconMarkerStarred = ({color1 = '#ccc', color2 = '#fff'} : ColorsParam) => {
+    return (<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M0 2.531A2.531 2.531 0 0 1 2.531 0H33.47A2.531 2.531 0 0 1 36 2.531V26.27a2.531 2.531 0 0 1-2.531 2.531H2.53A2.531 2.531 0 0 1 0 26.269V2.53ZM17.381 5.73a.747.747 0 0 1 1.238 0l2.757 4.054a.751.751 0 0 0 .407.298l4.679 1.39c.505.15.703.765.382 1.186l-2.975 3.895a.76.76 0 0 0-.155.482l.134 4.914a.751.751 0 0 1-1 .733l-4.597-1.647a.745.745 0 0 0-.502 0l-4.596 1.647a.751.751 0 0 1-1.001-.733l.134-4.914a.76.76 0 0 0-.155-.482l-2.975-3.895a.758.758 0 0 1 .382-1.186l4.68-1.39a.751.751 0 0 0 .406-.298L17.38 5.73Z" fill={color1}/><path d="m19.364 35.444 6.35-6.644H10.286l6.35 6.644a1.95 1.95 0 0 0 2.728 0Z" fill={color1}/></svg>)
+};
+export const IconMarkerFlag = ({color1 = '#ccc', color2 = '#fff'} : ColorsParam) => {
+    return (<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path d="M29.143 10.286 12 18.857V1.714l17.143 8.572Z" fill={color1}/><rect x="8.571" width="3.429" height="36" rx="1.714" fill={color1}/></svg>)
+};
+export const IconMarkerBanner = ({color1 = '#ccc', color2 = '#fff'} : ColorsParam) => {
+    return (<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path d="M6 2.25A2.25 2.25 0 0 1 8.25 0h19.5A2.25 2.25 0 0 1 30 2.25v19.886a4.5 4.5 0 0 1-1.318 3.182l-9.091 9.091a2.25 2.25 0 0 1-3.182 0l-9.091-9.091A4.5 4.5 0 0 1 6 22.136V2.25Z" fill={color1}/></svg>)
+};
+export const IconMarkerCustom = ({color1 = '#ccc', color2 = '#fff'} : ColorsParam) => {
+    return (<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"></svg>)
+};
