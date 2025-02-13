@@ -47,14 +47,10 @@ export const MarkerBlock = ({settings, update} : MarkerBlockProps) => {
 
   const [files, setFiles] = useState<File[]>([]);
 
-  const handleDropZoneDrop = useCallback(
-    (_dropFiles: File[], acceptedFiles: File[], _rejectedFiles: File[]) => {
-      setFiles((files) => [...acceptedFiles]),
-      console.log(window.URL.createObjectURL(acceptedFiles[0]));
-      onUpdate('custom', window.URL.createObjectURL(acceptedFiles[0]));
-    },
-    [],
-  );
+  const handleDropZoneDrop = (_dropFiles: File[], acceptedFiles: File[], _rejectedFiles: File[]) => {
+    setFiles((files) => [...acceptedFiles]),
+    onUpdate('custom', window.URL.createObjectURL(acceptedFiles[0]));
+  };
   const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
 
   const fileUpload = !files.length && <DropZone.FileUpload actionHint="Accepts .gif, .jpg, .png and .svg" />;

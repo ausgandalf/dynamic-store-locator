@@ -200,6 +200,10 @@ export const MapPreviewer = ({settings} : SettingsType) => {
                         </table>
                       </BlockStack>
                     </InlineStack>
+                    <InlineStack gap="200" align="center">
+                      <IconLinkedIn color1={settings.popup.font_color.secondary} />
+                      <IconFacebook color1={settings.popup.font_color.secondary} />
+                    </InlineStack>
                   </BlockStack>
 
                 </BlockStack>
