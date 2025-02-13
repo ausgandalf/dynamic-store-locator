@@ -33,58 +33,59 @@ export const PopupBlock = ({settings, update} : PopupBlockProps) => {
     <Card>
       <Grid columns={{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}}>
         <Grid.Cell>
-          <BlockStack gap='400'>
-            
-            <BlockStack gap='200'>
-              <Text as="h5" variant="bodyMd" fontWeight="semibold">Popup Box</Text>
-              <Box>
-                <ColorPickerBox label='Background Color' value={data.background_color} update={(color:string) => {onUpdate('background_color', color);}} />
-              </Box>
-              <Grid columns={{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}}>
-                <Grid.Cell>  
-                  <ColorPickerBox label='Border Color' value={data.border_color} update={(color:string) => {onUpdate('border_color', color);}} />
-                </Grid.Cell>
-                <Grid.Cell>
-                  <Checkbox
-                    label="show border"
-                    checked={data.show_border}
-                    onChange={(newChecked: boolean) => {onUpdate('show_border', newChecked);}}
+          <div className='rightBorderAboveMd' style={{minHeight:'100%', paddingRight:'20px', width:'100%'}}>
+            <BlockStack gap='400'>
+              <BlockStack gap='200'>
+                <Text as="h5" variant="bodyMd" fontWeight="semibold">Popup Box</Text>
+                <Box>
+                  <ColorPickerBox label='Background Color' value={data.background_color} update={(color:string) => {onUpdate('background_color', color);}} />
+                </Box>
+                <Grid columns={{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}}>
+                  <Grid.Cell>  
+                    <ColorPickerBox label='Border Color' value={data.border_color} update={(color:string) => {onUpdate('border_color', color);}} />
+                  </Grid.Cell>
+                  <Grid.Cell>
+                    <Checkbox
+                      label="show border"
+                      checked={data.show_border}
+                      onChange={(newChecked: boolean) => {onUpdate('show_border', newChecked);}}
+                    />
+                  </Grid.Cell>
+                </Grid>
+                <Box>
+                  <RangeSlider
+                    label="corner radius"
+                    value={settings.border_radius}
+                    min={0}
+                    max={20}
+                    onChange={(value:number) => onUpdate('border_radius', value)}
+                    output
+                    prefix={<p>0</p>}
+                    suffix={
+                      <p
+                        style={{
+                          minWidth: '24px',
+                          textAlign: 'right',
+                        }}
+                      >
+                        {settings.border_radius}pt
+                      </p>
+                    }
                   />
-                </Grid.Cell>
-              </Grid>
-              <Box>
-                <RangeSlider
-                  label="corner radius"
-                  value={settings.border_radius}
-                  min={0}
-                  max={20}
-                  onChange={(value:number) => onUpdate('border_radius', value)}
-                  output
-                  prefix={<p>0</p>}
-                  suffix={
-                    <p
-                      style={{
-                        minWidth: '24px',
-                        textAlign: 'right',
-                      }}
-                    >
-                      {settings.border_radius}pt
-                    </p>
-                  }
-                />
-              </Box>
+                </Box>
+              </BlockStack>
+              <Divider/>
+              <BlockStack gap='200'>
+                <Text as="h5" variant="bodyMd" fontWeight="semibold">Font Colors</Text>
+                <Box>
+                  <ColorPickerBox label='Primary Theme Color' value={data.font_color.primary} update={(color:string) => {onUpdate('font_color', {...data.font_color, primary:color});}} />
+                </Box>
+                <Box>
+                  <ColorPickerBox label='Secondary Theme Color' value={data.font_color.secondary} update={(color:string) => {onUpdate('font_color', {...data.font_color, secondary:color});}} />
+                </Box>
+              </BlockStack>
             </BlockStack>
-            <Divider/>
-            <BlockStack gap='200'>
-              <Text as="h5" variant="bodyMd" fontWeight="semibold">Font Colors</Text>
-              <Box>
-                <ColorPickerBox label='Primary Theme Color' value={data.font_color.primary} update={(color:string) => {onUpdate('font_color', {...data.font_color, primary:color});}} />
-              </Box>
-              <Box>
-                <ColorPickerBox label='Secondary Theme Color' value={data.font_color.secondary} update={(color:string) => {onUpdate('font_color', {...data.font_color, secondary:color});}} />
-              </Box>
-            </BlockStack>
-          </BlockStack>
+          </div>
         </Grid.Cell>
 
         <Grid.Cell>
@@ -94,7 +95,7 @@ export const PopupBlock = ({settings, update} : PopupBlockProps) => {
             
             <Grid columns={{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}}>
               <Grid.Cell>
-                <ColorPickerBox label='Shadow Color' value={data.shadow.color} update={(color:string) => {onUpdate('shadow', {...data.shadow, color});}} />
+                <ColorPickerBox disabled={!data.shadow.enabled} label='Shadow Color' value={data.shadow.color} update={(color:string) => {onUpdate('shadow', {...data.shadow, color});}} />
               </Grid.Cell>
               <Grid.Cell>
                 <Checkbox

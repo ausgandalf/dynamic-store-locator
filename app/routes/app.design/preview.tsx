@@ -23,11 +23,16 @@ import {
 } from "@shopify/polaris-icons";
 
 import { SettingsType } from './defines';
-import { IconZoom, IconCustomMarker, IconPhone, IconSend, IconClock, IconLinkedIn, IconFacebook } from 'app/res/icons';
+import { 
+  IconZoom, IconCustomMarker, IconPhone, IconSend, IconClock, IconLinkedIn, IconFacebook,
+  IconMarkerDefault, IconMarkerPin, IconMarkerStarred, IconMarkerFlag, IconMarkerBanner, IconMarkerCustom, 
+} from 'app/res/icons';
 import { hexToRgb } from "@shopify/polaris";
+import { Transform } from "stream";
+
 
 export const MapPreviewer = ({settings} : SettingsType) => {
-  
+  const markerStyle = {width:settings.marker.width+'px',height:settings.marker.height+'px'};
   const addressItem = (
     <div className='zoom--075' style={{paddingInline:'15px'}}>
       <BlockStack gap='100'>
@@ -51,6 +56,32 @@ export const MapPreviewer = ({settings} : SettingsType) => {
     const rgbColor = hexToRgb(settings.popup.shadow.color);
     return 'rgba(' + rgbColor.red + ',' + rgbColor.green + ',' + rgbColor.blue + ', ' + (settings.popup.shadow.transparency / 100) + ')';
   }
+
+  const renderMarker = () => {
+    switch (settings.marker.preset) {
+      case "default":
+        return (<IconMarkerDefault color1={settings.marker.color} />);
+        break;
+      case "pin":
+        return (<IconMarkerPin color1={settings.marker.color} />);
+        break;
+      case "starred":
+        return (<IconMarkerStarred color1={settings.marker.color} />);
+        break;
+      case "flag":
+        return (<IconMarkerFlag color1={settings.marker.color} />);
+        break;
+      case "banner":
+        return (<IconMarkerBanner color1={settings.marker.color} />);
+        break;
+      case "custom":
+        if (settings.marker.custom != '') return (<img src="/images/custom-marker.svg" style={markerStyle} />);
+      default:
+        return (<IconMarkerDefault color1={settings.marker.color} />);
+        break;
+    }
+  };
+
   return (
     <Box background='bg-surface-secondary'>
       <div className='design-previewer-wrap'>
@@ -115,7 +146,13 @@ export const MapPreviewer = ({settings} : SettingsType) => {
         
           <div className='panel panel--map' style={{width:settings.map.width, height:settings.map.height,position:'relative'}}>
             <div className='marker-wrap'>
-              <img src="/images/custom-marker.svg" style={{width:settings.marker.width+'px',height:settings.marker.height+'px'}} />
+              <div className="markerWrapper" style={{
+                transform:'translateY(-50%)',
+                width: settings.marker.width,
+                height: settings.marker.height,
+              }}>
+                {renderMarker()}
+              </div>
               <div className='info-board' style={{
                 background:settings.popup.background_color,
                 borderRadius:settings.popup.border_radius + 'px',
@@ -124,7 +161,7 @@ export const MapPreviewer = ({settings} : SettingsType) => {
                   settings.popup.shadow.x + 'px ' +  settings.popup.shadow.y + 'px ' + settings.popup.shadow.blur + 'px ' + boxShadowColor()
                   : 
                   'none',
-                marginLeft: '10px',
+                marginLeft: (parseInt(settings.marker.width) + 5) + 'px',
                 padding:'12px',
                 position: 'absolute',
                 left: settings.marker.width+'px',

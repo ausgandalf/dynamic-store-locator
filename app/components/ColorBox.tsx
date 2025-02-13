@@ -56,6 +56,7 @@ interface ColorPickerBoxProps {
   label?:string,
   value:string,
   update:Function,
+  disabled: boolean,
 }
 
 export const SkeletonColorPickerBox = () => {
@@ -85,12 +86,19 @@ export const SkeletonColorPickerBox = () => {
   );
 }
 
-export const ColorPickerBox = ({label, value, update}:ColorPickerBoxProps) => {
+export const ColorPickerBox = ({label, value, update, disabled}:ColorPickerBoxProps) => {
   const [color, setColor] = useState(hexToHsba(value));
   const [popoverActive, setPopoverActive] = useState(false);
-  const togglePopover = useCallback(() => setPopoverActive((active) => !active), []);
+  const togglePopover = useCallback(() => {
+    if (disabled) {
+      setPopoverActive(false);
+      return;
+    }
+    setPopoverActive((active) => !active);
+  }, [disabled]);
 
   const handleColorChange = (newColor:HSBAColor) => {
+    if (disabled) return;
     setColor(newColor);
     update(hsbToHex(newColor));
   };
@@ -98,7 +106,7 @@ export const ColorPickerBox = ({label, value, update}:ColorPickerBoxProps) => {
   const hexColor = useCallback(() => hsbToHex(color),[color]);
 
   return (
-    <Box>
+    <Box opacity={disabled ? '0.2' : '1'}>
       <InlineStack gap='400'>
         <Box>
           <Popover 

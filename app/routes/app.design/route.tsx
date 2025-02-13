@@ -39,6 +39,7 @@ import { MapPreviewer } from './preview';
 import { ThemeBlock } from './theme';
 import { MapBlock } from './map';
 import { PopupBlock } from './popup';
+import { MarkerBlock } from './marker';
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -174,8 +175,8 @@ export default function Index() {
                     {
                       // 0: <ThemeBlock settings={formState.theme} update={UpdateAction}/>,
                       // 1: <MapBlock settings={formState.map} update={UpdateAction} />,
-                      2: <Box />,
-                      // 3: <PopupBlock settings={formState.popup} update={UpdateAction} />,
+                      2: <MarkerBlock settings={formState.marker} update={UpdateAction}  />,
+                      3: <PopupBlock settings={formState.popup} update={UpdateAction} />,
                     }[selectedTab]
                   }
                 </Box> 

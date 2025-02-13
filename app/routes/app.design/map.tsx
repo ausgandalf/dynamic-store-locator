@@ -10,7 +10,7 @@ import {
   RangeSlider,
 } from "@shopify/polaris";
 
-import { MapType, locationList, widthList, heightList } from './defines';
+import { MapType, locationList, mapWidthList, mapHeightList } from './defines';
 
 interface MapBlockProps {
   settings: MapType,
@@ -40,7 +40,7 @@ export const MapBlock = ({settings, update} : MapBlockProps) => {
                   <Select
                     label="Height"
                     requiredIndicator
-                    options={heightList}
+                    options={mapHeightList}
                     onChange={(value: string) => onUpdate('height', value)}
                     value={data.height}
                   />
@@ -49,7 +49,7 @@ export const MapBlock = ({settings, update} : MapBlockProps) => {
                   <Select
                     label="Width"
                     requiredIndicator
-                    options={widthList}
+                    options={mapWidthList}
                     onChange={(value: string) => onUpdate('width', value)}
                     value={data.width}
                   />

@@ -121,3 +121,28 @@ svg {
   transform: translate(-50%, -50%);
   display: inline-block;
 }
+.markerWrapper svg, .markerWrapper img {
+  width: 100%;
+  height: 100%;
+}
+.markerTypeButton {
+  display: inline-block;
+  border-radius: var(--p-border-radius-200);
+  border: 1px solid transparent;
+  font-size: 0;
+  line-height: 0;
+  padding: 12px;
+  transition: border-color .2s linear;
+}
+.markerTypeButton.active {
+  border-color: var(--p-color-icon-active);
+}
+.markerTypeButton.active * {
+  fill: #000;
+}
+
+@media (min-width: 48em) {
+  .rightBorderAboveMd {
+      border-right: solid 1px var(--p-color-border);
+  }
+}
