@@ -173,7 +173,7 @@ export default function Index() {
                 <Box paddingBlock="400" paddingInline="200">
                   {
                     {
-                      // 0: <ThemeBlock settings={formState.theme} update={UpdateAction}/>,
+                      0: <ThemeBlock settings={formState.theme} update={UpdateAction}/>,
                       // 1: <MapBlock settings={formState.map} update={UpdateAction} />,
                       2: <MarkerBlock settings={formState.marker} update={UpdateAction}  />,
                       3: <PopupBlock settings={formState.popup} update={UpdateAction} />,

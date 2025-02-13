@@ -36,9 +36,9 @@ export const MapPreviewer = ({settings} : SettingsType) => {
   const addressItem = (
     <div className='zoom--075' style={{paddingInline:'15px'}}>
       <BlockStack gap='100'>
-        <span style={{color:settings.theme.color.primary}}><Text as='h6' variant='headingMd'>H1 Web Development</Text></span>
-        <span style={{color:settings.theme.color.primary}}><Text as='p' variant='bodyMd'>201 Columbine Street, Unit 300Denver, CO 80206</Text></span>
-        <span style={{color:settings.theme.color.secondary}}><Text as='p' variant='bodyMd'>(303) 225-9372</Text></span>
+        <span style={{color:settings.theme.color.primary, fontFamily:settings.theme.primary_font}}><Text as='h6' variant='headingMd'>H1 Web Development</Text></span>
+        <span style={{color:settings.theme.color.primary, fontFamily:settings.theme.primary_font}}><Text as='p' variant='bodyMd'>201 Columbine Street, Unit 300Denver, CO 80206</Text></span>
+        <span style={{color:settings.theme.color.secondary, fontFamily:settings.theme.secondary_font}}><Text as='p' variant='bodyMd'>(303) 225-9372</Text></span>
         <span><Badge>25 miles away</Badge></span>
       </BlockStack>
     </div>

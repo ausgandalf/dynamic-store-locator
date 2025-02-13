@@ -1,3 +1,4 @@
+import {useState, useCallback} from 'react';
 import {DropZone} from '@shopify/polaris';
 import {
   Text,
@@ -10,11 +11,11 @@ import {
   Collapsible,
   Select,
   TextField,
+  Thumbnail,
 } from "@shopify/polaris";
 
 import {
-  CaretUpIcon,
-  CaretDownIcon,
+  NoteIcon,
 } from '@shopify/polaris-icons';
 
 interface TicketFormProps {
@@ -27,6 +28,40 @@ interface TicketFormProps {
 
 export const TicketForm = (props: TicketFormProps) => {
   const {options, data, setData, errors, onSubmit} = props;
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleDropZoneDrop = useCallback(
+    (_dropFiles: File[], acceptedFiles: File[], _rejectedFiles: File[]) =>
+      setFiles((files) => [...files, ...acceptedFiles]),
+    [],
+  );
+  const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
+  const fileUpload = !files.length && <DropZone.FileUpload />;
+  const uploadedFiles = files.length > 0 && (
+    <div style={{padding: '10px'}}>
+      <InlineStack gap='200'>
+        {files.map((file, index) => (
+          <BlockStack align="center" key={index}>
+            <Thumbnail
+              size="small"
+              alt={file.name}
+              source={
+                validImageTypes.includes(file.type)
+                  ? window.URL.createObjectURL(file)
+                  : NoteIcon
+              }
+            />
+            <div>
+              {file.name}{' '}
+              <Text variant="bodySm" as="p">
+                {file.size} bytes
+              </Text>
+            </div>
+          </BlockStack>
+        ))}
+      </InlineStack>
+    </div>
+  );
 
   return (
     <Card>
@@ -64,8 +99,9 @@ export const TicketForm = (props: TicketFormProps) => {
               </Box>
 
               <Box>
-                <DropZone label="Attach any files that may be helpful towards your issue">
-                  <DropZone.FileUpload />
+                <DropZone onDrop={handleDropZoneDrop} label="Attach any files that may be helpful towards your issue">
+                  {uploadedFiles}
+                  {fileUpload}
                 </DropZone>
               </Box>
 
