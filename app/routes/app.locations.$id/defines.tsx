@@ -15,6 +15,7 @@ export const defaultSettings : SettingsType = {
 
 
 export interface LocationType {
+  id?: string,
   location:string,
   address: AddressType,
   phone: string,
@@ -24,6 +25,7 @@ export interface LocationType {
   logo: string,
   marker: MarkerType,
   tags: Array<string>,
+  visible: boolean,
 }
 
 export interface AddressType {
@@ -56,7 +58,9 @@ export interface OperationHrType {
   visible: boolean,
 }
 
-export const location1:LocationType = {
+export const sampleLocation:LocationType = {
+  id: 1,
+  visible: true,
   location: 'H1 Web Development',
   address: {
     address1: '1234 Main Street',
@@ -117,7 +121,8 @@ export const location1:LocationType = {
   ]
 }
 
-export const empty:LocationType = {
+export const emptyLocation:LocationType = {
+  visible: true,
   location: '',
   address: {
     address1: '',

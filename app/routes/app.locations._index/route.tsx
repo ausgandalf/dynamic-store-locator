@@ -1,6 +1,6 @@
 import {useState, useEffect, useCallback} from 'react';
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { useFetcher, useLoaderData, useActionData, useNavigation,useSubmit } from "@remix-run/react";
+import { useFetcher, useLoaderData, useActionData, useNavigation,useSubmit, redirect } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -35,6 +35,7 @@ import {
   VariantIcon,
 } from "@shopify/polaris-icons";
 
+import { useNavigate } from '@remix-run/react';
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../../shopify.server";
 
@@ -478,6 +479,7 @@ export default function Index() {
       primaryAction={{
         content: 'Add Location',
         icon: PlusCircleIcon,
+        url: '/app/locations/new',
       }}
       secondaryActions={[
         {

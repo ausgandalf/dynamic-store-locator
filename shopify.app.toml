@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "91aabbe26f00a872aade0c940ee127c4"
-application_url = "https://winter-console-auburn-tones.trycloudflare.com"
+application_url = "https://virtually-conjunction-jews-montana.trycloudflare.com"
 embedded = true
 name = "Dynamic Store Locator"
 handle = "dynamic-store-locator"
@@ -23,9 +23,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://winter-console-auburn-tones.trycloudflare.com/auth/callback",
-  "https://winter-console-auburn-tones.trycloudflare.com/auth/shopify/callback",
-  "https://winter-console-auburn-tones.trycloudflare.com/api/auth/callback"
+  "https://virtually-conjunction-jews-montana.trycloudflare.com/auth/callback",
+  "https://virtually-conjunction-jews-montana.trycloudflare.com/auth/shopify/callback",
+  "https://virtually-conjunction-jews-montana.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
