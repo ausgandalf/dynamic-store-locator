@@ -21,11 +21,17 @@ export const IconSend = ({color1 = '#5330F9', color2 = '#fff'} : ColorsParam) =>
 export const IconClock = ({color1 = '#5330F9', color2 = '#fff'} : ColorsParam) => {
     return (<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="none"><g clipPath="url(#a)"><path d="M4 8a4 4 0 1 0-.001-8.001A4 4 0 0 0 4 8Zm-.286-6.286a.287.287 0 0 1 .571 0v2.149L5.608 4.92a.286.286 0 0 1-.357.446L3.821 4.223A.287.287 0 0 1 3.714 4V1.714Z" fill={color1}/></g><defs><clipPath id="a"><path fill={color2} d="M0 0h8v8H0z"/></clipPath></defs></svg>)
 }
-export const IconLinkedIn = ({color1 = '#5330F9', color2 = '#fff'} : ColorsParam) => {
+export const IconLinkedInCircled = ({color1 = '#5330F9', color2 = '#fff'} : ColorsParam) => {
     return (<svg width="17" height="17" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x=".5" y=".5" width="16" height="16" rx="8" fill={color1}/><path d="M12.485 12.485V9.562c0-1.437-.307-2.53-1.983-2.53-.804 0-1.345.436-1.566.86h-.018v-.73H7.334v5.323H8.99V9.851c0-.7.13-1.363.995-1.363.866 0 .86.798.86 1.412v2.591l1.64-.006ZM4.644 7.161h1.652v5.324H4.644V7.161ZM5.473 4.509a.964.964 0 0 0-.964.958c0 .528.43.964.958.964s.964-.43.964-.958V5.46a.958.958 0 0 0-.958-.952Z" fill={color2}/></svg>);
 }
-export const IconFacebook = ({color1 = '#5330F9', color2 = '#fff'} : ColorsParam) => {
+export const IconLinkedIn = ({color1 = '#7C7C7C'} : ColorsParam) => {
+    return (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path d="M18.54 18.54v-6.264c0-3.079-.658-5.42-4.25-5.42-1.724 0-2.882.933-3.356 1.841h-.04V7.132H7.5v11.407h3.553v-5.644c0-1.5.276-2.921 2.131-2.921 1.856 0 1.842 1.71 1.842 3.026v5.553l3.514-.014ZM1.737 7.132h3.54V18.54h-3.54V7.132ZM3.513 1.447A2.067 2.067 0 0 0 1.447 3.5c0 1.132.921 2.066 2.053 2.066a2.067 2.067 0 0 0 2.066-2.053v-.026c0-1.119-.921-2.04-2.053-2.04Z" fill={color1}/></svg>);
+}
+export const IconFacebookCircled = ({color1 = '#5330F9', color2 = '#fff'} : ColorsParam) => {
     return (<svg width="17" height="17" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x=".5" y=".5" width="16" height="16" rx="8" fill={color1}/><path d="M7.542 9.022h-.989c-.16 0-.208-.061-.208-.209v-1.21c0-.16.061-.22.208-.22h.99v-.879c-.013-.386.079-.78.27-1.13.202-.35.521-.607.89-.736.251-.092.497-.13.761-.13h.976c.142 0 .203.062.203.203v1.136c0 .142-.061.203-.203.203-.27 0-.54 0-.81.012-.27.013-.412.13-.412.412-.012.3 0 .59 0 .896h1.149c.16 0 .22.062.22.221v1.21c0 .16-.048.221-.22.221H9.23v3.248c0 .172-.062.227-.227.227H7.757c-.147 0-.209-.061-.209-.208l-.006-3.267Z" fill={color2}/></svg>);
+}
+export const IconFacebook = ({color1 = '#7C7C7C'} : ColorsParam) => {
+    return (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path d="M7.947 11.118H5.83c-.342 0-.447-.131-.447-.447V8.08c0-.342.131-.474.447-.474h2.118V5.724a4.77 4.77 0 0 1 .58-2.421 3.567 3.567 0 0 1 1.907-1.58 4.625 4.625 0 0 1 1.632-.276h2.092c.303 0 .434.132.434.435v2.434c0 .302-.132.434-.434.434-.579 0-1.158 0-1.737.026-.579.027-.881.277-.881.882-.027.645 0 1.263 0 1.921H14c.342 0 .474.132.474.474v2.592c0 .342-.106.473-.474.473h-2.434v6.961c0 .368-.132.487-.487.487H8.408c-.316 0-.447-.132-.447-.448l-.014-7Z" fill={color1}/></svg>);
 }
 export const IconMarkerDefault = ({color1 = '#ccc', color2 = '#fff'} : ColorsParam) => {
     return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="36" height="36" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M28.449 25.455c5.815-5.817 5.821-15.268 0-21.09-5.815-5.817-15.264-5.823-21.085 0-5.816 5.816-5.822 15.267 0 21.09L17.906 36 28.45 25.455Zm-5.682-5.715c2.485-2.76 2.665-6.994 0-9.66a6.83 6.83 0 0 0-9.659 0 6.835 6.835 0 0 0 0 9.66c2.666 2.666 7.173 2.76 9.659 0Z" fill={color1}/></svg>);

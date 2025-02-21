@@ -1,12 +1,23 @@
 import { IconMarkerDefault, IconMarkerPin, IconMarkerStarred, IconMarkerFlag, IconMarkerBanner, IconMarkerCustom } from 'app/res/icons';
 
+export interface MapPreviewerProps {
+  settings: SettingsType,
+  data?: locationCardDataType,
+}
+
+export interface locationCardDataType {
+  hrs: [],
+  location: string,
+  address: string,
+  phone: string,
+  url: string,
+  logo: string,
+  socials: [],
+}
+
 export interface ActionDataType {
   errors: Object,
   settings: Object,
-}
-
-export interface SettingsType {
-  
 }
 
 export interface ColorType {

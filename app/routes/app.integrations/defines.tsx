@@ -74,7 +74,7 @@ export const defaultSettings : SettingsType = {
     }
   },
   faire: {
-    enabled: false,
+    enabled: true,
     public_key: '',
     private_key: '',
     store_types: ['Botique', 'Grocery Store'],

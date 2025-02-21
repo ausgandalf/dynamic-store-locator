@@ -26,8 +26,9 @@ import { MarkerType, markerTypes, markerWidthList, markerHeightList } from './de
 interface MarkerBlockProps {
   settings: MarkerType,
   update: Function,
+  section?: string,
 }
-export const MarkerBlock = ({settings, update} : MarkerBlockProps) => {
+export const MarkerBlock = ({settings, update, section = ''} : MarkerBlockProps) => {
   
   const [data, setData] = useState(settings);
   
@@ -42,7 +43,9 @@ export const MarkerBlock = ({settings, update} : MarkerBlockProps) => {
   }
 
   const markerIconClass = (icon:string) => {
-    return (icon == data.preset) ? 'markerTypeButton active' : 'markerTypeButton';
+    let initialClass = 'markerTypeButton';
+    if (section == 'location') initialClass += ' small ';
+    return initialClass + ((icon == data.preset) ? ' active' : '');
   }
 
   const [files, setFiles] = useState<File[]>([]);
@@ -90,7 +93,7 @@ export const MarkerBlock = ({settings, update} : MarkerBlockProps) => {
 
 
   return (
-    <Card>
+    <Box>
       <Box paddingBlockEnd='200'>
         <BlockStack gap="100">
           <Text as="h5" variant="bodyMd" fontWeight='semibold'>Styled Marker</Text>
@@ -155,6 +158,6 @@ export const MarkerBlock = ({settings, update} : MarkerBlockProps) => {
         </Grid.Cell>
 
       </Grid>
-    </Card>
+    </Box>
   );
 }
