@@ -43,6 +43,8 @@ import { TagsBlock } from "./tags";
 import { MapPreviewerRight } from "../app.design/preview_right";
 import { locationCardDataType, defaultSettings } from "../app.design/defines";
 
+import { formatTime } from "app/components/Functions";
+
 export async function loader({ request, params }) {
   const { admin } = await authenticate.admin(request);
 
@@ -104,12 +106,6 @@ export default function Index() {
     submit(data, { method: "post" });
   }
 
-  function formatTime(timeString: string) {
-    const [hourString, minute] = timeString.split(":");
-    const hour = +hourString % 24;
-    return (hour % 12 || 12) + ":" + minute + (hour < 12 ? "AM" : "PM");
-  }
-
   const toggleVisible = () => {
     setFormState((formState) => {return {...formState, visible:!formState.visible}});
   }
@@ -169,9 +165,9 @@ export default function Index() {
                   </BlockStack>
                   <BlockStack gap="100" inlineAlign="end">
                     <Box>
-                      <Badge tone="attention">Faire</Badge>
+                      <Badge tone="attention">{formState.source}</Badge>
                     </Box>
-                    <Text as="p" variant="bodySm" tone="subdued">Last Synced 1/20/24</Text>
+                    {formState.lastsync && (<Text as="p" variant="bodySm" tone="subdued">Last Synced {formatTime(formState.lastsync)}</Text>)}
                   </BlockStack>
                 </InlineStack>
 

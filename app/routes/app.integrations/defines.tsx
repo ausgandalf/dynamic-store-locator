@@ -1,3 +1,5 @@
+import { getDateBy } from "app/components/Functions";
+
 export interface ActionDataType {
   errors: Object,
   settings: Object,
@@ -41,17 +43,6 @@ export interface SettingsType {
   retailers: Array<string>,
   b2b: B2BDataType,
   faire: FaireDataType,
-}
-
-export const getDateBy = (offset?: string|number|undefined) : Date|any => {
-  const type = typeof offset;
-  if (['string', 'number', 'undefined'].indexOf(type) === -1) return offset;
-  if (typeof offset == 'string') return new Date(offset);
-  if (typeof offset == 'string') return new Date(offset);
-  let date = new Date();
-  if (!offset) return date;
-  date.setDate(date.getDate() + offset);
-  return date;
 }
 
 export const defaultSettings : SettingsType = {

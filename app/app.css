@@ -156,5 +156,13 @@ svg {
 @media (min-width: 48em) {
   .rightBorderAboveMd {
       border-right: solid 1px var(--p-color-border);
+      min-height: 100%;
+  }
+}
+
+@media (min-width: 30.625em) {
+  .rightBorderAboveSm {
+      border-right: solid 1px var(--p-color-border);
+      min-height: 100%;
   }
 }

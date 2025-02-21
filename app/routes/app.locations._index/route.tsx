@@ -6,6 +6,7 @@ import {
   Layout,
   BlockStack,
   Box,
+  Button,
   Tabs,
   Card,
   Listbox,
@@ -26,23 +27,30 @@ import {
   useBreakpoints,
   IndexFiltersProps, 
   TabProps,
+  Thumbnail,
+  EmptySearchResult,
+  Grid,
 } from "@shopify/polaris";
 
 import {
+  DeleteIcon,
   ExportIcon,
   ImportIcon,
   PlusCircleIcon,
   VariantIcon,
+  FileIcon,
 } from "@shopify/polaris-icons";
 
 import { useNavigate } from '@remix-run/react';
-import { useAppBridge } from "@shopify/app-bridge-react";
+import {Modal, TitleBar, useAppBridge} from '@shopify/app-bridge-react';
 import { authenticate } from "../../shopify.server";
 
 import { Skeleton } from './skeleton';
 
+import { locations as defaultLocations, defaultSettings, ActionDataType, SettingsType } from "./defines";
 
-import { locations, defaultSettings, ActionDataType, SettingsType } from "./defines";
+import { formateDate, renderMarker } from 'app/components/Functions';
+import { UploadBlock } from './upload';
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -56,7 +64,8 @@ export async function action({ request, params }) {
   
   const defaultResponse:ActionDataType = {
     errors: {},
-    locations: locations,
+    locations: defaultLocations,
+    action: 'import',
   };
 
   const errors = undefined; // get action errors
@@ -65,38 +74,26 @@ export async function action({ request, params }) {
     return Response.json({...defaultResponse, errors}, { status: 422 });
   }
 
-  // TODO - Save settings
+  // TODO
   
-  const settings = {
-    // TODO
-  };
-
-  return Response.json({ ...defaultResponse, settings });
+  return Response.json({ ...defaultResponse });
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
   // TODO - Load settings
   
-  return Response.json({ locations });
+  return Response.json({ locations: defaultLocations });
 
 };
-
-
-
-
 
 
 //////////////////////////////////////////////////////////////////////////////////
 
 function disambiguateLabel(key: string, value: string | any[]): string {
   switch (key) {
-    case 'moneySpent':
-      return `Money spent is between $${value[0]} and $${value[1]}`;
-    case 'taggedWith':
-      return `Tagged with ${value}`;
-    case 'accountStatus':
-      return (value as string[]).map((val) => `Customer ${val}`).join(', ');
+    case 'source':
+      return (value as string[]).map((val) => `${val}`).join(', ');
     default:
       return value as string;
   }
@@ -115,16 +112,14 @@ export default function Index() {
   const loaderData = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   const errors = actionData ? actionData.errors : {};
-  const settings = actionData ? actionData.settings : false;
+  const actionType = actionData ? actionData.action : '';
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [formState, setFormState] = useState(defaultSettings);
-  const [cleanFormState, setCleanFormState] = useState(defaultSettings);
-  const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
+  const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    if (loaderData.settings) {
-      setFormState(loaderData.settings);
+    if (loaderData.locations) {
+      setLocations(loaderData.locations);
     }
     setTimeout(() => setIsLoaded(true), 1000);
   }, [loaderData]);
@@ -132,11 +127,10 @@ export default function Index() {
   const shopify = useAppBridge();
 
   useEffect(() => {
-    if (settings) {
-      shopify.toast.show("The settings have been updated.");
-      setFormState(settings);
+    if (actionType) {
+      shopify.toast.show(`Action ${actionType} is complete.`);
     }
-  }, [settings, shopify]);
+  }, [actionType, shopify]);
 
   const nav = useNavigation();
   const isSaving =
@@ -150,23 +144,14 @@ export default function Index() {
       // TODO - settings values
     };
   
-    setCleanFormState({ ...formState });
     submit(data, { method: "post" });
   }
 
   //////////////////////////////////////////////////////////////////////////////////
 
-
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
-  const [itemStrings, setItemStrings] = useState([
-    'All',
-    'Unpaid',
-    'Open',
-    'Closed',
-    'Local delivery',
-    'Local pickup',
-  ]);
+  const [itemStrings, setItemStrings] = useState(Array<string>);
   const deleteView = (index: number) => {
     const newItemStrings = [...itemStrings];
     newItemStrings.splice(index, 1);
@@ -235,16 +220,14 @@ export default function Index() {
     return true;
   };
   const sortOptions: IndexFiltersProps['sortOptions'] = [
-    {label: 'Order', value: 'order asc', directionLabel: 'Ascending'},
-    {label: 'Order', value: 'order desc', directionLabel: 'Descending'},
-    {label: 'Customer', value: 'customer asc', directionLabel: 'A-Z'},
-    {label: 'Customer', value: 'customer desc', directionLabel: 'Z-A'},
-    {label: 'Date', value: 'date asc', directionLabel: 'A-Z'},
-    {label: 'Date', value: 'date desc', directionLabel: 'Z-A'},
-    {label: 'Total', value: 'total asc', directionLabel: 'Ascending'},
-    {label: 'Total', value: 'total desc', directionLabel: 'Descending'},
+    {label: 'Store Name', value: 'location asc', directionLabel: 'A-Z'},
+    {label: 'Store Name', value: 'location desc', directionLabel: 'Z-A'},
+    {label: 'Added', value: 'added asc', directionLabel: 'Ascending'},
+    {label: 'Added', value: 'added desc', directionLabel: 'Descending'},
+    {label: 'Updated', value: 'updated asc', directionLabel: 'Ascending'},
+    {label: 'Updated', value: 'updated desc', directionLabel: 'Descending'},
   ];
-  const [sortSelected, setSortSelected] = useState(['order asc']);
+  const [sortSelected, setSortSelected] = useState(['location asc']);
   const {mode, setMode} = useSetIndexFiltersMode();
   const onHandleCancel = () => {};
 
@@ -267,185 +250,140 @@ export default function Index() {
           disabled: false,
           loading: false,
         };
-  const [accountStatus, setAccountStatus] = useState<string[] | undefined>(
+  const [sourceFilter, setSourceFilter] = useState<string[] | undefined>(
     undefined,
   );
-  const [moneySpent, setMoneySpent] = useState<[number, number] | undefined>(
+  const [visibilityFilter, setVisibilityFilter] = useState<string[] | undefined>(
     undefined,
   );
-  const [taggedWith, setTaggedWith] = useState('');
   const [queryValue, setQueryValue] = useState('');
 
-  const handleAccountStatusChange = useCallback(
-    (value: string[]) => setAccountStatus(value),
+  const handleSourceFilterChange = useCallback(
+    (value: string[]) => setSourceFilter(value),
     [],
   );
-  const handleMoneySpentChange = useCallback(
-    (value: [number, number]) => setMoneySpent(value),
-    [],
-  );
-  const handleTaggedWithChange = useCallback(
-    (value: string) => setTaggedWith(value),
+  const handleVisibilityFilterChange = useCallback(
+    (value: string[]) => setVisibilityFilter(value),
     [],
   );
   const handleFiltersQueryChange = useCallback(
     (value: string) => setQueryValue(value),
     [],
   );
-  const handleAccountStatusRemove = useCallback(
-    () => setAccountStatus(undefined),
+  const handleSourceFilterRemove = useCallback(
+    () => setSourceFilter(undefined),
     [],
   );
-  const handleMoneySpentRemove = useCallback(
-    () => setMoneySpent(undefined),
+  const handleVisibilityFilterRemove = useCallback(
+    () => setVisibilityFilter(undefined),
     [],
   );
-  const handleTaggedWithRemove = useCallback(() => setTaggedWith(''), []);
+
   const handleQueryValueRemove = useCallback(() => setQueryValue(''), []);
   const handleFiltersClearAll = useCallback(() => {
-    handleAccountStatusRemove();
-    handleMoneySpentRemove();
-    handleTaggedWithRemove();
+    handleSourceFilterRemove();
+    handleVisibilityFilterRemove();
     handleQueryValueRemove();
   }, [
-    handleAccountStatusRemove,
-    handleMoneySpentRemove,
+    handleSourceFilterRemove,
+    handleVisibilityFilterRemove,
     handleQueryValueRemove,
-    handleTaggedWithRemove,
   ]);
 
   const filters = [
     {
-      key: 'accountStatus',
-      label: 'Account status',
+      key: 'source',
+      label: 'Source',
       filter: (
         <ChoiceList
-          title="Account status"
+          title="Source"
           titleHidden
           choices={[
-            {label: 'Enabled', value: 'enabled'},
-            {label: 'Not invited', value: 'not invited'},
-            {label: 'Invited', value: 'invited'},
-            {label: 'Declined', value: 'declined'},
+            {label: 'Manual', value: 'Manual'},
+            {label: 'Faire', value: 'Faire'},
+            {label: 'Retailer', value: 'Retailer'},
           ]}
-          selected={accountStatus || []}
-          onChange={handleAccountStatusChange}
+          selected={sourceFilter || []}
+          onChange={handleSourceFilterChange}
           allowMultiple
         />
       ),
       shortcut: true,
     },
     {
-      key: 'taggedWith',
-      label: 'Tagged with',
+      key: 'visibility',
+      label: 'Visibility',
       filter: (
-        <TextField
-          label="Tagged with"
-          value={taggedWith}
-          onChange={handleTaggedWithChange}
-          autoComplete="off"
-          labelHidden
+        <ChoiceList
+          title="Source"
+          titleHidden
+          choices={[
+            {label: 'Visible', value: 'visible'},
+            {label: 'Hidden', value: 'hidden'},
+          ]}
+          selected={visibilityFilter || []}
+          onChange={handleVisibilityFilterChange}
         />
       ),
       shortcut: true,
     },
-    {
-      key: 'moneySpent',
-      label: 'Money spent',
-      filter: (
-        <RangeSlider
-          label="Money spent is between"
-          labelHidden
-          value={moneySpent || [0, 500]}
-          prefix="$"
-          output
-          min={0}
-          max={2000}
-          step={1}
-          onChange={handleMoneySpentChange}
-        />
-      ),
-    },
   ];
 
   const appliedFilters: IndexFiltersProps['appliedFilters'] = [];
-  if (accountStatus && !isEmpty(accountStatus)) {
-    const key = 'accountStatus';
+  if (sourceFilter && !isEmpty(sourceFilter)) {
+    const key = 'source';
     appliedFilters.push({
       key,
-      label: disambiguateLabel(key, accountStatus),
-      onRemove: handleAccountStatusRemove,
-    });
-  }
-  if (moneySpent) {
-    const key = 'moneySpent';
-    appliedFilters.push({
-      key,
-      label: disambiguateLabel(key, moneySpent),
-      onRemove: handleMoneySpentRemove,
-    });
-  }
-  if (!isEmpty(taggedWith)) {
-    const key = 'taggedWith';
-    appliedFilters.push({
-      key,
-      label: disambiguateLabel(key, taggedWith),
-      onRemove: handleTaggedWithRemove,
+      label: disambiguateLabel(key, sourceFilter),
+      onRemove: handleSourceFilterRemove,
     });
   }
 
-  const orders = [
-    {
-      id: '1020',
-      order: (
-        <Text as="span" variant="bodyMd" fontWeight="semibold">
-          #1020
-        </Text>
-      ),
-      date: 'Jul 20 at 4:34pm',
-      customer: 'Jaydon Stanton',
-      total: '$969.44',
-      paymentStatus: <Badge progress="complete">Paid</Badge>,
-      fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-    },
-    {
-      id: '1019',
-      order: (
-        <Text as="span" variant="bodyMd" fontWeight="semibold">
-          #1019
-        </Text>
-      ),
-      date: 'Jul 20 at 3:46pm',
-      customer: 'Ruben Westerfelt',
-      total: '$701.19',
-      paymentStatus: <Badge progress="partiallyComplete">Partially paid</Badge>,
-      fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-    },
-    {
-      id: '1018',
-      order: (
-        <Text as="span" variant="bodyMd" fontWeight="semibold">
-          #1018
-        </Text>
-      ),
-      date: 'Jul 20 at 3.44pm',
-      customer: 'Leo Carder',
-      total: '$798.24',
-      paymentStatus: <Badge progress="complete">Paid</Badge>,
-      fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
-    },
-  ];
+  if (visibilityFilter && !isEmpty(visibilityFilter)) {
+    const key = 'visibility';
+    appliedFilters.push({
+      key,
+      label: disambiguateLabel(key, visibilityFilter),
+      onRemove: handleVisibilityFilterRemove,
+    });
+  }
+
+  const emptyStateMarkup = (
+    <EmptySearchResult
+      title={'No customers yet'}
+      description={'Try changing the filters or search term'}
+      withIllustration
+    />
+  );
+  
   const resourceName = {
-    singular: 'order',
-    plural: 'orders',
+    singular: 'location',
+    plural: 'locations',
   };
 
   const {selectedResources, allResourcesSelected, handleSelectionChange} =
-    useIndexResourceState(orders);
+    useIndexResourceState(locations);
 
-  const rowMarkup = orders.map(
+  const renderSource = (source:string) => {
+    switch (source) {
+      case 'Manual':
+        return (<Badge tone="info">Manual</Badge>);
+        break;
+      case 'Faire':
+        return (<Badge tone="attention">Faire</Badge>);
+        break;
+      case 'Retailerr':
+        return (<Badge tone="warning">Faire</Badge>);
+        break;
+      default:
+        return (<Badge>{source}</Badge>);
+        break;
+    }
+  }
+
+  const rowMarkup = locations.map(
     (
-      {id, order, date, customer, total, paymentStatus, fulfillmentStatus},
+      {id, location, address, source, marker, visible, added, updated},
       index,
     ) => (
       <IndexTable.Row
@@ -455,23 +393,50 @@ export default function Index() {
         position={index}
       >
         <IndexTable.Cell>
-          <Text variant="bodyMd" fontWeight="bold" as="span">
-            {order}
-          </Text>
+          <BlockStack gap="100">
+            <Text variant="bodyMd" as="span">{location}</Text>
+            <Text variant="bodyXs" as="span">{[address.address1, address.address2, address.city, address.state, address.zipcode].filter((x) => (x != '')).join(',')}</Text>  
+          </BlockStack>
         </IndexTable.Cell>
-        <IndexTable.Cell>{date}</IndexTable.Cell>
-        <IndexTable.Cell>{customer}</IndexTable.Cell>
+        <IndexTable.Cell>{renderSource(source)}</IndexTable.Cell>
         <IndexTable.Cell>
-          <Text as="span" alignment="end" numeric>
-            {total}
-          </Text>
+          <BlockStack align='center' inlineAlign='center'>
+            <Card padding="200">
+              <div className="markerWrapper" style={{width: '24px'}}>
+                {renderMarker(marker)}
+              </div>
+            </Card>
+          </BlockStack>
         </IndexTable.Cell>
-        <IndexTable.Cell>{paymentStatus}</IndexTable.Cell>
-        <IndexTable.Cell>{fulfillmentStatus}</IndexTable.Cell>
+        <IndexTable.Cell>
+          {visible ? (<Badge tone="success">Visible</Badge>) : (<Badge>Hidden</Badge>)}
+        </IndexTable.Cell>
+        <IndexTable.Cell>{formateDate(added)}</IndexTable.Cell>
+        <IndexTable.Cell>{formateDate(updated)}</IndexTable.Cell>
+        <IndexTable.Cell>
+          <Button variant="plain" icon={DeleteIcon} accessibilityLabel="Delete" />
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Button variant="plain" url={'./' + id}>Edit</Button>
+        </IndexTable.Cell>
       </IndexTable.Row>
     ),
   );
+
   //////////////////////////////////////////////////////////////////////////////////
+
+  const importModalTitle = () => {
+    return (
+      <InlineStack gap="100">
+        <Icon source={ImportIcon} />
+        <Text variant='headingMd' as="h4">Bulk Import Your Locations</Text>
+      </InlineStack>
+    )
+  }
+
+  const UpdateAction = (field: string, value: any) => {
+    // TODO
+  }
 
   return (
     <Page 
@@ -490,6 +455,13 @@ export default function Index() {
         {
           content: 'Import',
           icon: ImportIcon,
+          onAction() {
+            document.getElementById('import-modal').show();
+          },
+        },
+        {
+          content: 'Delete',
+          disabled: selectedResources.length < 1,
         },
       ]}
     >
@@ -524,26 +496,64 @@ export default function Index() {
             <IndexTable
               condensed={useBreakpoints().smDown}
               resourceName={resourceName}
-              itemCount={orders.length}
+              itemCount={locations.length}
+              emptyState={emptyStateMarkup}
               selectedItemsCount={
                 allResourcesSelected ? 'All' : selectedResources.length
               }
               onSelectionChange={handleSelectionChange}
               headings={[
-                {title: 'Order'},
-                {title: 'Date'},
-                {title: 'Customer'},
-                {title: 'Total', alignment: 'end'},
-                {title: 'Payment status'},
-                {title: 'Fulfillment status'},
+                {title: 'Store Name'},
+                {title: 'Source'},
+                {title: 'Map Marker'},
+                {title: 'Visibility'},
+                {title: 'Added'},
+                {title: 'Updated'},
+                {title: ''},
+                {title: ''},
               ]}
+              pagination={{
+                hasNext: true,
+                onNext: () => {},
+              }}
             >
               {rowMarkup}
             </IndexTable>
           </Card>
         </Layout.Section>
       </Layout>
+      
+      <Modal id="import-modal">
+        <Box padding="400">
+          <Grid>
+            <Grid.Cell columnSpan={{xs: 6, sm: 3, md: 3, lg: 4, xl: 4}}>
+              <div className='rightBorderAboveSm'>
+                <BlockStack gap='200'>
+                  <Text as='h4' variant='headingMd'>Download the template</Text>
+                  <Text as='p' variant='bodyMd'>Download the .csv template below to add in your locations all in one shot!</Text>
+                  <Box>
+                    <Button icon={FileIcon}>Download the .csv Template</Button>
+                  </Box>
+                </BlockStack>
+              </div>
+            </Grid.Cell>
+            <Grid.Cell columnSpan={{xs: 6, sm: 3, md: 3, lg: 4, xl: 4}}>
+              <BlockStack gap='200'>
+                <Text as='h4' variant='headingMd'>Upload Your List</Text>
+                <Text as='p' variant='bodyMd'>When your list is ready, select or drag/drop your template below to upload your locations to Store Locator</Text>
+                <Box>
+                  <UploadBlock file='' update={UpdateAction} />
+                </Box>
+              </BlockStack>
+            </Grid.Cell>
+          </Grid>
+        </Box>
 
+        <TitleBar>
+          <Button icon={ImportIcon} variant="primary" onClick={() => {}}>Import My Address List</Button>
+        </TitleBar>
+      </Modal>
+      
     </Page>
     );
 }

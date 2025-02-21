@@ -33,6 +33,8 @@ export interface LocationType {
   marker: MarkerType,
   tags: Array<string>,
   visible: boolean,
+  source: string,
+  lastsync: string,
 }
 
 export interface AddressType {
@@ -57,7 +59,9 @@ export interface OperationHrType {
 export const sampleLocation:LocationType = {
   id: '1',
   visible: true,
+  source: 'Faire',
   location: 'H1 Web Development',
+  lastsync: '2024-12-28T12:00:00',
   address: {
     address1: '1234 Main Street',
     address2: '',
@@ -125,7 +129,9 @@ export const sampleLocation:LocationType = {
 
 export const emptyLocation:LocationType = {
   visible: true,
+  source: 'Faire',
   location: '',
+  lastsync: '',
   address: {
     address1: '',
     address2: '',

@@ -28,6 +28,7 @@ import {
   IconMarkerDefault, IconMarkerPin, IconMarkerStarred, IconMarkerFlag, IconMarkerBanner, IconMarkerCustom, 
 } from 'app/res/icons';
 import { hexToRgb } from "@shopify/polaris";
+import { renderMarker } from 'app/components/Functions';
 
 export const MapPreviewerRight = ({settings, data} : MapPreviewerProps) => {
   const markerStyle = {width:settings.marker.width+'px',height:settings.marker.height+'px'};
@@ -49,31 +50,6 @@ export const MapPreviewerRight = ({settings, data} : MapPreviewerProps) => {
     const logoSrc = data ? data.logo : "/images/h1-logo.svg";
     return (<img src={logoSrc} style={{height:'38px'}} />);
   }
-
-  const renderMarker = () => {
-    switch (settings.marker.preset) {
-      case "default":
-        return (<IconMarkerDefault color1={settings.marker.color} />);
-        break;
-      case "pin":
-        return (<IconMarkerPin color1={settings.marker.color} />);
-        break;
-      case "starred":
-        return (<IconMarkerStarred color1={settings.marker.color} />);
-        break;
-      case "flag":
-        return (<IconMarkerFlag color1={settings.marker.color} />);
-        break;
-      case "banner":
-        return (<IconMarkerBanner color1={settings.marker.color} />);
-        break;
-      case "custom":
-        if (settings.marker.custom != '') return (<img src={settings.marker.custom} style={markerStyle} />);
-      default:
-        return (<IconMarkerDefault color1={settings.marker.color} />);
-        break;
-    }
-  };
 
   const renderSocialIcon = (type: string) => {
     switch (type) {
@@ -97,7 +73,7 @@ export const MapPreviewerRight = ({settings, data} : MapPreviewerProps) => {
           width: settings.marker.width,
           height: settings.marker.height,
         }}>
-          {renderMarker()}
+          {renderMarker(settings.marker, markerStyle)}
         </div>
         <div className='info-board' style={{
           background:settings.popup.background_color,
