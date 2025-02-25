@@ -6,11 +6,20 @@ export interface ActionDataType {
 }
 
 export const storeTypes = [
-  'Botique',
-  'Grocery Store',
-  'Beauty',
-  'Apparells',
-  'Fashion',
+  'Bookstore', 
+  'Cafe / restaurant', 
+  'Clothing boutique', 
+  'Fitness / yoga studio', 
+  'Florist / garden store', 
+  'Furniture store', 
+  'General store / mercantile', 
+  'Gift Store', 
+  'Grocery / liquor store', 
+  'Home decor store', 
+  'Kids / toy store', 
+  'Pet store', 
+  'Spa / salon / beauty store', 
+  'Stationary store',
 ];
 
 export interface SyncInfoType {
@@ -25,6 +34,7 @@ export interface B2BDataType {
   is_customers_out: boolean,
   public_key: string,
   private_key: string,
+  sync_method: number, // 1: Auto, 0: Manual,
   sync_type: number, // 0: All, 1: only with orders
   range_type: number, // 0: All, 1: Ranged
   sync?: SyncInfoType,
@@ -35,6 +45,8 @@ export interface FaireDataType {
   public_key: string,
   private_key: string,
   store_types: Array<string>,
+  sync_method: number, // 1: Auto, 0: Manual,
+  range_type: number, // 0: All, 1: Ranged
   sync?: SyncInfoType,
 }
 
@@ -52,28 +64,31 @@ export const defaultSettings : SettingsType = {
   retailers: [],
   b2b: {
     enabled: true,
-    is_customers_here: false,
+    is_customers_here: true,
     is_customers_out: false,
     public_key: '',
     private_key: '',
+    sync_method: 1, // 1: Auto, 0: Manual,
     sync_type: 1, // 0: All, 1: only with orders,
-    range_type: 1, // 0: All, 1: Ranged,
-    sync: {
-      last: getDateBy('2024-12-28T12:00:00'),
-      start: getDateBy(-7),
-      end: getDateBy(7),
-    }
+    range_type: 0, // 0: All, 1: Ranged,
+    // sync: {
+    //   last: getDateBy('2024-12-28T12:00:00'),
+    //   start: getDateBy(-7),
+    //   end: getDateBy(7),
+    // }
   },
   faire: {
     enabled: true,
     public_key: '',
     private_key: '',
-    store_types: ['Botique', 'Grocery Store'],
-    sync: {
-      last: getDateBy('2024-12-28T12:00:00'),
-      start: getDateBy(-7),
-      end: getDateBy(7),
-    }
+    sync_method: 1, // 1: Auto, 0: Manual,
+    store_types: ['Bookstore'],
+    range_type: 0, // 0: All, 1: Ranged,
+    // sync: {
+    //   last: getDateBy('2024-12-28T12:00:00'),
+    //   start: getDateBy(-7),
+    //   end: getDateBy(7),
+    // }
   }
 }
 

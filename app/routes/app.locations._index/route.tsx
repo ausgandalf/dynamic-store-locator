@@ -19,6 +19,7 @@ import {
   TextField,
   IndexTable,
   IndexFilters,
+  IndexFiltersMode,
   useSetIndexFiltersMode,
   useIndexResourceState,
   ChoiceList,
@@ -94,6 +95,8 @@ function disambiguateLabel(key: string, value: string | any[]): string {
   switch (key) {
     case 'source':
       return (value as string[]).map((val) => `${val}`).join(', ');
+    case 'query':
+      return 'Search for: ' + value;
     default:
       return value as string;
   }
@@ -113,9 +116,56 @@ export default function Index() {
   const actionData = useActionData<typeof action>();
   const errors = actionData ? actionData.errors : {};
   const actionType = actionData ? actionData.action : '';
+  const navigate = useNavigate();
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [locations, setLocations] = useState([]);
+  const [page ,setPage] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [queryValue, setQueryValue] = useState('');
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortColumn, setSortColumn] = useState(null);
+
+  const filteredLocations = [...locations].filter((row, index) => {
+    if (queryValue == '') return true;
+    const str = JSON.stringify(Object.values(row));
+    return str.toLowerCase().indexOf(queryValue.toLowerCase()) != -1;
+  });
+
+  const columnMapper = {
+    '1': 'location',
+    '2': 'source',
+    '4': 'visible',
+    '5': 'added',
+    '6': 'updated',
+  }
+  const maxPage = Math.floor((filteredLocations.length - 1) / perPage) + 1;
+  const sortedLocations = [...filteredLocations].sort((a, b) => {
+    const column = columnMapper[sortColumn];
+    const directionLabels = {
+      '1': 'descending',
+      '2': 'descending',
+      '4': 'ascending',
+      '5': 'ascending',
+      '6': 'ascending',
+    };
+    if (column) {
+      if (a[column] < b[column]) {
+        return sortDirection === directionLabels[sortColumn] ? -1 : 1;
+      }
+      if (a[column] > b[column]) {
+        return sortDirection === directionLabels[sortColumn] ? 1 : -1;
+      }
+    }
+    return 0;
+  });
+  const pagedLocations = sortedLocations.slice(page * perPage, Math.min(locations.length, (page + 1) * perPage ));
+
+  const handleSort = useCallback((column, direction) => {
+    setSortDirection(direction);
+    setSortColumn(column);
+  }, [sortColumn, sortDirection]);
+
 
   useEffect(() => {
     if (loaderData.locations) {
@@ -151,74 +201,7 @@ export default function Index() {
 
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
-  const [itemStrings, setItemStrings] = useState(Array<string>);
-  const deleteView = (index: number) => {
-    const newItemStrings = [...itemStrings];
-    newItemStrings.splice(index, 1);
-    setItemStrings(newItemStrings);
-    setSelected(0);
-  };
-
-  const duplicateView = async (name: string) => {
-    setItemStrings([...itemStrings, name]);
-    setSelected(itemStrings.length);
-    await sleep(1);
-    return true;
-  };
-
-  const tabs: TabProps[] = itemStrings.map((item, index) => ({
-    content: item,
-    index,
-    onAction: () => {},
-    id: `${item}-${index}`,
-    isLocked: index === 0,
-    actions:
-      index === 0
-        ? []
-        : [
-            {
-              type: 'rename',
-              onAction: () => {},
-              onPrimaryAction: async (value: string): Promise<boolean> => {
-                const newItemsStrings = tabs.map((item, idx) => {
-                  if (idx === index) {
-                    return value;
-                  }
-                  return item.content;
-                });
-                await sleep(1);
-                setItemStrings(newItemsStrings);
-                return true;
-              },
-            },
-            {
-              type: 'duplicate',
-              onPrimaryAction: async (value: string): Promise<boolean> => {
-                await sleep(1);
-                duplicateView(value);
-                return true;
-              },
-            },
-            {
-              type: 'edit',
-            },
-            {
-              type: 'delete',
-              onPrimaryAction: async () => {
-                await sleep(1);
-                deleteView(index);
-                return true;
-              },
-            },
-          ],
-  }));
-  const [selected, setSelected] = useState(0);
-  const onCreateNewView = async (value: string) => {
-    await sleep(500);
-    setItemStrings([...itemStrings, value]);
-    setSelected(itemStrings.length);
-    return true;
-  };
+  
   const sortOptions: IndexFiltersProps['sortOptions'] = [
     {label: 'Store Name', value: 'location asc', directionLabel: 'A-Z'},
     {label: 'Store Name', value: 'location desc', directionLabel: 'Z-A'},
@@ -228,7 +211,7 @@ export default function Index() {
     {label: 'Updated', value: 'updated desc', directionLabel: 'Descending'},
   ];
   const [sortSelected, setSortSelected] = useState(['location asc']);
-  const {mode, setMode} = useSetIndexFiltersMode();
+  const {mode, setMode} = useSetIndexFiltersMode(IndexFiltersMode.Filtering);
   const onHandleCancel = () => {};
 
   const onHandleSave = async () => {
@@ -236,27 +219,12 @@ export default function Index() {
     return true;
   };
 
-  const primaryAction: IndexFiltersProps['primaryAction'] =
-    selected === 0
-      ? {
-          type: 'save-as',
-          onAction: onCreateNewView,
-          disabled: false,
-          loading: false,
-        }
-      : {
-          type: 'save',
-          onAction: onHandleSave,
-          disabled: false,
-          loading: false,
-        };
   const [sourceFilter, setSourceFilter] = useState<string[] | undefined>(
     undefined,
   );
   const [visibilityFilter, setVisibilityFilter] = useState<string[] | undefined>(
     undefined,
   );
-  const [queryValue, setQueryValue] = useState('');
 
   const handleSourceFilterChange = useCallback(
     (value: string[]) => setSourceFilter(value),
@@ -348,6 +316,15 @@ export default function Index() {
     });
   }
 
+  if (queryValue && !isEmpty(queryValue)) {
+    const key = 'query';
+    appliedFilters.push({
+      key,
+      label: disambiguateLabel(key, queryValue),
+      onRemove: handleQueryValueRemove,
+    });
+  }
+
   const emptyStateMarkup = (
     <EmptySearchResult
       title={'No customers yet'}
@@ -362,7 +339,7 @@ export default function Index() {
   };
 
   const {selectedResources, allResourcesSelected, handleSelectionChange} =
-    useIndexResourceState(locations);
+    useIndexResourceState(pagedLocations);
 
   const renderSource = (source:string) => {
     switch (source) {
@@ -381,17 +358,32 @@ export default function Index() {
     }
   }
 
-  const rowMarkup = locations.map(
+  const onEditClick = (e, id) => {
+    e.preventDefault(); 
+    e.stopPropagation();
+    navigate(`./${id}`);
+  }
+
+  const onDeleteClick = (e, id) => {
+    e.preventDefault(); 
+    e.stopPropagation();
+    // TODO
+  }
+
+  const rowMarkup = pagedLocations.map(
     (
       {id, location, address, source, marker, visible, added, updated},
       index,
     ) => (
       <IndexTable.Row
         id={id}
-        key={id}
+        key={'location_' + id + '_' + index}
         selected={selectedResources.includes(id)}
         position={index}
       >
+        <IndexTable.Cell>
+          <Text variant="bodyXs" as="span">{page * perPage + index + 1}</Text>  
+        </IndexTable.Cell>
         <IndexTable.Cell>
           <BlockStack gap="100">
             <Text variant="bodyMd" as="span">{location}</Text>
@@ -414,10 +406,10 @@ export default function Index() {
         <IndexTable.Cell>{formateDate(added)}</IndexTable.Cell>
         <IndexTable.Cell>{formateDate(updated)}</IndexTable.Cell>
         <IndexTable.Cell>
-          <Button variant="plain" icon={DeleteIcon} accessibilityLabel="Delete" />
+          <a onClick={(e)=>onDeleteClick(e, id)}><Button variant="plain" icon={DeleteIcon} accessibilityLabel="Delete" /></a>
         </IndexTable.Cell>
         <IndexTable.Cell>
-          <Button variant="plain" url={'./' + id}>Edit</Button>
+          <a onClick={(e)=>onEditClick(e, id)}><Button variant="plain">Edit</Button></a>
         </IndexTable.Cell>
       </IndexTable.Row>
     ),
@@ -465,63 +457,58 @@ export default function Index() {
         },
       ]}
     >
-      <Layout>
-        <Layout.Section>
-          <Card>
-            <IndexFilters
-              sortOptions={sortOptions}
-              sortSelected={sortSelected}
-              queryValue={queryValue}
-              queryPlaceholder="Searching in all"
-              onQueryChange={handleFiltersQueryChange}
-              onQueryClear={() => setQueryValue('')}
-              onSort={setSortSelected}
-              primaryAction={primaryAction}
-              cancelAction={{
-                onAction: onHandleCancel,
-                disabled: false,
-                loading: false,
-              }}
-              tabs={tabs}
-              selected={selected}
-              onSelect={setSelected}
-              canCreateNewView
-              onCreateNewView={onCreateNewView}
-              filters={filters}
-              appliedFilters={appliedFilters}
-              onClearAll={handleFiltersClearAll}
-              mode={mode}
-              setMode={setMode}
-            />
-            <IndexTable
-              condensed={useBreakpoints().smDown}
-              resourceName={resourceName}
-              itemCount={locations.length}
-              emptyState={emptyStateMarkup}
-              selectedItemsCount={
-                allResourcesSelected ? 'All' : selectedResources.length
-              }
-              onSelectionChange={handleSelectionChange}
-              headings={[
-                {title: 'Store Name'},
-                {title: 'Source'},
-                {title: 'Map Marker'},
-                {title: 'Visibility'},
-                {title: 'Added'},
-                {title: 'Updated'},
-                {title: ''},
-                {title: ''},
-              ]}
-              pagination={{
-                hasNext: true,
-                onNext: () => {},
-              }}
-            >
-              {rowMarkup}
-            </IndexTable>
-          </Card>
-        </Layout.Section>
-      </Layout>
+      
+      <Card>
+        <IndexFilters
+          // sortOptions={sortOptions}
+          sortSelected={sortSelected}
+          queryValue={queryValue}
+          queryPlaceholder="Searching in all"
+          onQueryChange={handleFiltersQueryChange}
+          onQueryClear={() => setQueryValue('')}
+          onSort={setSortSelected}
+          tabs={[]}
+          selected={0}
+          filters={filters}
+          appliedFilters={appliedFilters}
+          onClearAll={handleFiltersClearAll}
+          mode={mode}
+          setMode={setMode}
+        />
+        <IndexTable
+          condensed={useBreakpoints().smDown}
+          resourceName={resourceName}
+          itemCount={pagedLocations.length}
+          emptyState={emptyStateMarkup}
+          selectedItemsCount={
+            allResourcesSelected ? 'All' : selectedResources.length
+          }
+          onSelectionChange={handleSelectionChange}
+          sortable={[false, true, true, false, true, true, true, false, false]}
+          sortColumnIndex={sortColumn}
+          sortDirection={sortDirection}
+          onSort={handleSort}
+          headings={[
+            {title: 'No'},
+            {title: 'Store Name', id:'location'},
+            {title: 'Source', id:'source'},
+            {title: 'Map Marker'},
+            {title: 'Visibility', id:'visible'},
+            {title: 'Added', id:'added'},
+            {title: 'Updated', id:'updated'},
+            {title: ''},
+            {title: ''},
+          ]}
+          pagination={{
+            hasPrevious: (page > 0),
+            onPrevious: () => setPage((page) => Math.max(0, page - 1)),
+            hasNext: (page < (maxPage - 1)),
+            onNext: () => setPage((page) => Math.min(maxPage - 1, page + 1)),
+          }}
+        >
+          {rowMarkup}
+        </IndexTable>
+      </Card>
       
       <Modal id="import-modal">
         <Box padding="400">
@@ -549,8 +536,8 @@ export default function Index() {
           </Grid>
         </Box>
 
-        <TitleBar>
-          <Button icon={ImportIcon} variant="primary" onClick={() => {}}>Import My Address List</Button>
+        <TitleBar title='Bulk Import Your Locations'>
+          <button variant="primary" onClick={() => {}}>Import My Address List</button>
         </TitleBar>
       </Modal>
       

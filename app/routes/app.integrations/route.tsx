@@ -30,8 +30,8 @@ import { GMapForm } from './gmap';
 import { RetailersForm } from './retailers';
 import { B2BForm } from './b2b';
 import { FaireForm } from './faire';
-
-import {ActionDataType, defaultSettings, getDateBy, B2BDataType, FaireDataType} from "./defines";
+import { getDateBy } from 'app/components/Functions';
+import {ActionDataType, defaultSettings, B2BDataType, FaireDataType} from "./defines";
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -86,14 +86,17 @@ export default function Index() {
 
   useEffect(() => {
     if (loaderData.settings) {
-      
-      loaderData.settings.b2b.sync.start = getDateBy(loaderData.settings.b2b.sync.start);
-      loaderData.settings.b2b.sync.end = getDateBy(loaderData.settings.b2b.sync.end);
-      loaderData.settings.b2b.sync.last = getDateBy(loaderData.settings.b2b.sync.last);
+      if (loaderData.settings.b2b.sync) {
+        loaderData.settings.b2b.sync.start = getDateBy(loaderData.settings.b2b.sync.start);
+        loaderData.settings.b2b.sync.end = getDateBy(loaderData.settings.b2b.sync.end);
+        loaderData.settings.b2b.sync.last = getDateBy(loaderData.settings.b2b.sync.last);
+      }
 
-      loaderData.settings.faire.sync.start = getDateBy(loaderData.settings.faire.sync.start);
-      loaderData.settings.faire.sync.end = getDateBy(loaderData.settings.faire.sync.end);
-      loaderData.settings.faire.sync.last = getDateBy(loaderData.settings.faire.sync.last);
+      if (loaderData.settings.faire.sync) {
+        loaderData.settings.faire.sync.start = getDateBy(loaderData.settings.faire.sync.start);
+        loaderData.settings.faire.sync.end = getDateBy(loaderData.settings.faire.sync.end);
+        loaderData.settings.faire.sync.last = getDateBy(loaderData.settings.faire.sync.last);
+      }
 
       setFormState(loaderData.settings);
     }
@@ -191,13 +194,13 @@ export default function Index() {
               </Box>
 
               <Bleed marginInline="200">
-                <Listbox.Action value="retailers" selected={selectedTab == 'retailers'}>
+                
+                <Listbox.Action value="faire" selected={selectedTab == 'faire'}>
                   <InlineStack gap="200">
                     <Icon source={SettingsIcon} tone="base" />
-                    <Text as="span" variant="bodyMd">Popular Retailers</Text>
+                    <Text as="span" variant="bodyMd">Faire</Text>
                   </InlineStack>
-                </Listbox.Action>
-              
+                </Listbox.Action>              
 
                 <Listbox.Action value="b2b" selected={selectedTab == 'b2b'}>
                   <InlineStack gap="200">
@@ -206,12 +209,13 @@ export default function Index() {
                   </InlineStack>
                 </Listbox.Action>
 
-                <Listbox.Action value="fair" selected={selectedTab == 'fair'}>
+                <Listbox.Action value="retailers" selected={selectedTab == 'retailers'}>
                   <InlineStack gap="200">
                     <Icon source={SettingsIcon} tone="base" />
-                    <Text as="span" variant="bodyMd">Fair</Text>
+                    <Text as="span" variant="bodyMd">National Retailers</Text>
                   </InlineStack>
                 </Listbox.Action>
+
               </Bleed>
               
             </Listbox>
@@ -229,7 +233,7 @@ export default function Index() {
                 'gmap': <GMapForm apikey={formState.gmap.key} updateAction={gmapUpdateAction} />,
                 'retailers': <RetailersForm selected={formState.retailers} updateAction={retailersUpdateAction} />,
                 'b2b': <B2BForm settings={formState.b2b} updateAction={b2bUpdateAction} />,
-                'fair': <FaireForm settings={formState.faire} updateAction={faireUpdateAction} />,
+                'faire': <FaireForm settings={formState.faire} updateAction={faireUpdateAction} />,
               }[selectedTab]
             }
             </Box>

@@ -46,7 +46,7 @@ export function RetailersForm(props:RetailersFormProps) {
 
         <BlockStack gap="200">
           <InlineStack gap="200" blockAlign="center">
-            <Text as="h4" variant="headingLg">Popular Retailers</Text>
+            <Text as="h4" variant="headingLg">National Retailers</Text>
             <Tooltip content="Here are popular retailers listed."><Icon source={QuestionCircleIcon} /></Tooltip>
           </InlineStack>
           <Text as="p">Select which popular retail stores to show on your map</Text>

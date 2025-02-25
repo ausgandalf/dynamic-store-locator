@@ -33,7 +33,7 @@ export function About() {
               </Box>
               <Text as="span">(398 reviews)</Text>
             </InlineStack>
-            <Text as="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue nunc ipsum.</Text>
+            <Text as="p">Automatically update the listings in your store locator using Faire, Shopify B2B or national retailers.</Text>
           </BlockStack>
         </InlineStack>
       </BlockStack>

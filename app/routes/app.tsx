@@ -35,8 +35,8 @@ export default function App() {
       <Box padding="500">
         <Text as="p" variant="bodyMd" alignment="center">
           ©2025 &nbsp;
-          <PolarisLink url="#">H1 Web Development</PolarisLink>.
-          &nbsp; All Right Reserved
+          <PolarisLink url="https://www.h1-apps.com/" target="_blank">H1 Web Development</PolarisLink>.
+          &nbsp; All Rights Reserved.
         </Text>
       </Box>
     </AppProvider>
