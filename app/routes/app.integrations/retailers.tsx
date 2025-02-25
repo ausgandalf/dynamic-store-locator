@@ -47,7 +47,7 @@ export function RetailersForm(props:RetailersFormProps) {
         <BlockStack gap="200">
           <InlineStack gap="200" blockAlign="center">
             <Text as="h4" variant="headingLg">National Retailers</Text>
-            <Tooltip content="Here are popular retailers listed."><Icon source={QuestionCircleIcon} /></Tooltip>
+            <Tooltip content="If an integration is toggled on, all locations nationwide for that retailer will display on your map. If there are new or closed locations for a retailer, they will be updated automatically on your map."><Icon source={QuestionCircleIcon} /></Tooltip>
           </InlineStack>
           <Text as="p">Select which popular retail stores to show on your map</Text>
         </BlockStack>

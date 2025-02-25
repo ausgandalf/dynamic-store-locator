@@ -229,7 +229,7 @@ export function FaireForm(props:FaireFormProps) {
                 </BlockStack>
                 <BlockStack align='center'>
                   <Box>
-                    <Button variant='primary' icon={RefreshIcon}><span className='nowrap'>Re-sync Faire</span></Button>
+                    <Button variant='primary' icon={RefreshIcon}><span className='nowrap'>Re-Sync</span></Button>
                   </Box>
                   <Box padding="200">
                     <Text as='p' variant='bodyXs' fontWeight='semibold' tone='disabled'>Last synced: {data.sync?.last?.toLocaleDateString("en-US")}</Text>

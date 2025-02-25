@@ -207,7 +207,7 @@ export function B2BForm(props:B2BFormProps) {
                 </BlockStack>
                 <BlockStack align='center'>
                   <Box>
-                    <Button variant='primary' icon={RefreshIcon}>Re-sync Shopify B2B</Button>
+                    <Button variant='primary' icon={RefreshIcon}><span className='nowrap'>Re-Sync</span></Button>
                   </Box>
                   <Box padding="200">
                     <Text as='p' variant='bodyXs' fontWeight='semibold' tone='disabled'>Last synced: {data.sync?.last?.toLocaleDateString("en-US")}</Text>

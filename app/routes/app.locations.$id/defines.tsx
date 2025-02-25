@@ -1,10 +1,15 @@
 import {
   Icon,
+  InlineStack,
 } from "@shopify/polaris";
 import { MarkerType, defaultSettings as designSettings } from "../app.design/defines";
 import { 
   IconLinkedIn,
   IconFacebook,
+  IconPinterest,
+  IconX,
+  IconTikTok,
+  IconInstagram,
 } from 'app/res/icons';
 
 export interface ActionDataType {
@@ -197,32 +202,32 @@ export const socialOptions = [
   {
     label: "Facebook",
     value: 'facebook',
-    prefix: <IconFacebook />,
+    prefix: <InlineStack blockAlign="center"><IconFacebook /></InlineStack>,
   },
   {
     label: "Instagram",
     value: 'instagram',
-    prefix: <IconLinkedIn />,
+    prefix: <InlineStack blockAlign="center"><IconInstagram /></InlineStack>,
   },
   {
     label: "X",
     value: 'x',
-    prefix: <IconFacebook />,
+    prefix: <InlineStack blockAlign="center"><IconX /></InlineStack>,
   },
   {
     label: "Pinterest",
     value: 'pinterest',
-    prefix: <IconLinkedIn />,
+    prefix: <InlineStack blockAlign="center"><IconPinterest /></InlineStack>,
   },
   {
     label: "Tiktok",
     value: 'tiktok',
-    prefix: <IconFacebook />,
+    prefix: <InlineStack blockAlign="center"><IconTikTok /></InlineStack>,
   },
   {
     label: "LinkedIn",
     value: 'in',
-    prefix: <IconLinkedIn />,
+    prefix: <InlineStack blockAlign="center"><IconLinkedIn /></InlineStack>,
   },
 ];
 
