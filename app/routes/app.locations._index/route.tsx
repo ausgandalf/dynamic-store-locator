@@ -50,8 +50,10 @@ import { Skeleton } from './skeleton';
 
 import { locations as defaultLocations, defaultSettings, ActionDataType, SettingsType } from "./defines";
 
-import { formateDate, renderMarker } from 'app/components/Functions';
+import { formateDate, renderMarker, renderSource } from 'app/components/Functions';
 import { UploadBlock } from './upload';
+
+import { LoadingScreen } from 'app/components/LoadingScreen';
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -184,9 +186,10 @@ export default function Index() {
 
   const nav = useNavigation();
   const isSaving =
-    nav.state === "submitting" && nav.formData?.get("action") !== "delete";
+    nav.state === "submitting" && nav.formData?.get("action") !== "save";
   const isDeleting =
     nav.state === "submitting" && nav.formData?.get("action") === "delete";
+  const isLoading = nav.state === "loading";
     
   const submit = useSubmit();
   function handleSave() {
@@ -341,23 +344,6 @@ export default function Index() {
   const {selectedResources, allResourcesSelected, handleSelectionChange} =
     useIndexResourceState(pagedLocations);
 
-  const renderSource = (source:string) => {
-    switch (source) {
-      case 'Manual':
-        return (<Badge tone="info">Manual</Badge>);
-        break;
-      case 'Faire':
-        return (<Badge tone="attention">Faire</Badge>);
-        break;
-      case 'Retailerr':
-        return (<Badge tone="warning">Faire</Badge>);
-        break;
-      default:
-        return (<Badge>{source}</Badge>);
-        break;
-    }
-  }
-
   const onEditClick = (e, id) => {
     e.preventDefault(); 
     e.stopPropagation();
@@ -385,10 +371,12 @@ export default function Index() {
           <Text variant="bodyXs" as="span">{page * perPage + index + 1}</Text>  
         </IndexTable.Cell>
         <IndexTable.Cell>
-          <BlockStack gap="100">
-            <Text variant="bodyMd" as="span">{location}</Text>
-            <Text variant="bodyXs" as="span">{[address.address1, address.address2, address.city, address.state, address.zipcode].filter((x) => (x != '')).join(',')}</Text>  
-          </BlockStack>
+          <a onClick={(e)=>onEditClick(e, id)} className='locationTitleLink'>
+            <BlockStack gap="100">
+              <Text variant="bodyMd" as="span">{location}</Text>
+              <Text variant="bodyXs" as="span">{[address.address1, address.address2, address.city, address.state, address.zipcode].filter((x) => (x != '')).join(',')}</Text>  
+            </BlockStack>
+          </a>
         </IndexTable.Cell>
         <IndexTable.Cell>{renderSource(source)}</IndexTable.Cell>
         <IndexTable.Cell>
@@ -457,13 +445,13 @@ export default function Index() {
         },
       ]}
     >
-      
+      {isLoading && (<LoadingScreen />)}
       <Card>
         <IndexFilters
           // sortOptions={sortOptions}
           sortSelected={sortSelected}
           queryValue={queryValue}
-          queryPlaceholder="Searching in all"
+          queryPlaceholder="Searching in All Locations"
           onQueryChange={handleFiltersQueryChange}
           onQueryClear={() => setQueryValue('')}
           onSort={setSortSelected}
@@ -537,7 +525,7 @@ export default function Index() {
         </Box>
 
         <TitleBar title='Bulk Import Your Locations'>
-          <button variant="primary" onClick={() => {}}>Import My Address List</button>
+          <button variant="primary" onClick={() => {}}>'Import Location List</button>
         </TitleBar>
       </Modal>
       

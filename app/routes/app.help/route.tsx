@@ -127,9 +127,10 @@ export default function Index() {
             </Layout.Section>
           </Layout>
         </Box>
-        <Box paddingBlockEnd='400'>
+        {/* <Box paddingBlockEnd='400'>
           <OtherApps />
-        </Box>
+        </Box> */}
+        <script dangerouslySetInnerHTML={{ __html: `<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script> <script type="text/javascript">window.Beacon('init', 'c83a7528-fb5b-4e8a-a7b7-db3ee3449c94')</script>`}} />
       </Page>
     );
 }

@@ -123,7 +123,7 @@ export const MarkerBlock = ({settings, update, section = ''} : MarkerBlockProps)
                     </Grid.Cell>
                     <Grid.Cell>
                       <BlockStack gap="200">
-                        <Text as='p' variant='bodyMd'>We support .gif, .jpg, .png, and .svg files up to 3MB</Text>
+                        <Text as='p' variant='bodyMd'>Icon must be square dimensions at least 100x100 pixels in size.</Text>
                         {fileList}
                       </BlockStack>
                     </Grid.Cell>

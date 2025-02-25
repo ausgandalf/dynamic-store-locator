@@ -43,7 +43,8 @@ import { TagsBlock } from "./tags";
 import { MapPreviewerRight } from "../app.design/preview_right";
 import { locationCardDataType, defaultSettings } from "../app.design/defines";
 
-import { formatTime } from "app/components/Functions";
+import { formatTime, renderSource } from "app/components/Functions";
+import { LoadingScreen } from 'app/components/LoadingScreen';
 
 export async function loader({ request, params }) {
   const { admin } = await authenticate.admin(request);
@@ -93,10 +94,11 @@ export default function Index() {
 
   const nav = useNavigation();
   const isSaving =
-    nav.state === "submitting" && nav.formData?.get("action") !== "delete";
+    nav.state === "submitting" && nav.formData?.get("action") !== "save";
   const isDeleting =
     nav.state === "submitting" && nav.formData?.get("action") === "delete";
-  
+  const isLoading = nav.state === "loading";
+
   const submit = useSubmit();
   function handleSave() {
     // TODO
@@ -152,6 +154,7 @@ export default function Index() {
         }
       ]}
     >
+      {isLoading && (<LoadingScreen />)}
       <Grid>
         <Grid.Cell columnSpan={{xs: 6, sm: 4, md: 4, lg: 8, xl: 8}}>
           <BlockStack gap="400">
@@ -165,7 +168,7 @@ export default function Index() {
                   </BlockStack>
                   <BlockStack gap="100" inlineAlign="end">
                     <Box>
-                      <Badge tone="attention">{formState.source}</Badge>
+                      {renderSource(formState.source)}
                     </Box>
                     {formState.lastsync && (<Text as="p" variant="bodySm" tone="subdued">Last Synced {formatTime(formState.lastsync)}</Text>)}
                   </BlockStack>
@@ -274,7 +277,7 @@ export default function Index() {
                   </BlockStack>
                   <InlineStack gap="100" blockAlign="center">
                     <Button onClick={() => {}}>Use Universal Pin</Button>
-                    <Tooltip content="Load global settings"><Icon source={QuestionCircleIcon} /></Tooltip>
+                    <Tooltip content="You can change the Universal Pin styling in the settings."><Icon source={QuestionCircleIcon} /></Tooltip>
                   </InlineStack>
                 </InlineStack>
 
@@ -287,7 +290,7 @@ export default function Index() {
           </BlockStack>
         </Grid.Cell>
         <Grid.Cell columnSpan={{xs: 6, sm: 2, md: 2, lg: 4, xl: 4}}>
-          <div className="design-previewer design-previewer--location">
+          <div className="design-previewer design-previewer--location" style={{position:'fixed'}}>
             <MapPreviewerRight settings={settings} data={previewData()} />
           </div>
         </Grid.Cell>

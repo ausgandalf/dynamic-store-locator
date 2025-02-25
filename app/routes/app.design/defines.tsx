@@ -111,10 +111,10 @@ export const defaultSettings : SettingsType = {
     width: '720px',
     height: '420px',
     zoom: 16,
-    center: '1', // Location Record ID : '201 Columbine St Unit 300, Denver, CO 80206',
+    center: '201 Columbine St Unit 300, Denver, CO 80206', // Location Record ID : '201 Columbine St Unit 300, Denver, CO 80206',
   },
   marker: {
-    custom: 'h1-logo1.svg',
+    custom: '',
     preset: 'default',
     width: '36px',
     height: '36px',

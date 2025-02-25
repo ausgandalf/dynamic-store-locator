@@ -91,7 +91,7 @@ export const Skeleton = () => {
                       labelHidden
                       disabled
                       options={[
-                        {label: 'Denver Locations', value: 'denver', prefix: <Icon source={FilterIcon} />,},
+                        {label: 'Filter By\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0', value: 'denver', prefix: <Icon source={FilterIcon} />,},
                       ]}
                     />
                   </div>

@@ -166,3 +166,14 @@ svg {
       min-height: 100%;
   }
 }
+
+.locationTitleLink * {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+  transition: text-decoration-color .2s linear;
+}
+.locationTitleLink:hover * {
+  text-decoration: underline;
+  text-decoration-color: var(--p-color-bg-fill-brand-selected);
+}

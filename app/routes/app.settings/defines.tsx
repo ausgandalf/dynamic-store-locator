@@ -62,6 +62,4 @@ export const tabs = [
 
 export const languageList = [
   {label: 'English (NA)', value: 'en'},
-  {label: 'French', value: 'fr'},
-  {label: 'German', value: 'de'},
 ];

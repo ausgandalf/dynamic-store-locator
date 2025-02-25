@@ -32,6 +32,12 @@ const badgeStyle = (tone?: string) => {
         color: '#FFFFFF'
       };
       break;
+    case 'lightpurple':
+      overides = {
+        backgroundColor: 'var(--p-color-bg-surface-magic-active)',
+        color: 'var(--p-color-text-caution)'
+      };
+      break;
     default:
       break;
   }

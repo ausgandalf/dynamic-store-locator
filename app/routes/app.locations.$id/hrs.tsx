@@ -31,7 +31,7 @@ export function HrsBlock({hrs, update}:HrsBlockProps) {
   return (
     <Card>
       <BlockStack gap="200">
-        <Text as="h4" variant="headingMd">Hours Of Operation</Text>
+        <Text as="h4" variant="headingMd">Hours of Operation</Text>
         
         <table>
           <thead>

@@ -1,3 +1,9 @@
+import { MarkerType } from "app/routes/app.design/defines";
+import { IconMarkerDefault, IconMarkerPin, IconMarkerStarred, IconMarkerFlag, IconMarkerBanner, IconMarkerCustom } from 'app/res/icons';
+import {
+  Badge,
+} from "@shopify/polaris";
+import HBadge from 'app/components/HBadge'
 
 export const getDateBy = (offset?: string|number|undefined) : Date|any => {
   const type = typeof offset;
@@ -25,9 +31,6 @@ export function formatTime(timeString: string) {
   return (hour % 12 || 12) + ":" + minute + (hour < 12 ? "AM" : "PM");
 }
 
-import { MarkerType } from "app/routes/app.design/defines";
-import { IconMarkerDefault, IconMarkerPin, IconMarkerStarred, IconMarkerFlag, IconMarkerBanner, IconMarkerCustom } from 'app/res/icons';
-
 export const renderMarker = (marker:MarkerType, markerStyle?: {}) => {
   switch (marker.preset) {
     case "default":
@@ -52,3 +55,23 @@ export const renderMarker = (marker:MarkerType, markerStyle?: {}) => {
       break;
   }
 };
+
+export const renderSource = (source:string) => {
+  switch (source) {
+    case 'Manual':
+      return (<Badge tone="info">Manual</Badge>);
+      break;
+    case 'Faire':
+      return (<HBadge tone="lightpurple">Faire</HBadge>);
+      break;
+    case 'National Retailer':
+      return (<Badge tone="warning">National Retailer</Badge>);
+      break;
+    case 'Shopify B2B':
+      return (<Badge tone="attention">Shopify B2B</Badge>);
+      break;
+    default:
+      return (<Badge>{source}</Badge>);
+      break;
+  }
+}

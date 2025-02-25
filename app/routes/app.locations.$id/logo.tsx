@@ -74,7 +74,7 @@ export function LogoBlock({logo, update}:LogoBlockProps) {
       <BlockStack gap="200">
         
         <BlockStack gap="100">
-          <Text as="h4" variant="headingMd">Company Logo</Text>
+          <Text as="h4" variant="headingMd">Add a logo for this location</Text>
           <Text as="p" variant="bodySm" tone="subdued">Add your Company Logo to this location</Text>
         </BlockStack>
           

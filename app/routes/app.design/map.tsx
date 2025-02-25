@@ -8,6 +8,7 @@ import {
   Box,
   Grid,
   RangeSlider,
+  TextField,
 } from "@shopify/polaris";
 
 import { MapType, locationList, mapWidthList, mapHeightList } from './defines';
@@ -29,7 +30,7 @@ export const MapBlock = ({settings, update} : MapBlockProps) => {
   return (
     <Card>
       <Box paddingBlockEnd='200'>
-        <Text as="h5" variant="headingSm">SetupTheme Fonts</Text>
+        <Text as="h5" variant="headingSm">Map Size</Text>
       </Box>
       <Grid columns={{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}}>
         <Grid.Cell>
@@ -62,12 +63,20 @@ export const MapBlock = ({settings, update} : MapBlockProps) => {
                 <Text as="h5" variant="bodySm">Enter an address or intersection to center your map to</Text>
               </Box>
               
-              <Select
+              {/* <Select
                 label="Location to Center"
                 labelHidden
                 options={locationList}
                 onChange={(value: string) => onUpdate('center', value)}
                 value={data.center}
+              /> */}
+              <TextField
+                label="Location to Center"
+                labelHidden
+                type="text"
+                value={data.center}
+                onChange={(value: string) => onUpdate('center', value)}
+                autoComplete="address"
               />
             </BlockStack>
           </BlockStack>

@@ -67,7 +67,7 @@ export const locations = [
       "state": "CO",
       "zipcode": "80206"
     },
-    "source": "Retailer",
+    "source": "National Retailer",
     "marker": {
       custom: 'h1-logo1.svg',
       preset: 'pin',
@@ -88,7 +88,7 @@ export const locations = [
       "city": "Denver",
       "state": "CO",      "zipcode": "80206"
     },
-    "source": "Retailer",
+    "source": "National Retailer",
     "marker": {
       custom: 'h1-logo1.svg',
       preset: 'default',
@@ -176,7 +176,7 @@ export const locations = [
       "state": "CO",
       "zipcode": "80302"
     },
-    "source": "Retailer",
+    "source": "National Retailer",
     "marker": {
       custom: 'h1-logo1.svg',
       preset: 'default',
@@ -286,7 +286,7 @@ export const locations = [
       "state": "CO",
       "zipcode": "80206"
     },
-    "source": "Retailer",
+    "source": "National Retailer",
     "marker": {
       custom: 'h1-logo1.svg',
       preset: 'pin',
@@ -307,7 +307,7 @@ export const locations = [
       "city": "Denver",
       "state": "CO",      "zipcode": "80206"
     },
-    "source": "Retailer",
+    "source": "National Retailer",
     "marker": {
       custom: 'h1-logo1.svg',
       preset: 'default',
@@ -395,7 +395,7 @@ export const locations = [
       "state": "CO",
       "zipcode": "80302"
     },
-    "source": "Retailer",
+    "source": "National Retailer",
     "marker": {
       custom: 'h1-logo1.svg',
       preset: 'default',
@@ -483,7 +483,7 @@ export const locations = [
       "state": "CO",
       "zipcode": "80302"
     },
-    "source": "Retailer",
+    "source": "National Retailer",
     "marker": {
       custom: 'h1-logo1.svg',
       preset: 'default',

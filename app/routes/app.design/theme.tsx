@@ -30,14 +30,14 @@ export const ThemeBlock = ({settings, update} : ThemeBlockProps) => {
   return (
     <Card>
       <Layout>
-        <Layout.Section>
+        <Layout.Section variant="oneHalf">
           <BlockStack gap='400'>
             <Text as="h5" variant="bodyMd" fontWeight="semibold">Theme Colors</Text>
             <ColorPickerBox label='Primary Theme Color' value={data.color.primary} update={(color:string) => {onUpdate('color', {...data.color, primary:color});}} />
             <ColorPickerBox label='Secondary Theme Color' value={data.color.secondary} update={(color:string) => {onUpdate('color', {...data.color, secondary:color});}} />
           </BlockStack>
         </Layout.Section>
-        <Layout.Section variant="oneThird">
+        <Layout.Section variant="oneHalf">
           <BlockStack gap='400'>
             <Text as="h5" variant="bodyMd" fontWeight="semibold">Theme Fonts</Text>
             <Select

@@ -68,7 +68,7 @@ export default function Index() {
             <Layout.Section variant="oneThird">
               <BlockStack gap="400">
                 <About />
-                <Updater status={isUpdateAvailable} install={installUpdates} />
+                <Updater />
                 <Insights />
               </BlockStack>
             </Layout.Section>

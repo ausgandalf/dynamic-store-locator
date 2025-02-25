@@ -129,7 +129,7 @@ export const sampleLocation:LocationType = {
 
 export const emptyLocation:LocationType = {
   visible: true,
-  source: 'Faire',
+  source: 'Manual',
   location: '',
   lastsync: '',
   address: {
@@ -195,14 +195,34 @@ export const emptyLocation:LocationType = {
 export const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const socialOptions = [
   {
-    label: "LinkedIn",
-    value: 'in',
-    prefix: <IconLinkedIn />,
-  },
-  {
     label: "Facebook",
     value: 'facebook',
     prefix: <IconFacebook />,
+  },
+  {
+    label: "Instagram",
+    value: 'instagram',
+    prefix: <IconLinkedIn />,
+  },
+  {
+    label: "X",
+    value: 'x',
+    prefix: <IconFacebook />,
+  },
+  {
+    label: "Pinterest",
+    value: 'pinterest',
+    prefix: <IconLinkedIn />,
+  },
+  {
+    label: "Tiktok",
+    value: 'tiktok',
+    prefix: <IconFacebook />,
+  },
+  {
+    label: "LinkedIn",
+    value: 'in',
+    prefix: <IconLinkedIn />,
   },
 ];
 

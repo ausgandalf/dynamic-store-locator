@@ -189,7 +189,7 @@ export function Plans({value, updateAction}:PlansProps) {
               <div style={{marginTop: 'var(--p-space-500)'}}>
                 <BlockStack>
                   <Text variant="headingLg" as="h2">Billing</Text>
-                  <Text variant="bodyMd" as="p">Your monthly bill is ona a 30-day cycle. It includes your Shopify subscription, app charges, shipping labels, and transaction fees.</Text>
+                  <Text variant="bodyMd" as="p">You will be charged monthly for usage of this app through Shopify based on your plan level.</Text>
                 </BlockStack>
               </div>
             </Layout.Section>

@@ -63,14 +63,14 @@ export const MapPreviewerLeft = ({settings}:MapPreviewerProps) => {
             />
           </div>
           
-          <InlineStack align='space-between'>
+          <InlineStack align='space-between' gap="100">
             <div className='zoom--075'>
               <Select
                 label="Location"
                 labelHidden
                 disabled
                 options={[
-                  {label: 'Denver Locations', value: 'denver', prefix: <Icon source={FilterIcon} />,},
+                  {label: 'Filter By\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0', value: 'denver', prefix: <Icon source={FilterIcon} />,},
                 ]}
               />
             </div>
