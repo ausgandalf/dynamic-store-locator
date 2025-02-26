@@ -24,8 +24,8 @@ import {
 
 import { MapPreviewerProps } from './defines';
 import { 
-  IconZoom, IconCustomMarker, IconPhone, IconSend, IconClock, IconLinkedInCircled, IconFacebookCircled,
-  IconMarkerDefault, IconMarkerPin, IconMarkerStarred, IconMarkerFlag, IconMarkerBanner, IconMarkerCustom, 
+  IconPhone, IconSend, IconClock, 
+  IconLinkedInCircled, IconFacebookCircled, IconInstagramCircled, IconXCircled, IconPinterestCircled, IconTikTokCircled
 } from 'app/res/icons';
 import { hexToRgb } from "@shopify/polaris";
 import { renderMarker } from 'app/components/Functions';
@@ -58,6 +58,18 @@ export const MapPreviewerRight = ({settings, data} : MapPreviewerProps) => {
         break;
       case "facebook":
         return (<IconFacebookCircled color1={settings.popup.font_color.secondary} />);
+        break;
+      case "instagram":
+        return (<IconInstagramCircled color1={settings.popup.font_color.secondary} />);
+        break;
+      case "tiktok":
+        return (<IconTikTokCircled color1={settings.popup.font_color.secondary} />);
+        break;
+      case "pinterest":
+        return (<IconPinterestCircled color1={settings.popup.font_color.secondary} />);
+        break;
+      case "x":
+        return (<IconXCircled color1={settings.popup.font_color.secondary} />);
         break;
       default:
         break;

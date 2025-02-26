@@ -130,8 +130,7 @@ export function FaireForm(props:FaireFormProps) {
     <Box><Tag onRemove={removeTag(type)}><Box padding="100">{type}</Box></Tag></Box>
   ));
 
-  const onEnabledBadgeClick = (e) => {
-    e.preventDefault();
+  const onEnabledBadgeClick = () => {
     setData({...data, enabled: !data.enabled});
     doUpdate();
   }
@@ -152,13 +151,22 @@ export function FaireForm(props:FaireFormProps) {
         <BlockStack gap="400">
 
           <BlockStack gap="200">
-            <InlineStack gap="200" blockAlign="center">
-              <Text as="h4" variant="headingLg">Faire</Text>
-              {data.enabled ? (
-                <a href="#" onClick={onEnabledBadgeClick}><Badge progress="complete" tone="success">Enabled</Badge></a>
-              ) : (
-                <a href="#" onClick={onEnabledBadgeClick}><Badge progress="incomplete">Disabled</Badge></a>
-              )}
+            <InlineStack align='space-between'>
+              <InlineStack gap="200" blockAlign="center" wrap={false}>
+                <Text as="h4" variant="headingLg">Faire</Text>
+                {data.enabled ? (
+                  <Badge progress="complete" tone="success">Enabled</Badge>
+                ) : (
+                  <Badge progress="incomplete">Disabled</Badge>
+                )}
+              </InlineStack>
+              <Box>
+                {data.enabled ? (
+                  <Button onClick={onEnabledBadgeClick}>Disable</Button>
+                ) : (
+                  <Button onClick={onEnabledBadgeClick}>Enable</Button>
+                )}
+              </Box>
             </InlineStack>
             <Text as="p">Automatically display and update the information for your Faire retailers on your map.</Text>
           </BlockStack>

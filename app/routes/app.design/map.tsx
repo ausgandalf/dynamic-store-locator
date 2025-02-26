@@ -38,22 +38,42 @@ export const MapBlock = ({settings, update} : MapBlockProps) => {
             <BlockStack gap='200'>
               <Grid columns={{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}}>
                 <Grid.Cell>
-                  <Select
+                  <TextField
+                    label="Height"
+                    requiredIndicator
+                    type="number"
+                    value={parseFloat(data.height).toString()}
+                    onChange={(value: string) => onUpdate('height', value + 'px')}
+                    suffix="px"
+                    autoComplete="off"
+                    align='right'
+                  />
+                  {/* <Select
                     label="Height"
                     requiredIndicator
                     options={mapHeightList}
                     onChange={(value: string) => onUpdate('height', value)}
                     value={data.height}
-                  />
+                  /> */}
                 </Grid.Cell>
                 <Grid.Cell>
-                  <Select
+                  <TextField
+                    label="Width"
+                    requiredIndicator
+                    type="number"
+                    value={parseFloat(data.width).toString()}
+                    onChange={(value: string) => onUpdate('width', value + 'px')}
+                    suffix="px"
+                    autoComplete="off"
+                    align='right'
+                  />
+                  {/* <Select
                     label="Width"
                     requiredIndicator
                     options={mapWidthList}
                     onChange={(value: string) => onUpdate('width', value)}
                     value={data.width}
-                  />
+                  /> */}
                 </Grid.Cell>
               </Grid>
             </BlockStack>

@@ -96,71 +96,51 @@ export const retailers = [
   {
     id: "bestbuy",
     label: "Best Buy",
-    icon: "/images/retailers/logo-bestbuy.png",
+    icon: "/images/retailers/logo-bestbuy.svg",
   },
   {
     id: "costco",
     label: "Costco",
-    icon: "/images/retailers/logo-costco.png",
+    icon: "/images/retailers/logo-costco.svg",
   },
   {
     id: "cvs",
     label: "CVS",
-    icon: "/images/retailers/logo-cvs.png",
+    icon: "/images/retailers/logo-cvs.svg",
   },
   {
     id: "homedepot",
     label: "Home Depot",
-    icon: "/images/retailers/logo-homedepot.png",
+    icon: "/images/retailers/logo-homedepot.svg",
   },
   {
     id: "lowes",
     label: "Lowe's",
-    icon: "/images/retailers/logo-lowes.png",
-  },
-  {
-    id: "officedepot",
-    label: "Office Depot",
-    icon: "/images/retailers/logo-officedepot.png",
-  },
-  {
-    id: "rei",
-    label: "REI",
-    icon: "/images/retailers/logo-rei.png",
-  },
-  {
-    id: "safeway",
-    label: "Safeway",
-    icon: "/images/retailers/logo-safeway.png",
-  },
-  {
-    id: "samsclub",
-    label: "Sam's Club",
-    icon: "/images/retailers/logo-samsclub.png",
+    icon: "/images/retailers/logo-lowes.svg",
   },
   {
     id: "target",
     label: "Target",
-    icon: "/images/retailers/logo-target.png",
+    icon: "/images/retailers/logo-target.svg",
   },
   {
     id: "tjmax",
     label: "TJMax",
-    icon: "/images/retailers/logo-tjmaxx.png",
+    icon: "/images/retailers/logo-tjmaxx.svg",
   },
   {
     id: "walgreens",
     label: "Walgreens",
-    icon: "/images/retailers/logo-walgreens.png",
+    icon: "/images/retailers/logo-walgreens.svg",
   },
   {
     id: "walmart",
     label: "Walmart",
-    icon: "/images/retailers/logo-walmart.png",
+    icon: "/images/retailers/logo-walmart.svg",
   },
   {
     id: "wholefoods",
     label: "Whole Foods",
-    icon: "/images/retailers/logo-wholefoods.png",
+    icon: "/images/retailers/logo-wholefoods.svg",
   },
 ];

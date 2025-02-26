@@ -26,9 +26,10 @@ export function Updater() {
           <BlockStack gap="100">
             
             <Text as="h2" variant="headingLg">Give Us Your Feedback!</Text>
-            <Text as="p">We want to hear from you. How can we make this app better? Schedule a feedback interview with our team.</Text>
-            <InlineStack>
+            <Text as="p">We want to hear from you. How can we make this app better? Schedule a feedback interview with our team or leave us a review! </Text>
+            <InlineStack gap="200">
               <Button>Schedule Call</Button>
+              <Button>Post Review</Button>
             </InlineStack>
 
           </BlockStack>

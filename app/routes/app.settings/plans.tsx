@@ -54,26 +54,26 @@ export function Plans({value, updateAction}:PlansProps) {
 
   const benifits = {
     basic: [
-      ["Up to 10 Locations", "Up to 10 Locations",],
+      ["Up to 10 Locations", "",],
       ["Custom Search Filters", "Custom Search Filters",],
       ["Google Maps Integration", "Google Maps Integration",],
     ],
     advanced: [
-      ["Up to 1500 Locations", "Up to 1500 Locations",],
+      ["Up to 1500 Locations", "",],
       ["Custom Search Filters", "Custom Search Filters",],
       ["Google Maps Integration", "Google Maps Integration",],
       ["Bulk Import", "Bulk Import",],
       ["Faire Integration", "Faire Integration",],
     ],
     business: [
-      ["Unlimited Locations", "Unlimited Locations",],
+      ["Unlimited Locations", "",],
       ["Custom Search Filters", "Custom Search Filters",],
       ["Google Maps Integration", "Google Maps Integration",],
       ["Bulk Import", "Bulk Import",],
       ["Faire Integration", "Faire Integration",],
       ["Major Retailer Locations", "Major Retailer Locations",],
       ["Shopify B2B Integration", "Shopify B2B Integration",],
-      ["Priority Support", "Priority Support",],
+      ["Priority Support", "",],
     ]
   }
 
@@ -85,7 +85,7 @@ export function Plans({value, updateAction}:PlansProps) {
             <InlineStack gap="200">
               <Box><Icon source={CheckIcon} tone="success" /></Box>
               <Box><Text as="p" variant="bodyMd">{x[0]}</Text></Box>
-              <Box> <Tooltip content={x[1]}><Icon source={InfoIcon} tone="base" /></Tooltip></Box>
+              {(x[1] != "") && (<Box> <Tooltip content={x[1]}><Icon source={InfoIcon} tone="base" /></Tooltip></Box>)}
             </InlineStack>
           </li>
         )}

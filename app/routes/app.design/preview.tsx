@@ -24,8 +24,7 @@ import {
 
 import { MapPreviewerProps } from './defines';
 import { 
-  IconZoom, IconCustomMarker, IconPhone, IconSend, IconClock, IconLinkedInCircled, IconFacebookCircled,
-  IconMarkerDefault, IconMarkerPin, IconMarkerStarred, IconMarkerFlag, IconMarkerBanner, IconMarkerCustom, 
+  
 } from 'app/res/icons';
 import { hexToRgb } from "@shopify/polaris";
 

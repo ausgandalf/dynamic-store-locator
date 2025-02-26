@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { redirect } from "@remix-run/node";
+import { useNavigate } from '@remix-run/react';
+import {SaveBar} from '@shopify/app-bridge-react';
 import {
   useActionData,
   useLoaderData,
@@ -89,6 +91,7 @@ export default function Index() {
   const [formState, setFormState] = useState(location);
   const [cleanFormState, setCleanFormState] = useState(location);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
+  const navigate = useNavigate();
 
   const [settings, setSettings] = useState(defaultSettings);
 
@@ -138,14 +141,31 @@ export default function Index() {
     return data;
   }
 
+  if (isDirty) {
+    shopify.saveBar.show('location-save-bar');
+  } else {
+    shopify.saveBar.hide('location-save-bar');
+  }
+
   return (
 
     <Page 
-      backAction={{content: 'All Locations', url: '/app/locations'}}
+      backAction={{
+        content: 'All Locations', 
+        onAction: () => {
+          if (!document.getElementById('location-save-bar')?.showing) navigate(`../`);
+        },
+      }}
       title="Location Editor"
       titleMetadata={visibleToggle}
       compactTitle
-      primaryAction={{content: 'Save', disabled: !isDirty}}
+      primaryAction={{
+        content: 'Save', 
+        disabled: !isDirty,
+        onAction: () => {
+          // TODO
+        }
+      }}
       secondaryActions={[
         {
           content: 'Delete',
@@ -157,6 +177,10 @@ export default function Index() {
       {isLoading && (<LoadingScreen />)}
       <Grid>
         <Grid.Cell columnSpan={{xs: 6, sm: 4, md: 4, lg: 8, xl: 8}}>
+         {/* <form
+            data-save-bar
+            onreset="console.log('discarding')"
+          > */}
           <BlockStack gap="400">
 
             <Card>
@@ -238,7 +262,6 @@ export default function Index() {
                       <Grid.Cell columnSpan={{xs:6, sm:3, md:3, lg:6}}>
                         <TextField
                           label="Phone Number"
-                          requiredIndicator
                           type="tel"
                           value={formState.phone}
                           onChange={(newValue: string) => setFormState({...formState, phone:newValue})}
@@ -248,7 +271,6 @@ export default function Index() {
                       <Grid.Cell columnSpan={{xs:6, sm:3, md:3, lg:6}}>
                         <TextField
                           label="Website URL"
-                          requiredIndicator
                           type="url"
                           value={formState.website}
                           onChange={(newValue: string) => setFormState({...formState, website:newValue})}
@@ -263,9 +285,9 @@ export default function Index() {
               </BlockStack>
             </Card>
 
-            <SocialsBlock socials={formState.socials} update={UpdateAction}/>
+            <SocialsBlock socials={formState.socials} update={UpdateAction} key={JSON.stringify(formState.socials)}/>
 
-            <HrsBlock hrs={formState.hrs} update={UpdateAction}/>
+            <HrsBlock hrs={formState.hrs} update={UpdateAction} key={JSON.stringify(formState.hrs)}/>
 
             <LogoBlock logo={formState.logo} update={UpdateAction}/>
 
@@ -281,13 +303,15 @@ export default function Index() {
                   </InlineStack>
                 </InlineStack>
 
-                <MarkerBlock settings={formState.marker} update={UpdateAction} section="location"  />
+                <MarkerBlock settings={formState.marker} update={UpdateAction} section="location" key={JSON.stringify(formState.marker)} />
+
               </BlockStack>
             </Card>
 
-            <TagsBlock tags={formState.tags} update={UpdateAction}/>
+            <TagsBlock tags={formState.tags} update={UpdateAction} key={JSON.stringify(formState.tags)} />
 
           </BlockStack>
+          {/* </form> */}
         </Grid.Cell>
         <Grid.Cell columnSpan={{xs: 6, sm: 2, md: 2, lg: 4, xl: 4}}>
           <div className="design-previewer design-previewer--location" style={{position:'fixed'}}>
@@ -295,6 +319,19 @@ export default function Index() {
           </div>
         </Grid.Cell>
       </Grid>
+
+      <SaveBar id="location-save-bar">
+        <button variant="primary" onClick={() => {
+          console.log('Saving');
+          shopify.saveBar.hide('location-save-bar');
+        }}></button>
+        <button id="discard-button" onClick={() => {
+          setFormState(cleanFormState);
+          console.log('Discarding');
+          shopify.saveBar.hide('location-save-bar');
+        }}></button>
+      </SaveBar>
+
     </Page>
   );
 }

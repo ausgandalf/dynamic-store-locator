@@ -114,8 +114,7 @@ export function B2BForm(props:B2BFormProps) {
     [],
   );
 
-  const onEnabledBadgeClick = (e) => {
-    e.preventDefault();
+  const onEnabledBadgeClick = () => {
     setData({...data, enabled: !data.enabled});
     doUpdate();
   }
@@ -127,13 +126,22 @@ export function B2BForm(props:B2BFormProps) {
         <BlockStack gap="400">
 
           <BlockStack gap="200">
-            <InlineStack gap="200" blockAlign="center">
-              <Text as="h4" variant="headingLg">Shopify B2B</Text>
-              {data.enabled ? (
-                <a href="#" onClick={onEnabledBadgeClick}><Badge progress="complete" tone="success">Enabled</Badge></a>
-              ) : (
-                <a href="#" onClick={onEnabledBadgeClick}><Badge progress="incomplete">Disabled</Badge></a>
-              )}
+            <InlineStack align='space-between'>
+              <InlineStack gap="200" blockAlign="center">
+                <Text as="h4" variant="headingLg">Shopify B2B</Text>
+                {data.enabled ? (
+                  <Badge progress="complete" tone="success">Enabled</Badge>
+                ) : (
+                  <Badge progress="incomplete">Disabled</Badge>
+                )}
+              </InlineStack>
+              <Box>
+                {data.enabled ? (
+                  <Button onClick={onEnabledBadgeClick}>Disable</Button>
+                ) : (
+                  <Button onClick={onEnabledBadgeClick}>Enable</Button>
+                )}
+              </Box>
             </InlineStack>
             <Text as="p">Automatically display and update the information for your Shopify B2B customers on your map.</Text>
           </BlockStack>

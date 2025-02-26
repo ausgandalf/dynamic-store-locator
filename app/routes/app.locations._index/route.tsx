@@ -41,6 +41,7 @@ import {
   PlusCircleIcon,
   VariantIcon,
   FileIcon,
+  PlusIcon,
 } from "@shopify/polaris-icons";
 
 import { useNavigate } from '@remix-run/react';
@@ -50,11 +51,13 @@ import { authenticate } from "../../shopify.server";
 import { Skeleton } from './skeleton';
 
 import { locations as defaultLocations, defaultSettings, ActionDataType, SettingsType } from "./defines";
+import { CheckListPop } from 'app/components/CheckListPop';
 
 import { formateDate, renderMarker, renderSource } from 'app/components/Functions';
 import { UploadBlock } from './upload';
 
 import { LoadingScreen } from 'app/components/LoadingScreen';
+
 
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -98,6 +101,8 @@ function disambiguateLabel(key: string, value: string | any[]): string {
   switch (key) {
     case 'source':
       return (value as string[]).map((val) => `${val}`).join(', ');
+    case 'visibility':
+      return (value as string) + ' Only';
     case 'query':
       return 'Search for: ' + value;
     default:
@@ -129,10 +134,29 @@ export default function Index() {
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortColumn, setSortColumn] = useState(null);
 
+  const [sourceFilter, setSourceFilter] = useState<string[] | undefined>(
+    undefined,
+  );
+  const [visibilityFilter, setVisibilityFilter] = useState<string[] | undefined>(
+    undefined,
+  );
+
   const filteredLocations = [...locations].filter((row, index) => {
-    if (queryValue == '') return true;
-    const str = JSON.stringify(Object.values(row));
-    return str.toLowerCase().indexOf(queryValue.toLowerCase()) != -1;
+    let isApplicable = true;
+    if (queryValue != '') {
+      const str = JSON.stringify(Object.values(row));
+      isApplicable = isApplicable && (str.toLowerCase().indexOf(queryValue.toLowerCase()) != -1);
+    }
+
+    if (sourceFilter && sourceFilter.length > 0) {
+      isApplicable = isApplicable && (sourceFilter.includes(row.source));
+    }
+
+    if (visibilityFilter && visibilityFilter.length > 0) {
+      isApplicable = isApplicable && (row.visible == ((visibilityFilter.includes('Visible') ? true : false)));
+    }
+
+    return isApplicable;
   });
 
   const columnMapper = {
@@ -223,13 +247,6 @@ export default function Index() {
     return true;
   };
 
-  const [sourceFilter, setSourceFilter] = useState<string[] | undefined>(
-    undefined,
-  );
-  const [visibilityFilter, setVisibilityFilter] = useState<string[] | undefined>(
-    undefined,
-  );
-
   const handleSourceFilterChange = useCallback(
     (value: string[]) => setSourceFilter(value),
     [],
@@ -291,8 +308,8 @@ export default function Index() {
           title="Source"
           titleHidden
           choices={[
-            {label: 'Visible', value: 'visible'},
-            {label: 'Hidden', value: 'hidden'},
+            {label: 'Visible', value: 'Visible'},
+            {label: 'Hidden', value: 'Hidden'},
           ]}
           selected={visibilityFilter || []}
           onChange={handleVisibilityFilterChange}
@@ -425,6 +442,37 @@ export default function Index() {
     // TODO
   }
 
+  const allTags = [
+    'Wi-Fi Available',
+    'Open 24-Hours',
+    'Wheelchair Accessible',
+  ];
+
+  const promotedBulkActions = [
+    {
+      content: 'Set As Visible',
+      onAction: () => {
+        // TODO
+        console.log(selectedResources);
+      },
+    },
+    {
+      content: 'Set As Hidden',
+      onAction: () => {
+        // TODO
+        console.log(selectedResources);
+      },
+    },
+    {
+      content: <CheckListPop label='Add Tags' suffix={<Icon source={PlusIcon}/>} options={allTags.map((x, i) => ({value: x, label: x}))} 
+                  onChange={(selected: string) => {
+                    // TODO
+                    console.log(selected, selectedResources);
+                  }} 
+                />
+    }
+  ];
+
   return (
     <Page 
       title="All Locations"
@@ -475,6 +523,7 @@ export default function Index() {
           resourceName={resourceName}
           itemCount={pagedLocations.length}
           emptyState={emptyStateMarkup}
+          hasMoreItems
           selectedItemsCount={
             allResourcesSelected ? 'All' : selectedResources.length
           }
@@ -501,6 +550,7 @@ export default function Index() {
             hasNext: (page < (maxPage - 1)),
             onNext: () => setPage((page) => Math.min(maxPage - 1, page + 1)),
           }}
+          promotedBulkActions={promotedBulkActions}
         >
           {rowMarkup}
         </IndexTable>
