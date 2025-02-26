@@ -33,7 +33,12 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '2',
@@ -55,7 +60,10 @@ export const locations = [
     },
     "visible": false,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '3',
@@ -77,7 +85,11 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '4',
@@ -98,7 +110,10 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+    ],
   },
   {
     "id": '5',
@@ -120,7 +135,10 @@ export const locations = [
     },
     "visible": false,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Open 24-Hours',
+    ],
   },
   {
     "id": '6',
@@ -142,7 +160,11 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+    ],
   },
   {
     "id": '7',
@@ -164,7 +186,12 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-20T00:00:00Z",
-    "updated": "2024-03-20T00:00:00Z"
+    "updated": "2024-03-20T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '8',
@@ -186,7 +213,10 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-22T00:00:00Z",
-    "updated": "2024-03-22T00:00:00Z"
+    "updated": "2024-03-22T00:00:00Z",
+    "tags": [
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '9',
@@ -208,7 +238,10 @@ export const locations = [
     },
     "visible": false,
     "added": "2024-03-25T00:00:00Z",
-    "updated": "2024-03-25T00:00:00Z"
+    "updated": "2024-03-25T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+    ],
   },
   {
     "id": '10',
@@ -230,7 +263,10 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-28T00:00:00Z",
-    "updated": "2024-03-28T00:00:00Z"
+    "updated": "2024-03-28T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+    ],
   },
   {
     "id": '11',
@@ -252,7 +288,11 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '12',
@@ -274,7 +314,10 @@ export const locations = [
     },
     "visible": false,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '13',
@@ -296,7 +339,10 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '14',
@@ -317,7 +363,12 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '15',
@@ -339,7 +390,11 @@ export const locations = [
     },
     "visible": false,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '16',
@@ -361,7 +416,12 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-17T00:00:00Z",
-    "updated": "2024-03-17T00:00:00Z"
+    "updated": "2024-03-17T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '17',
@@ -383,7 +443,12 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-20T00:00:00Z",
-    "updated": "2024-03-20T00:00:00Z"
+    "updated": "2024-03-20T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '18',
@@ -405,7 +470,10 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-22T00:00:00Z",
-    "updated": "2024-03-22T00:00:00Z"
+    "updated": "2024-03-22T00:00:00Z",
+    "tags": [
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '19',
@@ -427,7 +495,11 @@ export const locations = [
     },
     "visible": false,
     "added": "2024-03-25T00:00:00Z",
-    "updated": "2024-03-25T00:00:00Z"
+    "updated": "2024-03-25T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '20',
@@ -449,7 +521,12 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-28T00:00:00Z",
-    "updated": "2024-03-28T00:00:00Z"
+    "updated": "2024-03-28T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '21',
@@ -471,7 +548,10 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-20T00:00:00Z",
-    "updated": "2024-03-20T00:00:00Z"
+    "updated": "2024-03-20T00:00:00Z",
+    "tags": [
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '22',
@@ -493,7 +573,12 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-22T00:00:00Z",
-    "updated": "2024-03-22T00:00:00Z"
+    "updated": "2024-03-22T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '23',
@@ -515,7 +600,12 @@ export const locations = [
     },
     "visible": false,
     "added": "2024-03-25T00:00:00Z",
-    "updated": "2024-03-25T00:00:00Z"
+    "updated": "2024-03-25T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   },
   {
     "id": '24',
@@ -537,6 +627,11 @@ export const locations = [
     },
     "visible": true,
     "added": "2024-03-28T00:00:00Z",
-    "updated": "2024-03-28T00:00:00Z"
+    "updated": "2024-03-28T00:00:00Z",
+    "tags": [
+      'Wi-Fi Available',
+      'Open 24-Hours',
+      'Wheelchair Accessible',
+    ],
   }
 ]

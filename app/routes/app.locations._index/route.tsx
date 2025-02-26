@@ -31,6 +31,7 @@ import {
   Thumbnail,
   EmptySearchResult,
   Grid,
+  Tooltip,
 } from "@shopify/polaris";
 
 import {
@@ -137,9 +138,9 @@ export default function Index() {
   const columnMapper = {
     '1': 'location',
     '2': 'source',
-    '4': 'visible',
-    '5': 'added',
-    '6': 'updated',
+    '5': 'visible',
+    '6': 'added',
+    '7': 'updated',
   }
   const maxPage = Math.floor((filteredLocations.length - 1) / perPage) + 1;
   const sortedLocations = [...filteredLocations].sort((a, b) => {
@@ -272,7 +273,8 @@ export default function Index() {
           choices={[
             {label: 'Manual', value: 'Manual'},
             {label: 'Faire', value: 'Faire'},
-            {label: 'Retailer', value: 'Retailer'},
+            {label: 'National Retailer', value: 'National Retailer'},
+            {label: 'Shopify B2B', value: 'Shopify B2B'},
           ]}
           selected={sourceFilter || []}
           onChange={handleSourceFilterChange}
@@ -358,7 +360,7 @@ export default function Index() {
 
   const rowMarkup = pagedLocations.map(
     (
-      {id, location, address, source, marker, visible, added, updated},
+      {id, location, address, source, marker, visible, added, updated, tags},
       index,
     ) => (
       <IndexTable.Row
@@ -374,7 +376,7 @@ export default function Index() {
           <a onClick={(e)=>onEditClick(e, id)} className='locationTitleLink'>
             <BlockStack gap="100">
               <Text variant="bodyMd" as="span">{location}</Text>
-              <Text variant="bodyXs" as="span">{[address.address1, address.address2, address.city, address.state, address.zipcode].filter((x) => (x != '')).join(',')}</Text>  
+              <Text variant="bodyXs" as="span">{[address.address1, address.address2, address.city, address.state, address.zipcode].filter((x) => (x != '')).join(', ')}</Text>  
             </BlockStack>
           </a>
         </IndexTable.Cell>
@@ -387,6 +389,11 @@ export default function Index() {
               </div>
             </Card>
           </BlockStack>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Tooltip content={tags.join(', ')}>
+            <div style={{maxWidth: '150px', overflow:'hidden', textOverflow:'ellipsis'}}>{tags.join(', ')}</div>
+          </Tooltip>
         </IndexTable.Cell>
         <IndexTable.Cell>
           {visible ? (<Badge tone="success">Visible</Badge>) : (<Badge>Hidden</Badge>)}
@@ -472,7 +479,7 @@ export default function Index() {
             allResourcesSelected ? 'All' : selectedResources.length
           }
           onSelectionChange={handleSelectionChange}
-          sortable={[false, true, true, false, true, true, true, false, false]}
+          sortable={[false, true, true, false, false, true, true, true, false, false]}
           sortColumnIndex={sortColumn}
           sortDirection={sortDirection}
           onSort={handleSort}
@@ -481,6 +488,7 @@ export default function Index() {
             {title: 'Store Name', id:'location'},
             {title: 'Source', id:'source'},
             {title: 'Map Marker'},
+            {title: 'Tags'},
             {title: 'Visibility', id:'visible'},
             {title: 'Added', id:'added'},
             {title: 'Updated', id:'updated'},
