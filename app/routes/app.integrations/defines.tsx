@@ -94,6 +94,21 @@ export const defaultSettings : SettingsType = {
 
 export const retailers = [
   {
+    id: "acehardware",
+    label: "Ace Hardware",
+    icon: "/images/retailers/logo-ace hardware.svg",
+  },
+  {
+    id: "albertsons",
+    label: "Albertsons",
+    icon: "/images/retailers/logo-albertsons.svg",
+  },
+  {
+    id: "aldi",
+    label: "Aldi",
+    icon: "/images/retailers/logo-aldi.svg",
+  },
+  {
     id: "bestbuy",
     label: "Best Buy",
     icon: "/images/retailers/logo-bestbuy.svg",
@@ -109,14 +124,75 @@ export const retailers = [
     icon: "/images/retailers/logo-cvs.svg",
   },
   {
+    id: "dicks",
+    label: "Dicks",
+    icon: "/images/retailers/logo-dicks.svg",
+  },
+  {
+    id: "hobbylobby",
+    label: "Hobby Lobby",
+    icon: "/images/retailers/logo-hobby lobby.svg",
+  },
+  {
     id: "homedepot",
     label: "Home Depot",
     icon: "/images/retailers/logo-homedepot.svg",
   },
   {
+    id: "homegoods",
+    label: "Home Goods",
+    icon: "/images/retailers/logo-home goods.svg",
+  },
+  {
+    id: "kroger",
+    label: "Kroger",
+    icon: "/images/retailers/logo-kroger.svg",
+  },
+  {
     id: "lowes",
     label: "Lowe's",
     icon: "/images/retailers/logo-lowes.svg",
+  },
+  
+  {
+    id: "marshalls",
+    label: "Marshalls",
+    icon: "/images/retailers/logo-marshalls.svg",
+  },
+  {
+    id: "michaels",
+    label: "Michaels",
+    icon: "/images/retailers/logo-michaels.svg",
+  },
+  {
+    id: "nordstromrack",
+    label: "Nordstrom Rack",
+    icon: "/images/retailers/logo-nordstrom rack.svg",
+  },
+  {
+    id: "petco",
+    label: "Petco",
+    icon: "/images/retailers/logo-petco.svg",
+  },
+  {
+    id: "petsmart",
+    label: "Petsmart",
+    icon: "/images/retailers/logo-petsmart.svg",
+  },
+  {
+    id: "publix",
+    label: "Publix",
+    icon: "/images/retailers/logo-publix.svg",
+  },
+  {
+    id: "sephora",
+    label: "Sephora",
+    icon: "/images/retailers/logo-sephora.svg",
+  },
+  {
+    id: "sprouts",
+    label: "Sprouts",
+    icon: "/images/retailers/logo-sprouts.svg",
   },
   {
     id: "target",
@@ -127,6 +203,11 @@ export const retailers = [
     id: "tjmax",
     label: "TJMax",
     icon: "/images/retailers/logo-tjmaxx.svg",
+  },
+  {
+    id: "ulta",
+    label: "Ulta",
+    icon: "/images/retailers/logo-ulta.svg",
   },
   {
     id: "walgreens",
@@ -142,5 +223,10 @@ export const retailers = [
     id: "wholefoods",
     label: "Whole Foods",
     icon: "/images/retailers/logo-wholefoods.svg",
+  },
+  {
+    id: "worldmarket",
+    label: "World Market",
+    icon: "/images/retailers/logo-world market.svg",
   },
 ];

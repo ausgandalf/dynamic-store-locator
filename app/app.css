@@ -177,3 +177,16 @@ svg {
   text-decoration: underline;
   text-decoration-color: var(--p-color-bg-fill-brand-selected);
 }
+
+.hoverWrapper .normal {
+  display: block;
+}
+.hoverWrapper .hover {
+  display: none;
+}
+.hoverWrapper:hover .normal {
+  display: none;
+}
+.hoverWrapper:hover .hover {
+  display: block;
+}

@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "91aabbe26f00a872aade0c940ee127c4"
-application_url = "https://stan-usa-morocco-parent.trycloudflare.com"
+application_url = "https://av-rows-gr-rh.trycloudflare.com"
 embedded = true
 name = "Dynamic Store Locator"
 handle = "dynamic-store-locator"
@@ -23,9 +23,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://stan-usa-morocco-parent.trycloudflare.com/auth/callback",
-  "https://stan-usa-morocco-parent.trycloudflare.com/auth/shopify/callback",
-  "https://stan-usa-morocco-parent.trycloudflare.com/api/auth/callback"
+  "https://av-rows-gr-rh.trycloudflare.com/auth/callback",
+  "https://av-rows-gr-rh.trycloudflare.com/auth/shopify/callback",
+  "https://av-rows-gr-rh.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

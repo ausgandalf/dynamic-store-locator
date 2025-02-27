@@ -18,6 +18,7 @@ import {
   Checkbox,
   Thumbnail,
   ChoiceList,
+  InlineGrid,
 } from "@shopify/polaris";
 
 import {
@@ -52,17 +53,24 @@ export function RetailersForm(props:RetailersFormProps) {
           <Text as="p">Select which popular retail stores to show on your map</Text>
         </BlockStack>
 
-        <Box paddingBlockStart="400">
+        <Box paddingBlockStart="400" paddingInline="400">
 
           <Grid columns={{xs: 2, sm: 3, md: 3, lg: 3, xl: 3}}>
             { retailers.map((x, i) => (
               <Grid.Cell>
-                <Checkbox
-                  id={x.id}
-                  label={(<img src={x.icon} alt={x.label} style={{marginLeft: '10px', maxWidth: '100%', width:'120px', maxHeight: '42px', objectFit:'contain'}} />)}
-                  checked={selected?.includes(x.id)}
-                  onChange={handleChange}
-                />
+                <div style={{
+                  display: 'flex',
+                  height: '100%',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                }}>
+                  <Checkbox
+                    id={x.id}
+                    label={(<img src={x.icon} alt={x.label} style={{objectPosition: 'center', marginLeft: '10px', maxWidth: '100%', width:'120px', maxHeight: '42px', objectFit:'contain'}} />)}
+                    checked={selected?.includes(x.id)}
+                    onChange={handleChange}
+                  />
+                </div>
               </Grid.Cell>
             ))}
           </Grid>

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { useFetcher, useLoaderData, useNavigation } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -15,6 +15,8 @@ import { About } from './about';
 import { Updater } from './updater';
 import { Insights } from './insights';
 import { Onboard } from './onboad';
+
+import { LoadingScreen } from 'app/components/LoadingScreen';
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
@@ -44,6 +46,13 @@ export default function Index() {
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(currentVersion < newVersion ? 1 : 0);
   const installedVersion = updater.data?.version;
 
+  const nav = useNavigation();
+  const isSaving =
+    nav.state === "submitting" && nav.formData?.get("action") !== "save";
+  const isDeleting =
+    nav.state === "submitting" && nav.formData?.get("action") === "delete";
+  const isLoading = nav.state === "loading";
+
   useEffect(() => {
     setTimeout(() => setIsLoaded(true), 1000);
   }, [loaderData]);
@@ -63,6 +72,7 @@ export default function Index() {
       <Skeleton />
     ) : (
       <Page title="Welcome to H1: Dynamic Store Locator">
+        {isLoading && (<LoadingScreen />)}
         <Box paddingBlockEnd='400'>
           <Layout>
             <Layout.Section variant="oneThird">

@@ -75,3 +75,6 @@ export const renderSource = (source:string) => {
       break;
   }
 }
+
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
