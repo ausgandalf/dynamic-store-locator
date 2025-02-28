@@ -41,6 +41,8 @@ import { MapBlock } from './map';
 import { PopupBlock } from './popup';
 import { MarkerBlock } from './marker';
 
+import { LoadingScreen } from 'app/components/LoadingScreen';
+
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
   const { shop } = session;
@@ -113,7 +115,8 @@ export default function Index() {
     nav.state === "submitting" && nav.formData?.get("action") !== "delete";
   const isDeleting =
     nav.state === "submitting" && nav.formData?.get("action") === "delete";
-    
+  const isLoading = nav.state === "loading";
+
   const submit = useSubmit();
   function handleSave() {
     const data = {
@@ -140,7 +143,7 @@ export default function Index() {
 
   return (
     <Box>
-
+      {isLoading && (<LoadingScreen />)}
       {(!loaderData || !isLoaded) ? (
         <Skeleton />
       ) : (

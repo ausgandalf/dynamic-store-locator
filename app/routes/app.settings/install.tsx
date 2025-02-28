@@ -50,10 +50,10 @@ export function Installation() {
                 <InlineGrid columns={{xs:1, sm:['oneThird', 'twoThirds']}} gap="400">
                   <BlockStack>
                     <Text as="span" variant="bodySm">Step 1</Text>
-                    <Text as="h5" variant="headingMd">Find the App</Text>
+                    <Text as="h5" variant="headingMd">Open the Shopify CMS</Text>
                   </BlockStack>
                   <BlockStack>
-                    <Text as="span" variant="bodyMd">Find the application from your devices app store and click install</Text>
+                    <Text as="span" variant="bodyMd">In your Shopify account,  ‘Online Store’ and then click ‘Customize’ next to the theme where you want to install the map. Click ‘Add Section’ and select the H1 Dynamic Store Locator app from the app options.</Text>
                   </BlockStack>
                 </InlineGrid>
                 
@@ -62,10 +62,10 @@ export function Installation() {
                 <InlineGrid columns={{xs:1, sm:['oneThird', 'twoThirds']}} gap="400">
                   <BlockStack>
                     <Text as="span" variant="bodySm">Step 2</Text>
-                    <Text as="h5" variant="headingMd">Connect Your Shopify</Text>
+                    <Text as="h5" variant="headingMd">Find the Page Where You Want to Install the Store Locator</Text>
                   </BlockStack>
                   <BlockStack>
-                    <Text as="span" variant="bodyMd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et arcu ut felis auctor eleifend vel eget purus. Etiam interdum arcu mauris, eu accumsan eros rutrum non.</Text>
+                    <Text as="span" variant="bodyMd">In the top bar, click the drop down and go to ‘Pages’ and find the page where you want to install the locator. If you want to install it on a new page, you’ll need to first create the page in your Shopify Admin under ‘Pages’.</Text>
                   </BlockStack>
                 </InlineGrid>
 
@@ -74,10 +74,10 @@ export function Installation() {
                 <InlineGrid columns={{xs:1, sm:['oneThird', 'twoThirds']}} gap="400">
                   <BlockStack>
                     <Text as="span" variant="bodySm">Step 3</Text>
-                    <Text as="h5" variant="headingMd">Third Step Here</Text>
+                    <Text as="h5" variant="headingMd">Add a New Section</Text>
                   </BlockStack>
                   <BlockStack>
-                    <Text as="span" variant="bodyMd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et arcu ut felis auctor eleifend vel eget purus. Etiam interdum arcu mauris, eu accumsan eros rutrum non.</Text>
+                    <Text as="span" variant="bodyMd">Click ‘Add Section’ on the left side of the CMS tool bar and toggle to the ‘Apps’. Find the ‘H1 Dynamic Store Locator’ app and click it to add it to the page.</Text>
                   </BlockStack>
                 </InlineGrid>
 
@@ -86,10 +86,10 @@ export function Installation() {
                 <InlineGrid columns={{xs:1, sm:['oneThird', 'twoThirds']}} gap="400">
                   <BlockStack>
                     <Text as="span" variant="bodySm">Step 4</Text>
-                    <Text as="h5" variant="headingMd">Final Step Here</Text>
+                    <Text as="h5" variant="headingMd">Place Your Map</Text>
                   </BlockStack>
                   <BlockStack>
-                    <Text as="span" variant="bodyMd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et arcu ut felis auctor eleifend vel eget purus. Etiam interdum arcu mauris, eu accumsan eros rutrum non.</Text>
+                    <Text as="span" variant="bodyMd">After that, you can drag and drop your map anywhere on the page, or add in headings and content above or below it.</Text>
                   </BlockStack>
                 </InlineGrid>
 

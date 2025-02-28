@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "91aabbe26f00a872aade0c940ee127c4"
-application_url = "https://assumed-week-warned-doc.trycloudflare.com"
+application_url = "https://hood-farming-mlb-charleston.trycloudflare.com"
 embedded = true
 name = "Dynamic Store Locator"
 handle = "dynamic-store-locator"
@@ -23,9 +23,9 @@ scopes = "write_products,read_themes,write_themes"
 
 [auth]
 redirect_urls = [
-  "https://assumed-week-warned-doc.trycloudflare.com/auth/callback",
-  "https://assumed-week-warned-doc.trycloudflare.com/auth/shopify/callback",
-  "https://assumed-week-warned-doc.trycloudflare.com/api/auth/callback"
+  "https://hood-farming-mlb-charleston.trycloudflare.com/auth/callback",
+  "https://hood-farming-mlb-charleston.trycloudflare.com/auth/shopify/callback",
+  "https://hood-farming-mlb-charleston.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

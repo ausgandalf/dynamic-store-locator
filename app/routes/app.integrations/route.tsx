@@ -33,6 +33,8 @@ import { FaireForm } from './faire';
 import { getDateBy } from 'app/components/Functions';
 import {ActionDataType, defaultSettings, B2BDataType, FaireDataType} from "./defines";
 
+import { LoadingScreen } from 'app/components/LoadingScreen';
+
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
   const { shop } = session;
@@ -126,7 +128,8 @@ export default function Index() {
     nav.state === "submitting" && nav.formData?.get("action") !== "delete";
   const isDeleting =
     nav.state === "submitting" && nav.formData?.get("action") === "delete";
-    
+  const isLoading = nav.state === "loading";
+  
   const submit = useSubmit();
   function handleSave() {
     const data = {
@@ -178,7 +181,7 @@ export default function Index() {
 
   return (
     <Page title="Integrations">
-
+      {isLoading && (<LoadingScreen />)}
       <Layout>
         <Layout.Section variant="oneThird">
           <Card>

@@ -68,7 +68,7 @@ export const TicketForm = (props: TicketFormProps) => {
       <BlockStack gap="400">
         <BlockStack gap="200">
           <Text as="h2" variant="headingLg">Submit A Ticket</Text>
-          <Text as="p" variant="bodyMd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et arcu ut felis auctor eleifend vel eget purus.</Text>
+          <Text as="p" variant="bodyMd">Need help? Submit a ticket, and our team will assist you soon.</Text>
         </BlockStack>
         
         <BlockStack gap="200">

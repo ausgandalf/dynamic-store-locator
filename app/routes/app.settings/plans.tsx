@@ -55,24 +55,24 @@ export function Plans({value, updateAction}:PlansProps) {
   const benifits = {
     basic: [
       ["Up to 10 Locations", "",],
-      ["Custom Search Filters", "Custom Search Filters",],
-      ["Google Maps Integration", "Google Maps Integration",],
+      ["Custom Search Filters", "Set customized search criteria for your map",],
+      ["Google Maps Integration", "Dynamic Map Experience",],
     ],
     advanced: [
-      ["Up to 1500 Locations", "",],
-      ["Custom Search Filters", "Custom Search Filters",],
-      ["Google Maps Integration", "Google Maps Integration",],
-      ["Bulk Import", "Bulk Import",],
-      ["Faire Integration", "Faire Integration",],
+      ["Up to 500 Locations", "",],
+      ["Custom Search Filters", "Set customized search criteria for your map",],
+      ["Google Maps Integration", "Dynamic Map Experience",],
+      ["Bulk Import", "Import Locations from a .CSV file",],
+      ["Faire Integration", "Automatically Sync Customers from Faire",],
     ],
     business: [
       ["Unlimited Locations", "",],
-      ["Custom Search Filters", "Custom Search Filters",],
-      ["Google Maps Integration", "Google Maps Integration",],
-      ["Bulk Import", "Bulk Import",],
-      ["Faire Integration", "Faire Integration",],
-      ["Major Retailer Locations", "Major Retailer Locations",],
-      ["Shopify B2B Integration", "Shopify B2B Integration",],
+      ["Custom Search Filters", "Set customized search criteria for your map",],
+      ["Google Maps Integration", "Dynamic Map Experience",],
+      ["Bulk Import", "Import Locations from a .CSV file",],
+      ["Faire Integration", " Automatically Sync Customers from Your Faire Account",],
+      ["National Retailer Locations", "Display All Locations for Major Retailers",],
+      ["Shopify B2B Integration", "Automatically Sync Shopify B2B Companies",],
       ["Priority Support", "",],
     ]
   }

@@ -11,8 +11,8 @@ import {
 } from "@shopify/polaris";
 
 import { useAppBridge } from "@shopify/app-bridge-react";
-import createApp from '@shopify/app-bridge';
 import { Redirect } from "@shopify/app-bridge/actions";
+import { getRedirect } from 'app/components/Functions';
 
 import { authenticate } from "../../shopify.server";
 
@@ -62,7 +62,7 @@ export default function Index() {
   const shopify = useAppBridge();
 
   // useEffect(() => {
-  //   console.log(shopify.config, shopify.environment);
+  //   console.log(shopify, shopify.config, shopify.environment);
   // }, [shopify]);
   
   const currentVersion = 2.0;
@@ -110,15 +110,13 @@ export default function Index() {
   }
 
   const goToThemeEditor = useCallback(() => {
-    const app = useAppBridge();
-    const redirect = Redirect.create(app);
-    console.log(redirect);
+    const redirect = getRedirect(shopify);
     redirect.dispatch(
       Redirect.Action.ADMIN_PATH,
       `/themes/${loaderData.theme ? loaderData.theme : '-'}/editor`
     );
     // window.location.href = `https://${shopify.config.shop}/admin/themes/${loaderData.theme ? loaderData.theme : '-'}/editor`;
-  },[loaderData])
+  },[loaderData, shopify])
 
   return !loaderData || !isLoaded ? (
       <Skeleton />
@@ -129,7 +127,6 @@ export default function Index() {
           <Layout>
             <Layout.Section variant="oneThird">
               <BlockStack gap="400">
-                <Button onClick={() => goToThemeEditor()}>Customize</Button>
                 <About />
                 <Updater />
                 <Insights />
@@ -137,7 +134,7 @@ export default function Index() {
             </Layout.Section>
 
             <Layout.Section>
-              <Onboard status={taskStatus} update={updateTaskStatus} key={JSON.stringify(taskStatus)} />
+              <Onboard status={taskStatus} update={updateTaskStatus} goToThemeEditor={goToThemeEditor} key={JSON.stringify(taskStatus)} />
             </Layout.Section>
           </Layout>
         </Box>

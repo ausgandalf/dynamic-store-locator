@@ -24,8 +24,9 @@ import { TodoChecker } from 'app/components/TodoChecker';
 interface OnboardProps {
   status: {},
   update: Function,
+  goToThemeEditor: Function,
 }
-export function Onboard({status, update}:OnboardProps) {
+export function Onboard({status, update, goToThemeEditor}:OnboardProps) {
 
 
   const [activeStep, setActiveStep] = useState(0);
@@ -220,7 +221,7 @@ export function Onboard({status, update}:OnboardProps) {
           description: 'You can place your map through the Shopify CMS by going to ‘Online Store’ and then click ‘Customize’ next to the theme where you want to install the map. Click ‘Add Section’ and select the H1 Dynamic Store Locator app from the app options.',
           buttons: (
             <ButtonGroup>
-              <Button onClick={() => {}} >Open Shopify CMS</Button>
+              <Button onClick={() => goToThemeEditor()} >Open Shopify CMS</Button>
             </ButtonGroup>
           ),
         },

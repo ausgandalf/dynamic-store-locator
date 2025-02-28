@@ -15,18 +15,12 @@ import {
 } from '@shopify/polaris-icons';
 
 interface FaqProps {
-  items?: number,
+  items: [],
 }
 
-const defaultProps: FaqProps = {
-  items: 7,
-}
+export const Faq = ({items} : FaqProps) => {
 
-
-export const Faq = (props : FaqProps) => {
-  props = {...defaultProps, ...props}
-
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
   const handleStepToggleClick = useCallback(
     (index: number) => {
       setActiveStep((activeStep === index) ? -1 : index);
@@ -39,7 +33,7 @@ export const Faq = (props : FaqProps) => {
   const collapsibleTogglerClassName = (index: number) => {
     return activeStep === index ? 'open' : '';
   };
-  const collapsibleToggler = (index: number, title: string, buttonClass: string = '') => {
+  const collapsibleToggler = (index: number, title: string, text: string, buttonClass: string = '') => {
     return (
       <button 
         onClick={() => handleStepToggleClick(index)} 
@@ -48,15 +42,18 @@ export const Faq = (props : FaqProps) => {
       >
         <InlineStack as="span" wrap={false} align="space-between">
           <div style={{width: 'calc(100% - 20px)'}}>
-            <Text as="h4" variant="bodyMd" fontWeight="semibold">{title}</Text>
+            <Text as="h4" variant="bodyMd" fontWeight="semibold">
+              <div dangerouslySetInnerHTML={{__html: title}} />
+            </Text>
             <Collapsible
               open={activeStep == index}
               id={`step${index}-collapsible`}
               transition={{duration: '500ms', timingFunction: 'ease-in-out'}}
               expandOnPrint
             >
-              <Text as="p" variant="bodyMd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend lorem malesuada mauris volutpat, in cursus eros faucibus. Nullam urna lorem, vestibulum vel ullamcorper vitae, finibus a nisl. Donec faucibus turpis nisi.</Text>
-              <Text as="p" variant="bodyMd">Sed non hendrerit neque, at rhoncus magna. Vivamus risus nunc, accumsan et pulvinar eu, pellentesque vitae lacus. Vestibulum augue erat, luctus eu placerat in, rhoncus id enim. Fusce vitae posuere eros. Donec egestas massa eget viverra luctus. Donec eu rutrum metus. Ut posuere scelerisque leo vel condimentum. Nunc iaculis at leo ut dapibus. Curabitur et pretium nibh. Etiam sem quam, laoreet eget turpis nec, varius hendrerit ante.</Text>
+              <Text as="p" variant="bodyMd">
+                <div dangerouslySetInnerHTML={{__html: text}} style={{textOverflow:'ellipsis', overflow:'hidden'}} />
+              </Text>
             </Collapsible>
           </div>
           <div style={{display:'flex',width: '20px'}}>
@@ -99,9 +96,9 @@ export const Faq = (props : FaqProps) => {
         
         <BlockStack>
 
-          {[...Array(props.items)].map((x, i) => 
+          {items.map((x, i) => 
             <BlockStack key={'faq-' + i}>
-              { collapsibleToggler(i, "How do I update information about a specific location?") }
+              { collapsibleToggler(i, x.q, x.a) }
             </BlockStack>
           )}
           

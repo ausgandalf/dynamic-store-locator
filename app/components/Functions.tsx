@@ -5,6 +5,19 @@ import {
 } from "@shopify/polaris";
 import HBadge from 'app/components/HBadge'
 
+import createApp from '@shopify/app-bridge';
+import { Redirect } from "@shopify/app-bridge/actions";
+
+export const getRedirect = (shopify) => {
+  const app = createApp({
+    apiKey: shopify.config.apiKey,
+    host: shopify.config.host,
+    forceRedirect: true,
+  });
+  const redirect = Redirect.create(app);
+  return redirect;
+}
+
 export const getDateBy = (offset?: string|number|undefined) : Date|any => {
   const type = typeof offset;
   if (['string', 'number', 'undefined'].indexOf(type) === -1) return offset;

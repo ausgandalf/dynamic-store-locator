@@ -18,6 +18,8 @@ import { TicketForm } from './form';
 import { Chat } from './chat';
 import { OtherApps } from './other_apps';
 
+import { LoadingScreen } from 'app/components/LoadingScreen';
+
 interface ActionDataType {
   errors: Object,
   ticket: Object,
@@ -94,7 +96,8 @@ export default function Index() {
     nav.state === "submitting" && nav.formData?.get("action") !== "delete";
   const isDeleting =
     nav.state === "submitting" && nav.formData?.get("action") === "delete";
-    
+  const isLoading = nav.state === "loading";  
+
   const submit = useSubmit();
   function handleSave() {
     const data = {
@@ -106,16 +109,57 @@ export default function Index() {
     setCleanFormState({ ...formState });
     submit(data, { method: "post" });
   }
+
+  const faqs = [
+    {
+      q: `My Google Maps API Key isn’t working - how do I fix it?`,
+      a: `The most common reason your API key isn’t working is due to billing not being enabled. To enable billing on your project, go to: `,
+    },
+    {
+      q: `How do I find my Faire API Key?`,
+      a: `You can generate the API key directly from your Faire portal. In your Faire portal: 
+            <ol>
+              <li>Select the Integrations tab</li>
+              <li>Locate the integration partner from the options listed under the Direct Integrations section and select the option you’re looking to connect</li>
+              <li>Select Generate API Key</li>
+            </ol>`,
+    },
+    {
+      q: `When I sync or upload locations, does it overwrite existing information?`,
+      a: `Yes. When you resync your location database with Faire or Shopify B2B, any new information for existing locations will overwrite old data during the sync. Your Faire or Shopify B2B data should be the source of accuracy and we recommend maintaining correct data in those platforms, then syncing it over to the app’s location database from there. If there is no data for a specific field in Faire or Shopify B2B and you add information in the app’s location database, then re-sync, it will not clear the field. The information you added will stay intact.`,
+    },
+    {
+      q: `What if I don’t want to sync all my customers and only want specific locations?`,
+      a: `You’ll need to set up the filtering in the Sync Settings for the platform. You can choose to only sync customers who have ordered within a specific time range, or with Shopify B2B you can only sync company location listings with orders. For Faire, you can also filter by store type. You cannot filter national retailer locations at this time. If a retailer is toggled on, all locations for that retailer will be synced. `,
+    },
+    {
+      q: `How do I add tags to a location?`,
+      a: `You can add tags in one of two ways. You can bulk tag locations on the ‘All Locations’ page by checking off the locations you wish to tag and then checking off the tags you wish to apply after clicking the ‘Add Tags’ button. Or, you can go into individual locations and add tags at the bottom of the location’s listing.`,
+    },
+    {
+      q: `How do I hide or display specific locations?`,
+      a: `You can control a location’s visibility in one of two ways. You can bulk edit locations on the ‘All Locations’ page by checking off the locations you wish to edit and then clicking ‘Set as Visible’ or ‘Set as Hidden’. Or, you can go into individual locations and click the ‘Visible’ icon next to the Location Editor header to change it to hidden, and vice versa.`,
+    },
+    {
+      q: `How often does the Auto-Sync run?`,
+      a: `If you set your Faire or Shopify B2B integration to sync automatically, new data will be synced every 24 hours. Any new information found for existing locations will automatically overwrite old data during the sync. If there is no new information for a location found during the sync, the existing data in any given field will stay as is. If any new locations are found, a new listing will be created in the locations database. Listings are not deleted through the sync. Any old or archived listings will need to be manually deleted or hidden from the map.`,
+    },
+    {
+      q: `I don’t see a national retailer I want to show on my map - will there be more?`,
+      a: `Yes! We are actively adding new retailers. Please <a href="http://www.h1-apps.com" target="_blank">CLICK HERE</a> to submit a retailer that you’d like to see included and we’ll add it to our list.`,
+    }
+  ];
   
   return !loaderData || !isLoaded ? (
       <Skeleton />
     ) : (
       <Page title="Help Center">
+        {isLoading && (<LoadingScreen />)}
         <Box paddingBlockEnd='400'>
           <Layout>
             <Layout.Section>
               <BlockStack gap="400">
-                <Faq />
+                <Faq items={faqs} />
               </BlockStack>
             </Layout.Section>
 

@@ -6,7 +6,6 @@ import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 import appStyles from "../app.css?url";
 
 import { authenticate } from "../shopify.server";
-import { Navigation } from "app/navs";
 
 import {
   Box,

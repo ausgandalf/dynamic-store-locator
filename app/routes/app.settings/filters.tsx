@@ -138,7 +138,7 @@ export function FiltersForm(props: FiltersFormProps) {
         <Layout.Section>
           <Card>
             <BlockStack>
-              <Text as='p' variant='bodyMd'>Search filters will show up as checkboxes to help your customers narrow down their searches based of the features they’re looking for. Add filters like “Wheelchair Accessible”, “Open 24-Hours”, “Wi-Fi Available” etc...</Text>
+              <Text as='p' variant='bodyMd'>Set up custom search filters so customers can more easily sort locations by specific criteria on your map to quickly find the type of location they are looking for. For example, you can set up filters like ‘Local Boutique’ or ‘Wheelchair Accessible’. </Text>
               <Box padding="400">
                 <BlockStack gap="200">
                   <FormLayout>

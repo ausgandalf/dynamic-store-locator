@@ -18,6 +18,8 @@ import { Plans } from './plans';
 import { Installation } from './install';
 import {ActionDataType, initFilters, SettingsType, defaultSettings, tabs, languageList} from "./defines";
 
+import { LoadingScreen } from 'app/components/LoadingScreen';
+
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
   const { shop } = session;
@@ -103,6 +105,7 @@ export default function Index() {
     nav.state === "submitting" && nav.formData?.get("action") !== "delete";
   const isDeleting =
     nav.state === "submitting" && nav.formData?.get("action") === "delete";
+  const isLoading = nav.state === "loading";
     
   const submit = useSubmit();
   function handleSave() {
@@ -164,6 +167,7 @@ export default function Index() {
 
   return (
     <Page title="Settings">
+      {isLoading && (<LoadingScreen />)}
       <Box paddingBlockEnd='400'>
         {(!loaderData || !isLoaded) ? (
           <Tabs tabs={tabs} selected={0}>
