@@ -57,7 +57,7 @@ export function RetailersForm(props:RetailersFormProps) {
 
           <Grid columns={{xs: 2, sm: 3, md: 3, lg: 3, xl: 3}}>
             { retailers.map((x, i) => (
-              <Grid.Cell>
+              <Grid.Cell key={'retailer-' + x.id}>
                 <div style={{
                   display: 'flex',
                   height: '100%',

@@ -127,7 +127,7 @@ export function FaireForm(props:FaireFormProps) {
   };
 
   const tagMarkup = data.store_types.map((type) => (
-    <Box><Tag onRemove={removeTag(type)}><Box padding="100">{type}</Box></Tag></Box>
+    <Box key={'tag-' + type}><Tag onRemove={removeTag(type)}><Box padding="100">{type}</Box></Tag></Box>
   ));
 
   const onEnabledBadgeClick = () => {

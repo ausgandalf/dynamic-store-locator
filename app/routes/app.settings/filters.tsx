@@ -116,7 +116,7 @@ export function FiltersForm(props: FiltersFormProps) {
       {id, label, tag},
       index,
     ) => (
-      <IndexTable.Row id={id} key={id} position={index}>
+      <IndexTable.Row id={id} key={'filter-row-' + id} position={index}>
         <IndexTable.Cell>
           <Text variant="bodyMd" as="span">
             {label}

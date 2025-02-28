@@ -47,7 +47,7 @@ export function SocialsBlock({socials, update}:SocialsBlockProps) {
         <Box padding="200">
           <BlockStack gap="200">
             {data.map((x, i) => (
-              <Grid key={i}>
+              <Grid key={'social-row-' + x.type + '-' + i}>
                 <Grid.Cell columnSpan={{xs: 6, sm:2, md:2, lg:4}}>
                     <Select
                       label="Social media"

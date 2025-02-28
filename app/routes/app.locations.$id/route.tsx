@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { redirect } from "@remix-run/node";
-import { useNavigate } from '@remix-run/react';
 import {SaveBar} from '@shopify/app-bridge-react';
 import {
   useActionData,
   useLoaderData,
   useNavigation,
   useSubmit,
+  useNavigate,
 } from "@remix-run/react";
 import { authenticate } from "../../shopify.server";
 import {

@@ -1,15 +1,21 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { useFetcher, useLoaderData, useNavigation } from "@remix-run/react";
+import { useFetcher, useLoaderData, useNavigation, useNavigate } from "@remix-run/react";
+
 import {
   Page,
   Layout,
   BlockStack,
   Box,
+  Button,
 } from "@shopify/polaris";
 
 import { useAppBridge } from "@shopify/app-bridge-react";
+import createApp from '@shopify/app-bridge';
+import { Redirect } from "@shopify/app-bridge/actions";
+
 import { authenticate } from "../../shopify.server";
+
 import { Skeleton } from './skeleton';
 import { About } from './about';
 import { Updater } from './updater';
@@ -17,11 +23,27 @@ import { Insights } from './insights';
 import { Onboard } from './onboad';
 
 import { LoadingScreen } from 'app/components/LoadingScreen';
+import { sleep } from 'app/components/Functions';
+import { getActiveThemeId } from 'app/models/App.server';
+
+const taskStatusDefault = {
+  google: 0,
+  faire: 0,
+  b2b: 0,
+  retailers: 0,
+  manual: 0,
+  filters: 0,
+  designs: 0,
+  review: 0,
+  locations: 0,
+  install: 0,
+  embed:0,
+};
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  await authenticate.admin(request);
-
-  return true;
+  const { admin, session } = await authenticate.admin(request);
+  const theme = await getActiveThemeId(admin.graphql);
+  return Response.json({ status:taskStatusDefault, theme });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -38,6 +60,10 @@ export default function Index() {
   const loaderData = useLoaderData<typeof loader>();
   const updater = useFetcher<typeof action>();
   const shopify = useAppBridge();
+
+  // useEffect(() => {
+  //   console.log(shopify.config, shopify.environment);
+  // }, [shopify]);
   
   const currentVersion = 2.0;
   const newVersion = 2.1;
@@ -45,6 +71,10 @@ export default function Index() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(currentVersion < newVersion ? 1 : 0);
   const installedVersion = updater.data?.version;
+
+  const [taskStatus, setTaskStatus] = useState(taskStatusDefault);
+
+  const navigate = useNavigate();
 
   const nav = useNavigation();
   const isSaving =
@@ -54,6 +84,9 @@ export default function Index() {
   const isLoading = nav.state === "loading";
 
   useEffect(() => {
+    if (loaderData.status) {
+      setTaskStatus(loaderData.status);
+    }
     setTimeout(() => setIsLoaded(true), 1000);
   }, [loaderData]);
 
@@ -63,10 +96,29 @@ export default function Index() {
       setIsUpdateAvailable(installedVersion < newVersion ? 1 : 0);
     }
   }, [installedVersion, shopify]);
+
   const installUpdates = () => {
     setIsUpdateAvailable(2);
     updater.submit({}, { method: "POST" })
   };
+
+  const updateTaskStatus = async (key:string, status:number) => {
+     // TODO
+    setTaskStatus({...taskStatus, [key]: 2});
+    await sleep(500);
+    setTaskStatus({...taskStatus, [key]: status});
+  }
+
+  const goToThemeEditor = useCallback(() => {
+    const app = useAppBridge();
+    const redirect = Redirect.create(app);
+    console.log(redirect);
+    redirect.dispatch(
+      Redirect.Action.ADMIN_PATH,
+      `/themes/${loaderData.theme ? loaderData.theme : '-'}/editor`
+    );
+    // window.location.href = `https://${shopify.config.shop}/admin/themes/${loaderData.theme ? loaderData.theme : '-'}/editor`;
+  },[loaderData])
 
   return !loaderData || !isLoaded ? (
       <Skeleton />
@@ -77,6 +129,7 @@ export default function Index() {
           <Layout>
             <Layout.Section variant="oneThird">
               <BlockStack gap="400">
+                <Button onClick={() => goToThemeEditor()}>Customize</Button>
                 <About />
                 <Updater />
                 <Insights />
@@ -84,7 +137,7 @@ export default function Index() {
             </Layout.Section>
 
             <Layout.Section>
-              <Onboard />
+              <Onboard status={taskStatus} update={updateTaskStatus} key={JSON.stringify(taskStatus)} />
             </Layout.Section>
           </Layout>
         </Box>

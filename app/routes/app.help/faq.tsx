@@ -100,7 +100,7 @@ export const Faq = (props : FaqProps) => {
         <BlockStack>
 
           {[...Array(props.items)].map((x, i) => 
-            <BlockStack key={i}>
+            <BlockStack key={'faq-' + i}>
               { collapsibleToggler(i, "How do I update information about a specific location?") }
             </BlockStack>
           )}

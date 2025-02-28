@@ -1,6 +1,6 @@
 import {useState, useEffect, useCallback} from 'react';
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { useFetcher, useLoaderData, useActionData, useNavigation,useSubmit } from "@remix-run/react";
+import { useSearchParams, useFetcher, useLoaderData, useActionData, useNavigation,useSubmit } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -73,16 +73,25 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export default function Index() {
-
+  
   const loaderData = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   const errors = actionData ? actionData.errors : {};
   const settings = actionData ? actionData.settings : false;
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [formState, setFormState] = useState(defaultSettings);
   const [cleanFormState, setCleanFormState] = useState(defaultSettings);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
+
+  const availableTabs = 'gmap,faire,b2b,retailers'.split(',');
+  const [selectedTab, setSelectedTab] = useState('gmap');
+  useEffect(() => {
+    if (availableTabs.includes(searchParams.get('tab')) && (searchParams.get('tab') != selectedTab)) {
+      setSelectedTab(searchParams.get('tab'));
+    }
+  }, [selectedTab, searchParams.get('tab')]);
 
   useEffect(() => {
     if (loaderData.settings) {
@@ -128,12 +137,15 @@ export default function Index() {
     submit(data, { method: "post" });
   }
 
-  const [selectedTab, setSelectedTab] = useState('gmap');
-
   const handleTabChange = useCallback(
     (value: string) => {
       if (!loaderData || !isLoaded) return;
       setSelectedTab(value);
+
+      searchParams.set('tab', value);
+      setSearchParams(searchParams, {
+        preventScrollReset: true,
+      });
     },
     [selectedTab, loaderData, isLoaded],
   );
@@ -170,7 +182,7 @@ export default function Index() {
       <Layout>
         <Layout.Section variant="oneThird">
           <Card>
-            <Listbox accessibilityLabel="Integrations" onSelect={handleTabChange}>
+            <Listbox accessibilityLabel="Integrations" onSelect={handleTabChange} key={'tab-' + selectedTab}>
 
               <Box paddingBlockEnd="200">
                 <Text as='h5' variant='headingSm'>Map Providers</Text>

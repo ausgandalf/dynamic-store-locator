@@ -65,7 +65,7 @@ export const Skeleton = () => {
                 <Box padding="400">
                   <Grid columns={{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}} gap={{xs: "40px", sm: "40px", md: "40px", lg: "40px", xl: "40px"}}>
                     {[...Array(4)].map((x, i) => 
-                      <InlineStack gap="200" wrap={false} align="start">
+                      <InlineStack gap="200" wrap={false} align="start" key={'block-' + i}>
                         <Box width='90px'>
                           <SkeletonThumbnail size="large" />
                         </Box>

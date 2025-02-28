@@ -42,7 +42,7 @@ export function HrsBlock({hrs, update}:HrsBlockProps) {
           </thead>
           <tbody>
           {data.map((x, i) => (
-            <tr>
+            <tr key={'hr-tr-' + i}>
               <td>{days[i]}</td>
               <td>
                 {x.visible ? (

@@ -1,6 +1,6 @@
 import {useState, useEffect, useCallback} from 'react';
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { useFetcher, useLoaderData, useActionData, useNavigation,useSubmit } from "@remix-run/react";
+import { useSearchParams, useFetcher, useLoaderData, useActionData, useNavigation,useSubmit } from "@remix-run/react";
 import {
   Page,
   Box,
@@ -68,10 +68,19 @@ export default function Index() {
   const errors = actionData ? actionData.errors : {};
   const settings = actionData ? actionData.settings : false;
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [formState, setFormState] = useState(defaultSettings);
   const [cleanFormState, setCleanFormState] = useState(defaultSettings);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
+
+  const availableTabs = 'display,filters,plan,install'.split(',');
+  const [selectedTab, setSelectedTab] = useState('display');
+  useEffect(() => {
+    if (availableTabs.includes(searchParams.get('tab')) && (searchParams.get('tab') != selectedTab)) {
+      setSelectedTab(searchParams.get('tab'));
+    }
+  }, [selectedTab, searchParams.get('tab')]);
 
   useEffect(() => {
     if (loaderData.settings) {
@@ -105,11 +114,17 @@ export default function Index() {
     submit(data, { method: "post" });
   }
 
-  const [selectedTab, setSelectedTab] = useState(0);
-
   const handleTabChange = useCallback(
-    (selectedTabIndex: number) => setSelectedTab(selectedTabIndex),
-    [selectedTab],
+    (selectedTabIndex: number) => {
+      if (!loaderData || !isLoaded) return;
+      setSelectedTab(availableTabs[selectedTabIndex]);
+
+      searchParams.set('tab', availableTabs[selectedTabIndex]);
+      setSearchParams(searchParams, {
+        preventScrollReset: true,
+      });
+    },
+    [selectedTab, loaderData, isLoaded],
   );
 
   const updateLanguageAction = (lang:string) => {
@@ -155,13 +170,13 @@ export default function Index() {
             <Skeleton />
           </Tabs>
         ) : (
-          <Tabs tabs={tabs} selected={selectedTab} onSelect={handleTabChange}>
+          <Tabs tabs={tabs} selected={availableTabs.indexOf(selectedTab)} onSelect={handleTabChange}>
             {
               {
-                0: <LanguageForm options={languageList} value={formState.lang} updateAction={updateLanguageAction} />,
-                1: <FiltersForm filters={formState.filters} updateAction={updateFilterAction} deleteAction={deleteFilterAction} />,
-                2: <Plans value={formState.plan} updateAction={updatePlanAction} />,
-                3: <Installation />,
+                'display': <LanguageForm options={languageList} value={formState.lang} updateAction={updateLanguageAction} />,
+                'filters': <FiltersForm filters={formState.filters} updateAction={updateFilterAction} deleteAction={deleteFilterAction} />,
+                'plan': <Plans value={formState.plan} updateAction={updatePlanAction} />,
+                'install': <Installation />,
               }[selectedTab]
             }
           </Tabs>

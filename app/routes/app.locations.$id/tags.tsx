@@ -62,7 +62,7 @@ export function TagsBlock({tags, update}:TagsBlockProps) {
   };
 
   const tagMarkup = data.map((tag) => (
-    <Box>
+    <Box key={'tag-' + tag}>
       <Tag onRemove={removeTag(tag)}>
         <Box padding="100">
           <InlineStack gap="100">

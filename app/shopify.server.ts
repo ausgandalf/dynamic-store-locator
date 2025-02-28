@@ -25,6 +25,7 @@ const shopify = shopifyApp({
   logger: {
     level: LogSeverity.Debug
   },
+  forceRedirect: true,
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),

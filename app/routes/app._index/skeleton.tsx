@@ -124,7 +124,7 @@ export const Skeleton = () => {
                   
                   <BlockStack gap="400">
                     {[...Array(4)].map((x, i) =>
-                      <BlockStack gap="400">
+                      <BlockStack gap="400" key={'block-' + i}>
                         <SkeletonDisplayText size="large" />
                         <SkeletonBodyText lines={4} />
                       </BlockStack>

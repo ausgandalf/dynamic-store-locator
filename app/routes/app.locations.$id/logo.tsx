@@ -36,7 +36,7 @@ export function LogoBlock({logo, update}:LogoBlockProps) {
 
   const fileUpload = !files.length && <DropZone.FileUpload actionHint="Accepts .gif, .jpg, .png and .svg" />;
   const fileList = files.map((file, index) => (
-    <InlineStack wrap={false} blockAlign='center' gap="200">
+    <InlineStack wrap={false} blockAlign='center' gap="200" key={'file-' + file.name + '-' + index}>
       <a href="#" onClick={(e) => {e.preventDefault(); setFiles([]); update('logo', '');}}>
         <Icon source={XCircleIcon} />
       </a>
@@ -48,7 +48,7 @@ export function LogoBlock({logo, update}:LogoBlockProps) {
     <div style={{padding: '0', height: '100%', display:'flex',alignItems:'center', justifyContent:'center'}}>
       <BlockStack gap="100" align='center'>
         {files.map((file, index) => (
-          <BlockStack key={index} align='center' inlineAlign='center'>
+          <BlockStack key={'file-thumb-' + file.name + '-' + index} align='center' inlineAlign='center'>
             <Thumbnail
               size="medium"
               alt={file.name}

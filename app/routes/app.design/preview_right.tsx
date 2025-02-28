@@ -51,25 +51,25 @@ export const MapPreviewerRight = ({settings, data} : MapPreviewerProps) => {
     return (<img src={logoSrc} style={{height:'38px'}} />);
   }
 
-  const renderSocialIcon = (type: string) => {
+  const renderSocialIcon = (type: string, key: string) => {
     switch (type) {
       case "in":
-        return (<IconLinkedInCircled color1={settings.popup.font_color.secondary} />);
+        return (<span key={key}><IconLinkedInCircled color1={settings.popup.font_color.secondary} /></span>);
         break;
       case "facebook":
-        return (<IconFacebookCircled color1={settings.popup.font_color.secondary} />);
+        return (<span key={key}><IconFacebookCircled color1={settings.popup.font_color.secondary} /></span>);
         break;
       case "instagram":
-        return (<IconInstagramCircled color1={settings.popup.font_color.secondary} />);
+        return (<span key={key}><IconInstagramCircled color1={settings.popup.font_color.secondary} /></span>);
         break;
       case "tiktok":
-        return (<IconTikTokCircled color1={settings.popup.font_color.secondary} />);
+        return (<span key={key}><IconTikTokCircled color1={settings.popup.font_color.secondary} /></span>);
         break;
       case "pinterest":
-        return (<IconPinterestCircled color1={settings.popup.font_color.secondary} />);
+        return (<span key={key}><IconPinterestCircled color1={settings.popup.font_color.secondary} /></span>);
         break;
       case "x":
-        return (<IconXCircled color1={settings.popup.font_color.secondary} />);
+        return (<span key={key}><IconXCircled color1={settings.popup.font_color.secondary} /></span>);
         break;
       default:
         break;
@@ -125,7 +125,7 @@ export const MapPreviewerRight = ({settings, data} : MapPreviewerProps) => {
                   <table>
                     <tbody>
                     {openHours.map((x,i) => (
-                      <tr key={i}>
+                      <tr key={'hr-' + i}>
                         <td><span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodyXs'>{x[0]}</Text></span></td>
                         <td><span style={{color:settings.popup.font_color.primary}}><Text alignment='center' as='h5' variant='bodyXs'>{x[1]}</Text></span></td>
                       </tr>
@@ -135,7 +135,7 @@ export const MapPreviewerRight = ({settings, data} : MapPreviewerProps) => {
                 </BlockStack>
               </InlineStack>
               <InlineStack gap="200" align="center">
-                {data && data.socials.map(({type, url}, i) => renderSocialIcon(type))}
+                {data && data.socials.map(({type, url}, i) => renderSocialIcon(type, 'socialblock-' + type + '-' + i))}
                 {!data && (
                   <Box>
                     <IconLinkedInCircled color1={settings.popup.font_color.secondary} />

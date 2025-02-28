@@ -41,7 +41,7 @@ export const TicketForm = (props: TicketFormProps) => {
     <div style={{padding: '10px'}}>
       <InlineStack gap='200'>
         {files.map((file, index) => (
-          <BlockStack align="center" key={index}>
+          <BlockStack align="center" key={'file-thumb-' + file.name + '-' + index}>
             <Thumbnail
               size="small"
               alt={file.name}

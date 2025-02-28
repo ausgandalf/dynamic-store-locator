@@ -34,7 +34,7 @@ export const Skeleton = (props:SkeletonProps) => {
             <Grid columns={{xs: 1, sm: 1, md: 2, lg: 3, xl: 3}}>
 
               {[...Array(props.cells)].map((x, i) =>
-                <Grid.Cell>
+                <Grid.Cell key={'col-' + i}>
                   <Card roundedAbove="sm">
                     <SkeletonDisplayText size="small" />
                     <Box paddingBlockStart="200">

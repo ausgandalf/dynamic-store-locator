@@ -34,7 +34,7 @@ export function UploadBlock({file, update}:UploadBlockProps) {
 
   const fileUpload = !files.length && <DropZone.FileUpload actionHint="Click to choose a file, or drag/drop your .csv file here" />;
   const fileList = files.map((file, index) => (
-    <InlineStack wrap={false} blockAlign='center' gap="200">
+    <InlineStack wrap={false} blockAlign='center' gap="200" key={'file-' + file.name + '-' + index}>
       <a href="#" onClick={(e) => {e.preventDefault(); setFiles([]); update('file', '');}}>
         <Icon source={XCircleIcon} />
       </a>
@@ -46,7 +46,7 @@ export function UploadBlock({file, update}:UploadBlockProps) {
     <div style={{padding: '0', height: '100%', display:'flex',alignItems:'center', justifyContent:'center'}}>
       <BlockStack gap="100" align='center'>
         {files.map((file, index) => (
-          <BlockStack key={index} align='center' inlineAlign='center'>
+          <BlockStack key={'file-thumb-' + file.name + '-' + index} align='center' inlineAlign='center'>
             <Thumbnail
               size="medium"
               alt={file.name}

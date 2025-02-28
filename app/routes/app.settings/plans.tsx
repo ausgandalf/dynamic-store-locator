@@ -81,7 +81,7 @@ export function Plans({value, updateAction}:PlansProps) {
     return (
       <ul className="list">
         {benefits.map((x, i) => 
-          <li key={i}>
+          <li key={'benefit-' + i}>
             <InlineStack gap="200">
               <Box><Icon source={CheckIcon} tone="success" /></Box>
               <Box><Text as="p" variant="bodyMd">{x[0]}</Text></Box>

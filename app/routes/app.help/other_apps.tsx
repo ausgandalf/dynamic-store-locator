@@ -67,7 +67,7 @@ export const OtherApps = () => {
           <Grid columns={{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}} gap={{xs: "40px", sm: "40px", md: "40px", lg: "40px", xl: "40px"}}>
             {
               appsList.map(app =>
-                <Grid.Cell>
+                <Grid.Cell key={'app-' + app.title}>
               
                   <BlockStack gap="400">
                     <InlineStack gap="400" wrap={false} align="start">
